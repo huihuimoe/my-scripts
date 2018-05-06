@@ -1,0 +1,59 @@
+#!/bin/sh
+. ./config.sh
+nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
+export LUAJIT_LIB=/usr/local/lib/
+export LUAJIT_INC=/usr/local/include/luajit-${LuaJIT_version_XY}
+export CFLAGS="-Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags"
+export COMPILER=clang-${clang_version}
+export CXX=clang++-${clang_version}
+export CC=clang-${clang_version}
+cd nginx-${nginx_version}
+#--with-openssl-opt='enable-tls1_3 enable-weak-ssl-ciphers' \   
+yes | ./configure \
+  --with-cc-opt="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wno-c++11-extensions" \
+  --with-ld-opt="-Wl,-rpath,/usr/lib/ -L/usr/local/include/luajit-${LuaJIT_version_XY}" \
+  --prefix=/usr/share/nginx \
+  --sbin-path=/usr/sbin/nginx \
+  --conf-path=/etc/nginx/nginx.conf \
+  --http-log-path=/var/log/nginx/access.log \
+  --error-log-path=/var/log/nginx/error.log \
+  --lock-path=/var/lock/nginx.lock \
+  --pid-path=/run/nginx.pid \
+  --http-client-body-temp-path=/var/lib/nginx/body \
+  --http-fastcgi-temp-path=/var/lib/nginx/fastcgi \
+  --http-proxy-temp-path=/var/lib/nginx/proxy \
+  --http-scgi-temp-path=/var/lib/nginx/scgi \
+  --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
+  --with-pcre-jit \
+  --with-debug \
+  --with-http_ssl_module \
+  --with-http_stub_status_module \
+  --with-http_realip_module \
+  --with-http_auth_request_module \
+  --with-http_addition_module \
+  --with-http_dav_module \
+  --with-http_gzip_static_module \
+  --with-http_sub_module \
+  --with-mail_ssl_module \
+  --with-http_v2_module \
+  --with-http_xslt_module=dynamic \
+  --with-http_image_filter_module=dynamic \
+  --with-http_geoip_module=dynamic \
+  --with-mail=dynamic \
+  --with-stream=dynamic \
+  --with-openssl=../openssl-${openssl_version} \
+  --with-openssl-opt=enable-weak-ssl-ciphers \
+  --add-module=../nginx-upstream-fair \
+  --add-module=../ngx_http_substitutions_filter_module \
+  --add-dynamic-module=../ngx_http_auth_pam_module \
+  --add-dynamic-module=../nginx-dav-ext-module \
+  --add-dynamic-module=../echo-nginx-module-${echo_nginx_module_version} \
+  --add-dynamic-module=../ngx_brotli \
+  --add-dynamic-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
+  --add-dynamic-module=../${nps_dir} \
+  --add-dynamic-module=../ngx_devel_kit-${ngx_devel_kit_version} \
+  --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version}
+gawk -i inplace \
+  '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \
+  "objs/Makefile"
+make
