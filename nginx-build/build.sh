@@ -57,3 +57,4 @@ gawk -i inplace \
   '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \
   "objs/Makefile"
 make
+cd ..

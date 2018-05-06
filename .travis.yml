@@ -1,0 +1,14 @@
+language: shell
+sudo: required
+dist: trusty
+
+os:
+  - linux
+
+script:
+  # nginx-build
+  - cd nginx-build
+  - sh RBI.sh
+  - sudo /usr/sbin/nginx -V
+  - sudo file /usr/sbin/nginx
+  - cd ..

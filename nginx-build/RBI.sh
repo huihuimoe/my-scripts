@@ -1,4 +1,4 @@
 #!/bin/sh
-. require.sh
-. build.sh
-. install.sh
+. ./require.sh
+. ./build.sh
+. ./install.sh
