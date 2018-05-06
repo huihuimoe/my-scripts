@@ -3,8 +3,8 @@
 
 apt update
 apt install -y wget git unzip clang-${clang_version} \
-  libexpat-dev libpcre3-dev libxml2-dev libxslt-dev libgeoip-dev libgd-dev \
-  gawk uuid-dev libpam0g-dev libluajit-5.1 libluajit-5.1-dev
+  libexpat-dev libpcre3-dev libxml2-dev libxslt-dev \
+  libgeoip-dev libgd-dev gawk uuid-dev libpam0g-dev
 
 # echo-nginx-module
 wget https://github.com/openresty/echo-nginx-module/archive/v${echo_nginx_module_version}.tar.gz
