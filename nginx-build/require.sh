@@ -22,13 +22,48 @@ tar zxf v${lua_nginx_module_version}.tar.gz && rm v${lua_nginx_module_version}.t
 # dirname: lua-nginx-module-${lua_nginx_module_version}
 
 # ngx_devel_kit
-wget https://github.com/simplresty/ngx_devel_kit/archive/v0.3.1rc1.tar.gz
+wget https://github.com/simplresty/ngx_devel_kit/archive/v${ngx_devel_kit_version}.tar.gz
 tar zxf v${ngx_devel_kit_version}.tar.gz && rm v${ngx_devel_kit_version}.tar.gz
 # dirname: ngx_devel_kit-${ngx_devel_kit_version}
 
+# ngx-fancyindex
+wget https://github.com/aperezdc/ngx-fancyindex/archive/v${fancyindex_version}.tar.gz
+tar zxf v${fancyindex_version}.tar.gz && rm v${fancyindex_version}.tar.gz
+# dirname: ngx-fancyindex-${fancyindex_version}
+
+# nginx-rtmp-module
+wget https://github.com/arut/nginx-rtmp-module/archive/v${rtmp_module_version}.tar.gz
+tar zxf v${rtmp_module_version}.tar.gz && rm v${rtmp_module_version}.tar.gz
+# dirname: nginx-rtmp-module-${rtmp_module_version}
+
+# nchan
+wget https://github.com/slact/nchan/archive/v${nchan_version}.tar.gz
+tar zxf v${nchan_version}.tar.gz && rm v${nchan_version}.tar.gz
+# dirname: nchan-${nchan_version}
+
 # ngx_http_substitutions_filter_module
 git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module
+cd ngx_http_substitutions_filter_module
+git checkout bc58cb11844bc42735bbaef7085ea86ace46d05b
+wget https://github.com/yaoweibin/ngx_http_substitutions_filter_module/pull/19.patch
+patch -p1 < 19.patch
+cd ..
 # dirname: ngx_http_substitutions_filter_module
+
+# nginx-upload-progress-module
+git clone https://github.com/masterzen/nginx-upload-progress-module
+# dirname: nginx-upload-progress-module
+
+# ngx_cache_purge
+git clone https://github.com/FRiCKLE/ngx_cache_purge
+cd ngx_cache_purge
+git checkout 331fe43e8d9a3d1fa5e0c9fec7d3201d431a9177
+wget https://github.com/FRiCKLE/ngx_cache_purge/pull/45.patch
+wget https://github.com/FRiCKLE/ngx_cache_purge/pull/51.patch
+patch -p1 < 45.patch
+patch -p1 < 51.patch
+cd ..
+# dirname: ngx_cache_purge
 
 # ngx_http_auth_pam_module
 git clone https://github.com/sto/ngx_http_auth_pam_module
@@ -42,8 +77,10 @@ git clone https://github.com/arut/nginx-dav-ext-module
 git clone https://github.com/gnosek/nginx-upstream-fair
 cd nginx-upstream-fair
 git checkout a18b4099fbd458111983200e098b6f0c8efed4bc
+wget https://github.com/gnosek/nginx-upstream-fair/pull/21.patch
 wget https://github.com/gnosek/nginx-upstream-fair/pull/22.patch
 wget https://github.com/gnosek/nginx-upstream-fair/pull/23.patch
+patch -p1 < 21.patch
 patch -p1 < 22.patch
 patch -p1 < 23.patch
 cd ..

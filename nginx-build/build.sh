@@ -19,6 +19,7 @@ yes | ./configure \
   --error-log-path=/var/log/nginx/error.log \
   --lock-path=/var/lock/nginx.lock \
   --pid-path=/run/nginx.pid \
+  --modules-path=/usr/lib/nginx/modules \
   --http-client-body-temp-path=/var/lib/nginx/body \
   --http-fastcgi-temp-path=/var/lib/nginx/fastcgi \
   --http-proxy-temp-path=/var/lib/nginx/proxy \
@@ -32,6 +33,7 @@ yes | ./configure \
   --with-http_auth_request_module \
   --with-http_addition_module \
   --with-http_dav_module \
+  --with-http_gunzip_module \
   --with-http_gzip_static_module \
   --with-http_sub_module \
   --with-mail_ssl_module \
@@ -40,19 +42,32 @@ yes | ./configure \
   --with-http_image_filter_module=dynamic \
   --with-http_geoip_module=dynamic \
   --with-mail=dynamic \
+  --with-mail_ssl_module \
   --with-stream=dynamic \
+  --with-stream_ssl_module \
+	--with-stream_ssl_preread_module \
+  --with-http_flv_module \
+  --with-http_mp4_module \
+  --with-http_random_index_module \
+  --with-http_secure_link_module \
   --with-openssl=../openssl-${openssl_version} \
   --with-openssl-opt=enable-weak-ssl-ciphers \
-  --add-module=../nginx-upstream-fair \
-  --add-module=../ngx_http_substitutions_filter_module \
+  --add-dynamic-module=../ngx_cache_purge \
+  --add-dynamic-module=../nginx-upload-progress-module \
+  --add-dynamic-module=../nginx-upstream-fair \
+  --add-dynamic-module=../ngx_http_substitutions_filter_module \
   --add-dynamic-module=../ngx_http_auth_pam_module \
   --add-dynamic-module=../nginx-dav-ext-module \
   --add-dynamic-module=../echo-nginx-module-${echo_nginx_module_version} \
+  --add-dynamic-module=../ngx-fancyindex-${fancyindex_version} \
+  --add-dynamic-module=../nginx-rtmp-module-${rtmp_module_version} \
+  --add-dynamic-module=../nchan-${nchan_version} \
   --add-dynamic-module=../ngx_brotli \
   --add-dynamic-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-dynamic-module=../${nps_dir} \
   --add-dynamic-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version}
+  #--with-http_perl_module=dynamic \
 gawk -i inplace \
   '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \
   "objs/Makefile"
