@@ -2,9 +2,10 @@
 . ./config.sh
 
 sudo apt-get update
-sudo apt-get install -y wget git unzip clang-${clang_version} \
+sudo apt-get install -y unzip clang-${clang_version} \
   libexpat-dev libpcre3-dev libxml2-dev libxslt-dev \
-  libgeoip-dev libgd-dev gawk uuid-dev libpam0g-dev
+  libgeoip-dev libgd-dev gawk uuid-dev libpam0g-dev \
+  wget git perl libperl-dev
 
 # echo-nginx-module
 wget https://github.com/openresty/echo-nginx-module/archive/v${echo_nginx_module_version}.tar.gz
@@ -108,6 +109,11 @@ cd ..
 wget https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
 tar zxf openssl-${openssl_version}.tar.gz && rm openssl-${openssl_version}.tar.gz
 # dirname: openssl-${openssl_version}
+
+# pcre
+wget https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.zip
+unzip pcre-${pcre_version}.zip && rm pcre-${pcre_version}.zip
+# dirname: pcre-${pcre_version}
 
 # nginx
 wget http://nginx.org/download/nginx-${nginx_version}.tar.gz

@@ -45,11 +45,13 @@ yes | ./configure \
   --with-mail_ssl_module \
   --with-stream=dynamic \
   --with-stream_ssl_module \
-	--with-stream_ssl_preread_module \
+  --with-stream_ssl_preread_module \
   --with-http_flv_module \
   --with-http_mp4_module \
   --with-http_random_index_module \
   --with-http_secure_link_module \
+  --with-pcre=../pcre-${pcre_version} \
+  --with-http_perl_module=dynamic \
   --with-openssl=../openssl-${openssl_version} \
   --with-openssl-opt=enable-weak-ssl-ciphers \
   --add-dynamic-module=../ngx_cache_purge \
@@ -67,7 +69,6 @@ yes | ./configure \
   --add-dynamic-module=../${nps_dir} \
   --add-dynamic-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version}
-  #--with-http_perl_module=dynamic \
 gawk -i inplace \
   '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \
   "objs/Makefile"
