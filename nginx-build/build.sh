@@ -10,7 +10,7 @@ export CC=clang-${clang_version}
 cd nginx-${nginx_version}
 #--with-openssl-opt='enable-tls1_3 enable-weak-ssl-ciphers' \   
 yes | ./configure \
-  --with-cc-opt="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wno-c++11-extensions" \
+  --with-cc-opt="-g -O2 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wno-c++11-extensions" \
   --with-ld-opt="-Wl,-rpath,/usr/lib/ -L/usr/local/include/luajit-${LuaJIT_version_XY}" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
@@ -69,6 +69,7 @@ yes | ./configure \
   --add-dynamic-module=../${nps_dir} \
   --add-dynamic-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version}
+# patch for pagespeed
 gawk -i inplace \
   '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \
   "objs/Makefile"

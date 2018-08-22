@@ -12,3 +12,10 @@ script:
   - sudo /usr/sbin/nginx -V
   - sudo file /usr/sbin/nginx
   - cd ..
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - sourceline: 'deb https://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main'
+        key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'

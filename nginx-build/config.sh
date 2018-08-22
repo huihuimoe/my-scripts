@@ -10,6 +10,6 @@ rtmp_module_version=1.2.1
 nchan_version=1.2.1
 openssl_version=1.1.1-pre9
 pcre_version=8.42
-clang_version=3.9
+clang_version=6.0
 LuaJIT_version_XY=2.1
 LuaJIT_version=${LuaJIT_version_XY}.0-beta3
