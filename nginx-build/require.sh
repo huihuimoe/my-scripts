@@ -1,12 +1,6 @@
 #!/bin/sh
 . ./config.sh
 
-sudo apt-get update
-sudo apt-get install -y unzip clang-${clang_version} \
-  libexpat-dev libpcre3-dev libxml2-dev libxslt-dev \
-  libgeoip-dev libgd-dev gawk uuid-dev libpam0g-dev \
-  wget git perl libperl-dev
-
 # echo-nginx-module
 wget https://github.com/openresty/echo-nginx-module/archive/v${echo_nginx_module_version}.tar.gz
 tar zxf v${echo_nginx_module_version}.tar.gz && rm v${echo_nginx_module_version}.tar.gz
@@ -119,11 +113,3 @@ unzip pcre-${pcre_version}.zip && rm pcre-${pcre_version}.zip
 wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
 tar zxf nginx-${nginx_version}.tar.gz && rm nginx-${nginx_version}.tar.gz
 # dirname: nginx-${nginx_version}
-
-# LuaJIT
-#cd ../${LuaJIT}
-wget https://github.com/LuaJIT/LuaJIT/archive/v${LuaJIT_version}.tar.gz
-tar zxf v${LuaJIT_version}.tar.gz && rm v${LuaJIT_version}.tar.gz
-cd LuaJIT-${LuaJIT_version}
-make && sudo make install && sudo ldconfig
-cd ..

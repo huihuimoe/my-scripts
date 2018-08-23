@@ -1,0 +1,11 @@
+source: nginx
+section: devel
+Priority: optional
+Maintainer: 0w0@loli.pet
+Standards-Version: 1.15.2
+
+Package:fakeroot
+Architecture: amd64
+Depends: libluajit-5.1-2,
+         perl
+Description: Nginx

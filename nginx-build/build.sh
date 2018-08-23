@@ -1,17 +1,17 @@
 #!/bin/sh
 . ./config.sh
 nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
-export LUAJIT_LIB=/usr/local/lib/
-export LUAJIT_INC=/usr/local/include/luajit-${LuaJIT_version_XY}
+export LUAJIT_LIB=/usr/lib/x86_64-linux-gnu/
+export LUAJIT_INC=/usr/include/luajit-2.0/
 export CFLAGS="-Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags"
 export COMPILER=clang-${clang_version}
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
 cd nginx-${nginx_version}
-#--with-openssl-opt='enable-tls1_3 enable-weak-ssl-ciphers' \   
+#--with-openssl-opt='enable-weak-ssl-ciphers' \   
 yes | ./configure \
   --with-cc-opt="-g -O2 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wno-c++11-extensions" \
-  --with-ld-opt="-Wl,-rpath,/usr/lib/ -L/usr/local/include/luajit-${LuaJIT_version_XY}" \
+  --with-ld-opt="-Wl,-rpath,/usr/lib/ -L/usr/include/luajit-2.0/" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
