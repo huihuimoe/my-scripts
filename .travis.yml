@@ -1,5 +1,6 @@
 language: shell
 dist: trusty
+sudo: required
 
 os: linux
 
@@ -10,7 +11,7 @@ script:
 - sh ./build.sh
 - cp -r debian nginx-1*/
 - cd nginx-1*
-- dpkg-buildpackage -uc -b
+- sudo dpkg-buildpackage -b -uc
 - cd ..
 - ls -alh *.deb
 - ./nginx-1*/objs/nginx -V
@@ -41,5 +42,4 @@ addons:
     - libperl-dev
     - libluajit-5.1
     - uuid-dev
-    - fakeroot
     - debhelper

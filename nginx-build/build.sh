@@ -11,7 +11,7 @@ cd nginx-${nginx_version}
 #--with-openssl-opt='enable-weak-ssl-ciphers' \   
 yes | ./configure \
   --with-cc-opt="-g -O2 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wno-c++11-extensions" \
-  --with-ld-opt="-Wl,-rpath,/usr/lib/ -L${LUAJIT_INC}" \
+  --with-ld-opt="-Wl,-rpath,/usr/lib/ -L${LUAJIT_INC} -lpcre" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
