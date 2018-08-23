@@ -1,10 +1,10 @@
 source: nginx
-section: devel
+section: httpd
 Priority: optional
-Maintainer: 0w0@loli.pet
+Maintainer: huihuimoe
 Standards-Version: 1.15.2
 
-Package:fakeroot
+Package: nginx-huihui
 Architecture: amd64
 Depends: libluajit-5.1-2,
          perl

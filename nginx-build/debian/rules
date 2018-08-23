@@ -5,7 +5,7 @@ clean:
 build:
 
 binary:
-	make install DESTDIR=debian/nginx
+	make install DESTDIR=debian/nginx-huihui
 	dh_link
 	dh_compress
 	dh_fixperms
