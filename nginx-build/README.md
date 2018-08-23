@@ -9,7 +9,8 @@ sudo apt-get update
 sudo apt-get install -y unzip clang-6.0 \
   libexpat-dev libpcre3-dev libxml2-dev libxslt-dev \
   libgeoip-dev libgd-dev gawk uuid-dev libpam0g-dev \
-  wget git perl libperl-dev libluajit-5.1
+  wget git perl libperl-dev libluajit-5.1 make gcc
+# sudo apt-get install -y dpkg-dev debhelper
 ```
 
 ## Download, build and install Ngnx
