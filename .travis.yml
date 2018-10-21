@@ -3,6 +3,7 @@ dist: trusty
 sudo: required
 os: linux
 script:
+- mkdir releases
 - cd nginx-build
 - sh ./require.sh
 - sh ./build.sh
@@ -12,6 +13,7 @@ script:
 - cd ..
 - sudo chmod -R 777 nginx-1* *.deb
 - ls -alh *.deb
+- cp *.deb ../releases
 - ./nginx-1*/objs/nginx -V
 - file ./nginx-1*/objs/nginx
 - ldd ./nginx-1*/objs/nginx
@@ -40,3 +42,11 @@ addons:
     - libluajit-5.1
     - uuid-dev
     - debhelper
+deploy:
+  provider: s3
+  access_key_id: "$ACCESS_KEY_ID"
+  secret_access_key: "$SECRET_ACCESS_KEY"
+  bucket: my-scripts-releases
+  skip_cleanup: true
+  local_dir: releases
+  endpoint: https://storage.huihui.cat
