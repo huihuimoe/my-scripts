@@ -51,7 +51,6 @@ yes | ./configure \
   --with-http_random_index_module \
   --with-http_secure_link_module \
   --with-pcre=../pcre-${pcre_version} \
-  --with-http_perl_module=dynamic \
   --with-openssl=../openssl-${openssl_version} \
   --with-openssl-opt=enable-weak-ssl-ciphers \
   --add-dynamic-module=../ngx_cache_purge \
@@ -75,3 +74,5 @@ gawk -i inplace \
   "objs/Makefile"
 make
 cd ..
+
+# --with-http_perl_module=dynamic \

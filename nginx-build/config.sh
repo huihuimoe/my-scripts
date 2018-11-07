@@ -1,5 +1,5 @@
 #!/bin/sh
-nginx_version=1.15.5
+nginx_version=1.15.6
 echo_nginx_module_version=0.61
 headers_more_nginx_module_version=0.33
 lua_nginx_module_version=0.10.13
