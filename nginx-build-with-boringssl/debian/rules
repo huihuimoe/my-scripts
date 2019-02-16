@@ -6,6 +6,7 @@ build:
 
 binary:
 	make install DESTDIR=debian/nginx-boringssl-huihui
+	mkdir -p debian/nginx-huihui/var/lib/nginx/body
 	dh_link
 	dh_compress
 	dh_fixperms

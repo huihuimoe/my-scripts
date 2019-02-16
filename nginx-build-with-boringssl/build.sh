@@ -41,9 +41,9 @@ yes | ./configure \
   --with-http_xslt_module=dynamic \
   --with-http_image_filter_module=dynamic \
   --with-http_geoip_module=dynamic \
-  --with-mail=dynamic \
+  --with-mail \
   --with-mail_ssl_module \
-  --with-stream=dynamic \
+  --with-stream \
   --with-stream_ssl_module \
   --with-stream_ssl_preread_module \
   --with-http_flv_module \
@@ -55,19 +55,19 @@ yes | ./configure \
   --with-openssl-opt=enable-weak-ssl-ciphers \
   --add-dynamic-module=../ngx_cache_purge \
   --add-dynamic-module=../nginx-upload-progress-module \
-  --add-dynamic-module=../nginx-upstream-fair \
+  --add-module=../nginx-upstream-fair \
   --add-dynamic-module=../ngx_http_substitutions_filter_module \
   --add-dynamic-module=../ngx_http_auth_pam_module \
   --add-dynamic-module=../nginx-dav-ext-module \
   --add-dynamic-module=../echo-nginx-module-${echo_nginx_module_version} \
   --add-dynamic-module=../ngx-fancyindex-${fancyindex_version} \
-  --add-dynamic-module=../nginx-rtmp-module-${rtmp_module_version} \
-  --add-dynamic-module=../nchan-${nchan_version} \
+  --add-module=../nginx-rtmp-module-${rtmp_module_version} \
+  --add-module=../nchan-${nchan_version} \
   --add-dynamic-module=../ngx_brotli \
   --add-dynamic-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-dynamic-module=../${nps_dir} \
-  --add-dynamic-module=../ngx_devel_kit-${ngx_devel_kit_version} \
-  --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version}
+  --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
+  --add-module=../lua-nginx-module-${lua_nginx_module_version}
 # Fix "Error 127" during build
 touch ../boringssl/.openssl/include/openssl/ssl.h
 # patch for pagespeed

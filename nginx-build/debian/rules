@@ -6,6 +6,7 @@ build:
 
 binary:
 	make install DESTDIR=debian/nginx-huihui
+	mkdir -p debian/nginx-huihui/var/lib/nginx/body
 #	mkdir -p debian/nginx-huihui/etc/perl/auto/nginx
 #	cp ./objs/src/http/modules/perl/blib/arch/auto/nginx/nginx.so debian/nginx-huihui/etc/perl/auto/nginx
 #	cp ./objs/src/http/modules/perl/blib/lib/nginx.pm debian/nginx-huihui/etc/perl
