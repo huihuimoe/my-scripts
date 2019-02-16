@@ -1,4 +1,4 @@
-nginx (1.15.8) unstable; urgency=medium
+nginx-boringssl (1.15.8) unstable; urgency=medium
 
   * New version
 

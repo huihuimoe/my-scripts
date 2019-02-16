@@ -1,6 +1,6 @@
 #!/bin/sh
 . ./config.sh
-nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
+export nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
 export LUAJIT_LIB=/usr/lib/x86_64-linux-gnu
 export LUAJIT_INC=$(find /usr/include -name "luajit-*" -type d)
 export CFLAGS="-Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags"
@@ -10,8 +10,8 @@ export CC=clang-${clang_version}
 cd nginx-${nginx_version}
 #--with-openssl-opt='enable-weak-ssl-ciphers' \   
 yes | ./configure \
-  --with-cc-opt="-g -O2 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wno-c++11-extensions" \
-  --with-ld-opt="-Wl,-rpath,/usr/lib/ -L${LUAJIT_INC} -lpcre" \
+  --with-cc-opt="-g -O2 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wno-c++11-extensions -I../boringssl/.openssl/include/" \
+  --with-ld-opt="-Wl,-rpath,/usr/lib/ -L${LUAJIT_INC} -L../boringssl/.openssl/lib/ -lpcre" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
@@ -51,7 +51,7 @@ yes | ./configure \
   --with-http_random_index_module \
   --with-http_secure_link_module \
   --with-pcre=../pcre-${pcre_version} \
-  --with-openssl=../openssl-${openssl_version} \
+  --with-openssl=../boringssl \
   --with-openssl-opt=enable-weak-ssl-ciphers \
   --add-dynamic-module=../ngx_cache_purge \
   --add-dynamic-module=../nginx-upload-progress-module \
@@ -68,6 +68,8 @@ yes | ./configure \
   --add-dynamic-module=../${nps_dir} \
   --add-dynamic-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version}
+# Fix "Error 127" during build
+touch ../boringssl/.openssl/include/openssl/ssl.h
 # patch for pagespeed
 # gawk -i inplace \
 #   '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \

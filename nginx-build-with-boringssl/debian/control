@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: huihuimoe
 Standards-Version: 1.15.8
 
-Package: nginx-huihui
+Package: nginx-boringssl-huihui
 Architecture: amd64
 Depends: libluajit-5.1-2,
          libgeoip1,
@@ -13,5 +13,5 @@ Depends: libluajit-5.1-2,
          perl
 Conflicts: 
          nginx,
-         nginx-boringssl-huihui
+         nginx-huihui
 Description: Nginx

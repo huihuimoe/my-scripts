@@ -8,6 +8,5 @@ pagespeed_ngx_version=1.13.35.2-stable
 fancyindex_version=0.4.2
 rtmp_module_version=1.2.1
 nchan_version=1.2.1
-openssl_version=1.1.1a
 pcre_version=8.42
 clang_version=8

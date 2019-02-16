@@ -1,5 +1,5 @@
 # my-scripts
 
-[![Build Status](https://travis-ci.org/huihuimoe/my-scripts.svg?branch=master)](https://travis-ci.org/huihuimoe/my-scripts)
+[![Build Status](https://travis-ci.com/huihuimoe/my-scripts.svg?branch=master)](https://travis-ci.com/huihuimoe/my-scripts)
 
 Some personal scripts

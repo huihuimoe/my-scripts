@@ -1,37 +1,19 @@
 language: shell
-dist: trusty
+dist: xenial
 sudo: required
 os: linux
-script:
-- TIMESTAMP=$(date +%s)
-- mkdir -p releases/$TIMESTAMP
-- cd nginx-build
-- sh ./require.sh
-- sh ./build.sh
-- cp -r debian nginx-1*/
-- cd nginx-1*
-- sudo dpkg-buildpackage -b -uc
-- cd ..
-- sudo chmod -R 777 nginx-1* *.deb
-- ls -alh *.deb
-- cp *.deb ../releases/$TIMESTAMP
-- ./nginx-1*/objs/nginx -V
-- file ./nginx-1*/objs/nginx
-- ldd ./nginx-1*/objs/nginx
-- cd ..
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - sourceline: deb https://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main
-      key_url: https://apt.llvm.org/llvm-snapshot.gpg.key
+    - llvm-toolchain-xenial-8
     packages:
     - unzip
     - gawk
     - wget
     - git
     - perl
-    - clang-6.0
+    - clang-8
     - libexpat-dev
     - libpcre3-dev
     - libxml2-dev
@@ -43,11 +25,49 @@ addons:
     - libluajit-5.1
     - uuid-dev
     - debhelper
-deploy:
-  provider: s3
-  access_key_id: "$ACCESS_KEY_ID"
-  secret_access_key: "$SECRET_ACCESS_KEY"
-  bucket: my-scripts-releases
-  skip_cleanup: true
-  local_dir: releases
-  endpoint: https://storage.huihui.cat
+jobs:
+  include:
+    - stage: nginx-huihui
+      script:
+      - mkdir -p releases/$TRAVIS_JOB_NUMBER
+      - cd nginx-build
+      - sh ./require.sh
+      - sh ./build.sh
+      - cp -r debian nginx-1*/
+      - cd nginx-1*
+      - sudo dpkg-buildpackage -b -uc
+      - cd ..
+      - sudo chmod -R 777 nginx-1* *.deb
+      - ls -alh *.deb
+      - cp *.deb ../releases/$TRAVIS_JOB_NUMBER
+      - ./nginx-1*/objs/nginx -V
+      - file ./nginx-1*/objs/nginx
+      - ldd ./nginx-1*/objs/nginx
+      - cd ..
+      deploy: &s3
+        provider: s3
+        access_key_id: "$ACCESS_KEY_ID"
+        secret_access_key: "$SECRET_ACCESS_KEY"
+        bucket: my-scripts-releases
+        skip_cleanup: true
+        local_dir: releases
+        endpoint: https://storage.huihui.cat
+    - stage: nginx-boringssl-huihui
+      script:
+      - mkdir -p releases/$TRAVIS_JOB_NUMBER
+      - cd nginx-build-with-boringssl
+      - sh ./require.sh
+      - sh ./build.sh
+      - cp -r debian nginx-1*/
+      - cd nginx-1*
+      - sudo dpkg-buildpackage -b -uc
+      - cd ..
+      - sudo chmod -R 777 nginx-1* *.deb
+      - ls -alh *.deb
+      - cp *.deb ../releases/$TRAVIS_JOB_NUMBER
+      - ./nginx-1*/objs/nginx -V
+      - file ./nginx-1*/objs/nginx
+      - ldd ./nginx-1*/objs/nginx
+      - cd ..
+      deploy:
+        <<: *s3
