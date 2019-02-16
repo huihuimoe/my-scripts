@@ -25,6 +25,9 @@ addons:
     - libluajit-5.1
     - uuid-dev
     - debhelper
+    - golang
+    - cmake
+    - libunwind-dev
 jobs:
   include:
     - stage: nginx-huihui
