@@ -2,15 +2,14 @@ source: nginx
 section: httpd
 Priority: optional
 Maintainer: huihuimoe
-Standards-Version: 1.15.8
+Standards-Version: 1.15.9
 
 Package: nginx-boringssl-huihui
 Architecture: amd64
 Depends: libluajit-5.1-2,
          libgeoip1,
          libgd3,
-         libxslt1.1,
-         perl
+         libxslt1.1
 Conflicts: 
          nginx,
          nginx-huihui

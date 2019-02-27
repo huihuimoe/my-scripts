@@ -25,6 +25,7 @@ yes | ./configure \
   --http-proxy-temp-path=/var/lib/nginx/proxy \
   --http-scgi-temp-path=/var/lib/nginx/scgi \
   --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
+  --with-file-aio \
   --with-pcre-jit \
   --with-debug \
   --with-http_ssl_module \
