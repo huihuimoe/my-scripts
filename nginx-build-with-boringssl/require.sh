@@ -99,11 +99,6 @@ rm $(basename ${psol_url})
 cd ..
 # dirname: ${nps_dir}
 
-# openssl
-#wget https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
-#tar zxf openssl-${openssl_version}.tar.gz && rm openssl-${openssl_version}.tar.gz
-# dirname: openssl-${openssl_version}
-
 # pcre
 wget https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.zip
 unzip pcre-${pcre_version}.zip && rm pcre-${pcre_version}.zip
@@ -112,10 +107,14 @@ unzip pcre-${pcre_version}.zip && rm pcre-${pcre_version}.zip
 # nginx
 wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
 tar zxf nginx-${nginx_version}.tar.gz && rm nginx-${nginx_version}.tar.gz
+cd nginx-${nginx_version}
+curl -fSL https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/0.4/nginx__dynamic_tls_records_1.15.5%2B.patch -o dynamic_tls_records.patch
+patch -p1 < dynamic_tls_records.patch
+cd ..
 # dirname: nginx-${nginx_version}
 
 # boringssl with tls1.3
-# thanks to https://hub.docker.com/r/denji/nginx-boringssl/dockerfile
+# thanks to https://github.com/nginx-modules/docker-nginx-boringssl/blob/master/mainline/alpine/Dockerfile
 git clone --depth=1 https://boringssl.googlesource.com/boringssl
 sed -i 's@out \([>=]\) TLS1_2_VERSION@out \1 TLS1_3_VERSION@' boringssl/ssl/ssl_lib.cc
 sed -i 's@ssl->version[ ]*=[ ]*TLS1_2_VERSION@ssl->version = TLS1_3_VERSION@' boringssl/ssl/s3_lib.cc
