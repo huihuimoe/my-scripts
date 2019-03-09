@@ -7,4 +7,4 @@ sed -i '/pcre_jit  on;/a\ ' debian/nginx-huihui/etc/nginx/nginx.conf
 
 sed -i 's/#tcp_nopush     on;/tcp_nopush      on;\n    tcp_nodelay     on;\n    aio             on;\n\n    ssl_dyn_rec_enable on;\n    ssl_ecdh_curve prime256v1:secp384r1;/' debian/nginx-huihui/etc/nginx/nginx.conf
 
-cp debian/nginx-boringssl-huihui/etc/nginx/nginx.conf debian/nginx-boringssl-huihui/etc/nginx/nginx.conf.default
+cp debian/nginx-huihui/etc/nginx/nginx.conf debian/nginx-huihui/etc/nginx/nginx.conf.default
