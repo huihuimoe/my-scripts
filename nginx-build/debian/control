@@ -7,7 +7,8 @@ Standards-Version: 1.15.9
 Package: nginx-huihui
 Architecture: amd64
 Depends: libluajit-5.1-2,
-         libgeoip1,
+         geoip-database,
+         geoip-database-extra,
          libgd3,
          libxslt1.1
 Conflicts: 
