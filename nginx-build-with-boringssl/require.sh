@@ -139,6 +139,7 @@ cd ..
 # dirname: nginx-${nginx_version}
 
 # luajit
+# https://hub.docker.com/r/ekho/nginx-lua/dockerfile
 wget -O luajit2-${luajit2_version}.tar.gz https://github.com/openresty/luajit2/archive/v${luajit2_version}.tar.gz
 tar -xzvf luajit2-${luajit2_version}.tar.gz
 cd luajit2-${luajit2_version}

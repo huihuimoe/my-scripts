@@ -42,7 +42,7 @@ jobs:
       - sudo chmod -R 777 nginx-1* *.deb
       - ls -alh *.deb
       - cp *.deb ../releases/$TRAVIS_JOB_NUMBER
-      - ./nginx-1*/objs/nginx -V
+      - LD_LIBRARY_PATH=$(find -maxdepth 1 -type d -name "luajit2-*")/src:$LD_LIBRARY_PATH ./nginx-1*/objs/nginx -V
       - file ./nginx-1*/objs/nginx
       - ldd ./nginx-1*/objs/nginx
       - cd ..
@@ -67,7 +67,7 @@ jobs:
       - sudo chmod -R 777 nginx-1* *.deb
       - ls -alh *.deb
       - cp *.deb ../releases/$TRAVIS_JOB_NUMBER
-      - ./nginx-1*/objs/nginx -V
+      - LD_LIBRARY_PATH=$(find -maxdepth 1 -type d -name "luajit2-*")/src:$LD_LIBRARY_PATH ./nginx-1*/objs/nginx -V
       - file ./nginx-1*/objs/nginx
       - ldd ./nginx-1*/objs/nginx
       - cd ..
