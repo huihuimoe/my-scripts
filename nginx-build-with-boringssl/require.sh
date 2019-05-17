@@ -1,6 +1,31 @@
 #!/bin/sh
 . ./config.sh
 
+# stream-lua-nginx-module
+wget -O stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz https://github.com/openresty/stream-lua-nginx-module/archive/v${stream_lua_nginx_module_version}.tar.gz
+tar -xzvf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
+# dirname: stream-lua-nginx-module-${stream_lua_nginx_module_version}
+
+# stream-lua-nginx-module
+wget -O lua-resty-lrucache-${nginx_lua_resty_lrucache_version}.tar.gz https://github.com/openresty/lua-resty-lrucache/archive/v${nginx_lua_resty_lrucache_version}.tar.gz
+tar -xzvf lua-resty-lrucache-${nginx_lua_resty_lrucache_version}.tar.gz
+# dirname: lua-resty-lrucache-${nginx_lua_resty_lrucache_version}
+
+# stream-lua-nginx-module
+wget -O lua-resty-core-${nginx_lua_resty_core_version}.tar.gz https://github.com/openresty/lua-resty-core/archive/v${nginx_lua_resty_core_version}.tar.gz
+tar -xzvf lua-resty-core-${nginx_lua_resty_core_version}.tar.gz
+# dirname: lua-resty-core-${nginx_lua_resty_core_version}
+
+# lua-nginx-split-clients
+wget -O lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz https://github.com/ekho/lua-nginx-split-clients/archive/v${nginx_lua_split_clients_version}.tar.gz
+tar -xzvf lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz
+# dirname: lua-nginx-split-clients-${nginx_lua_split_clients_version}
+
+# ngx_http_geoip2_module
+wget -O ngx_http_geoip2_module-${ngx_http_geoip2_module_version}.tar.gz https://github.com/leev/ngx_http_geoip2_module/archive/${ngx_http_geoip2_module_version}.tar.gz
+tar -xzvf ngx_http_geoip2_module-${ngx_http_geoip2_module_version}.tar.gz
+# dirname: ngx_http_geoip2_module-${ngx_http_geoip2_module_version}
+
 # echo-nginx-module
 wget https://github.com/openresty/echo-nginx-module/archive/v${echo_nginx_module_version}.tar.gz
 tar zxf v${echo_nginx_module_version}.tar.gz && rm v${echo_nginx_module_version}.tar.gz
@@ -113,6 +138,14 @@ patch -p1 < dynamic_tls_records.patch
 cd ..
 # dirname: nginx-${nginx_version}
 
+# luajit
+wget -O luajit2-${luajit2_version}.tar.gz https://github.com/openresty/luajit2/archive/v${luajit2_version}.tar.gz
+tar -xzvf luajit2-${luajit2_version}.tar.gz
+cd luajit2-${luajit2_version}
+make -j2
+cd ..
+# dirname: luajit2-${luajit2_version}
+
 # boringssl with tls1.3
 # thanks to https://github.com/nginx-modules/docker-nginx-boringssl/blob/master/mainline/alpine/Dockerfile
 git clone --depth=1 https://boringssl.googlesource.com/boringssl
@@ -132,3 +165,4 @@ export CC=clang-${clang_version}
 cmake -B`pwd`/boringssl/build -H`pwd`/boringssl
 make -C`pwd`/boringssl/build -j$(getconf _NPROCESSORS_ONLN)
 cp boringssl/build/crypto/libcrypto.a boringssl/build/ssl/libssl.a boringssl/.openssl/lib/
+cd ..

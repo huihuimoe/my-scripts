@@ -1,17 +1,16 @@
 #!/bin/sh
 . ./config.sh
-nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
-export LUAJIT_LIB=/usr/lib/x86_64-linux-gnu
-export LUAJIT_INC=$(find /usr/include -name "luajit-*" -type d)
-export CFLAGS="-Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags"
+export nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
+export LUAJIT_LIB=$(pwd)/luajit2-${luajit2_version}/src
+export LUAJIT_INC=$(pwd)/luajit2-${luajit2_version}/src
+export CFLAGS="-Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags -Wformat -Werror=format-security"
 export COMPILER=clang-${clang_version}
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
 cd nginx-${nginx_version}
-#--with-openssl-opt='enable-weak-ssl-ciphers' \   
 yes | ./configure \
-  --with-cc-opt="-g -O2 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wno-c++11-extensions" \
-  --with-ld-opt="-Wl,-rpath,/usr/lib/ -L${LUAJIT_INC} -lpcre" \
+  --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC ${CFLAGS}" \
+  --with-ld-opt="-Wl,-z,relro -Wl,-rpath,/usr/lib/x86_64-linux-gnu,-z,now -Wl,--as-needed -L${LUAJIT_INC} -lpcre" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
@@ -44,7 +43,7 @@ yes | ./configure \
   --with-http_geoip_module=dynamic \
   --with-mail=dynamic \
   --with-mail_ssl_module \
-  --with-stream=dynamic \
+  --with-stream \
   --with-stream_ssl_module \
   --with-stream_ssl_preread_module \
   --with-http_flv_module \
@@ -68,7 +67,8 @@ yes | ./configure \
   --add-dynamic-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-dynamic-module=../${nps_dir} \
   --add-dynamic-module=../ngx_devel_kit-${ngx_devel_kit_version} \
-  --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version}
+  --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version} \
+  --add-dynamic-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version}
 # patch for pagespeed
 # gawk -i inplace \
 #   '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \

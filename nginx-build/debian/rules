@@ -5,6 +5,10 @@ clean:
 build:
 
 binary:
+	make -f ../luajit2-*/Makefile install DESTDIR=$(pwd)/debian/nginx-huihui
+	make -f ../lua-resty-lrucache-*/Makefile install DESTDIR=$(pwd)/debian/nginx-huihui
+	make -f ../lua-resty-core-*/Makefile install DESTDIR=$(pwd)/debian/nginx-huihui
+	make -f ../lua-nginx-split-clients-*/Makefile install DESTDIR=$(pwd)/debian/nginx-huihui
 	make install DESTDIR=debian/nginx-huihui
 	mkdir -p debian/nginx-huihui/var/lib/nginx/body
 #	mkdir -p debian/nginx-huihui/etc/perl/auto/nginx

@@ -6,8 +6,7 @@ Standards-Version: 1.15.9
 
 Package: nginx-boringssl-huihui
 Architecture: amd64
-Depends: libluajit-5.1-2,
-         geoip-database,
+Depends: geoip-database,
          geoip-database-extra,
          libgd3,
          libxslt1.1

@@ -1,17 +1,16 @@
 #!/bin/sh
 . ./config.sh
 export nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
-export LUAJIT_LIB=/usr/lib/x86_64-linux-gnu
-export LUAJIT_INC=$(find /usr/include -name "luajit-*" -type d)
-export CFLAGS="-Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags"
+export LUAJIT_LIB=$(pwd)/luajit2-${luajit2_version}/src
+export LUAJIT_INC=$(pwd)/luajit2-${luajit2_version}/src
+export CFLAGS="-Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags -Wformat -Werror=format-security"
 export COMPILER=clang-${clang_version}
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
 cd nginx-${nginx_version}
-#--with-openssl-opt='enable-weak-ssl-ciphers' \   
 yes | ./configure \
-  --with-cc-opt="-g -O2 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wno-c++11-extensions -I../boringssl/.openssl/include/" \
-  --with-ld-opt="-Wl,-rpath,/usr/lib/ -L${LUAJIT_INC} -L../boringssl/.openssl/lib/ -lpcre" \
+  --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC ${CFLAGS}" \
+  --with-ld-opt="-Wl,-z,relro -Wl,-rpath,/usr/lib/x86_64-linux-gnu,-z,now -Wl,--as-needed -L${LUAJIT_INC} -lpcre" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
@@ -68,7 +67,8 @@ yes | ./configure \
   --add-dynamic-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-dynamic-module=../${nps_dir} \
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
-  --add-module=../lua-nginx-module-${lua_nginx_module_version}
+  --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version} \
+  --add-dynamic-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version}
 # Fix "Error 127" during build
 touch ../boringssl/.openssl/include/openssl/ssl.h
 # patch for pagespeed

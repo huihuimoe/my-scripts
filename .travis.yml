@@ -22,7 +22,6 @@ addons:
     - libgd-dev
     - libpam0g-dev
     - libperl-dev
-    - libluajit-5.1
     - uuid-dev
     - debhelper
     - golang
