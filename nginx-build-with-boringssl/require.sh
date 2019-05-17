@@ -143,6 +143,9 @@ wget -O luajit2-${luajit2_version}.tar.gz https://github.com/openresty/luajit2/a
 tar -xzvf luajit2-${luajit2_version}.tar.gz
 cd luajit2-${luajit2_version}
 make -j2
+cd src
+ln -s libluajit.so libluajit-5.1.so
+cd ..
 cd ..
 # dirname: luajit2-${luajit2_version}
 
