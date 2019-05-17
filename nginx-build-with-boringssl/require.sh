@@ -165,4 +165,3 @@ export CC=clang-${clang_version}
 cmake -B`pwd`/boringssl/build -H`pwd`/boringssl
 make -C`pwd`/boringssl/build -j$(getconf _NPROCESSORS_ONLN)
 cp boringssl/build/crypto/libcrypto.a boringssl/build/ssl/libssl.a boringssl/.openssl/lib/
-cd ..
