@@ -59,6 +59,7 @@ yes | ./configure \
   --add-dynamic-module=../ngx_http_substitutions_filter_module \
   --add-dynamic-module=../ngx_http_auth_pam_module \
   --add-dynamic-module=../nginx-dav-ext-module \
+  --add-dynamic-module=../ngx_http_geoip2_module-${ngx_http_geoip2_module_version} \
   --add-dynamic-module=../echo-nginx-module-${echo_nginx_module_version} \
   --add-dynamic-module=../ngx-fancyindex-${fancyindex_version} \
   --add-module=../nginx-rtmp-module-${rtmp_module_version} \
