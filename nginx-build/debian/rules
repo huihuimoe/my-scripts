@@ -12,6 +12,7 @@ binary:
 	cd ../lua-resty-lrucache-* && make install DESTDIR=$(DEST)
 	cd ../lua-resty-core-* && make install DESTDIR=$(DEST)
 	cd ../lua-nginx-split-clients-* && make install DESTDIR=$(DEST)
+	cd $(DEST)/usr/local/lib/lua && mv ngx resty split-clients $(DEST)/usr/local/share/lua/5.1
 	make install DESTDIR=$(DEST)
 	mkdir -p $(DEST)/var/lib/nginx/body
 #	mkdir -p $(DEST)/etc/perl/auto/nginx
