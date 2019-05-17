@@ -12,5 +12,6 @@ Depends: geoip-database,
          libxslt1.1
 Conflicts: 
          nginx,
-         nginx-huihui
+         nginx-huihui,
+         libluajit-5.1-2
 Description: Nginx
