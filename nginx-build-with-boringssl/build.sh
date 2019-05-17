@@ -67,8 +67,8 @@ yes | ./configure \
   --add-dynamic-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-dynamic-module=../${nps_dir} \
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
-  --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version} \
-  --add-dynamic-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version}
+  --add-module=../lua-nginx-module-${lua_nginx_module_version} \
+  --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version}
 # Fix "Error 127" during build
 touch ../boringssl/.openssl/include/openssl/ssl.h
 # patch for pagespeed

@@ -66,9 +66,9 @@ yes | ./configure \
   --add-dynamic-module=../ngx_brotli \
   --add-dynamic-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-dynamic-module=../${nps_dir} \
-  --add-dynamic-module=../ngx_devel_kit-${ngx_devel_kit_version} \
-  --add-dynamic-module=../lua-nginx-module-${lua_nginx_module_version} \
-  --add-dynamic-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version}
+  --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
+  --add-module=../lua-nginx-module-${lua_nginx_module_version} \
+  --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version}
 # patch for pagespeed
 # gawk -i inplace \
 #   '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \
