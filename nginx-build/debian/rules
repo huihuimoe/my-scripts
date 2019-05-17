@@ -1,20 +1,23 @@
 #!/usr/bin/make -f
 
+PWD := $(shell pwd)
+DEST := $(shell echo $(PWD)/debian/nginx-huihui)
+
 clean: 
 
 build:
 
 binary:
-	make -f ../luajit2-*/Makefile install DESTDIR=$(pwd)/debian/nginx-huihui
-	make -f ../lua-resty-lrucache-*/Makefile install DESTDIR=$(pwd)/debian/nginx-huihui
-	make -f ../lua-resty-core-*/Makefile install DESTDIR=$(pwd)/debian/nginx-huihui
-	make -f ../lua-nginx-split-clients-*/Makefile install DESTDIR=$(pwd)/debian/nginx-huihui
-	make install DESTDIR=debian/nginx-huihui
-	mkdir -p debian/nginx-huihui/var/lib/nginx/body
-#	mkdir -p debian/nginx-huihui/etc/perl/auto/nginx
-#	cp ./objs/src/http/modules/perl/blib/arch/auto/nginx/nginx.so debian/nginx-huihui/etc/perl/auto/nginx
-#	cp ./objs/src/http/modules/perl/blib/lib/nginx.pm debian/nginx-huihui/etc/perl
-	cp debian/files/proxy_params debian/nginx-huihui/etc/nginx
+	cd ../luajit2-* && make install DESTDIR=$(DEST)
+	cd ../lua-resty-lrucache-* && make install DESTDIR=$(DEST)
+	cd ../lua-resty-core-* && make install DESTDIR=$(DEST)
+	cd ../lua-nginx-split-clients-* && make install DESTDIR=$(DEST)
+	make install DESTDIR=$(DEST)
+	mkdir -p $(DEST)/var/lib/nginx/body
+#	mkdir -p $(DEST)/etc/perl/auto/nginx
+#	cp ./objs/src/http/modules/perl/blib/arch/auto/nginx/nginx.so $(DEST)/etc/perl/auto/nginx
+#	cp ./objs/src/http/modules/perl/blib/lib/nginx.pm $(DEST)/etc/perl
+	cp debian/files/proxy_params $(DEST)/etc/nginx
 	cp debian/sed.sh . && bash sed.sh && rm sed.sh
 	rm -r debian/files debian/sed.sh
 	dh_link
