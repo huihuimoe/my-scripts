@@ -9,7 +9,8 @@ Architecture: amd64
 Depends: geoip-database,
          geoip-database-extra,
          libgd3,
-         libxslt1.1
+         libxslt1.1,
+         libmaxminddb0
 Conflicts: 
          nginx,
          nginx-boringssl-huihui,

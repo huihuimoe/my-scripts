@@ -22,6 +22,7 @@ addons:
     - libgd-dev
     - libpam0g-dev
     - libperl-dev
+    - libmaxminddb-dev
     - uuid-dev
     - debhelper
     - golang
