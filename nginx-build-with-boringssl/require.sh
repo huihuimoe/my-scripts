@@ -171,7 +171,7 @@ mkdir -p boringssl/build boringssl/.openssl/lib boringssl/.openssl/include
 ln -sf `pwd`/boringssl/include/openssl boringssl/.openssl/include/openssl
 touch boringssl/.openssl/include/openssl/ssl.h
 export LDFLAGS="-I`pwd`/zlib-cf -lz -ljemalloc"
-export CFLAGS="-march=native -Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags"
+export CFLAGS="-march=x86-64 -Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags"
 export COMPILER=clang-${clang_version}
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}

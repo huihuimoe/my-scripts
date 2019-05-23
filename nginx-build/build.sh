@@ -9,7 +9,7 @@ export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
 cd nginx-${nginx_version}
 yes | ./configure \
-  --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=native ${CFLAGS}" \
+  --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=x86-64 ${CFLAGS}" \
   --with-ld-opt="-Wl,-z,relro -Wl,-rpath,/usr/lib/x86_64-linux-gnu,-z,now -Wl,--as-needed -L${LUAJIT_INC} -lpcre -lrt -ljemalloc" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
@@ -57,7 +57,7 @@ yes | ./configure \
   --with-pcre=../pcre-${pcre_version} \
   --with-zlib=../zlib-cf \
   --with-openssl=../openssl-${openssl_version} \
-  --with-openssl-opt='-lz enable-tls1_3 enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=native -ljemalloc -Wl,-flto' \
+  --with-openssl-opt='-lz enable-tls1_3 enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=x86-64 -ljemalloc -Wl,-flto' \
   --add-dynamic-module=../ngx_cache_purge \
   --add-dynamic-module=../nginx-upload-progress-module \
   --add-dynamic-module=../nginx-upstream-fair \
