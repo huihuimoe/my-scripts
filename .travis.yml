@@ -24,12 +24,15 @@ addons:
     - libperl-dev
     - libmaxminddb-dev
     - libatomic-ops-dev
-    - libjemalloc-dev
     - uuid-dev
     - debhelper
     - golang
     - cmake
     - libunwind-dev
+before_script:
+  - sudo sh -c 'echo "deb http://archive.ubuntu.com/ubuntu/ cosmic main restricted universe" >> /etc/apt/sources.list'
+  - sudo apt-get update -q
+  - sudo apt-get install -y libjemalloc-dev
 jobs:
   include:
     - stage: nginx-huihui
