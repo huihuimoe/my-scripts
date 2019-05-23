@@ -2,7 +2,7 @@ source: nginx
 section: httpd
 Priority: optional
 Maintainer: huihuimoe
-Standards-Version: 1.15.9
+Standards-Version: 1.17.0
 
 Package: nginx-boringssl-huihui
 Architecture: amd64
@@ -10,7 +10,9 @@ Depends: geoip-database,
          geoip-database-extra,
          libgd3,
          libxslt1.1,
-         libmaxminddb0
+         libmaxminddb0,
+         libpcre3,
+         libjemalloc1
 Conflicts: 
          nginx,
          nginx-huihui,

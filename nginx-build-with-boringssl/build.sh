@@ -9,8 +9,8 @@ export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
 cd nginx-${nginx_version}
 yes | ./configure \
-  --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC ${CFLAGS}" \
-  --with-ld-opt="-Wl,-z,relro -Wl,-rpath,/usr/lib/x86_64-linux-gnu,-z,now -Wl,--as-needed -L${LUAJIT_INC} -lpcre" \
+  --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=native ${CFLAGS}" \
+  --with-ld-opt="-Wl,-z,relro -Wl,-rpath,/usr/lib/x86_64-linux-gnu,-z,now -Wl,--as-needed -L${LUAJIT_INC} -lpcre -lrt -ljemalloc" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
@@ -37,7 +37,9 @@ yes | ./configure \
   --with-http_gzip_static_module \
   --with-http_sub_module \
   --with-mail_ssl_module \
+  --with-http_spdy_module \
   --with-http_v2_module \
+  --with-http_v2_hpack_enc \
   --with-http_xslt_module=dynamic \
   --with-http_image_filter_module=dynamic \
   --with-http_geoip_module=dynamic \
@@ -50,9 +52,11 @@ yes | ./configure \
   --with-http_mp4_module \
   --with-http_random_index_module \
   --with-http_secure_link_module \
+  --with-threads \
+  --with-libatomic \
   --with-pcre=../pcre-${pcre_version} \
+  --with-zlib=../zlib-cf \
   --with-openssl=../boringssl \
-  --with-openssl-opt=enable-weak-ssl-ciphers \
   --add-dynamic-module=../ngx_cache_purge \
   --add-dynamic-module=../nginx-upload-progress-module \
   --add-module=../nginx-upstream-fair \
@@ -76,7 +80,7 @@ touch ../boringssl/.openssl/include/openssl/ssl.h
 # gawk -i inplace \
 #   '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \
 #   "objs/Makefile"
-make
+make -j$(getconf _NPROCESSORS_ONLN)
 cd ..
 
 # --with-http_perl_module=dynamic \

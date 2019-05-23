@@ -23,6 +23,8 @@ addons:
     - libpam0g-dev
     - libperl-dev
     - libmaxminddb-dev
+    - libatomic-ops-dev
+    - libjemalloc-dev
     - uuid-dev
     - debhelper
     - golang
