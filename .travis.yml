@@ -1,12 +1,12 @@
 language: shell
-dist: xenial
+dist: bionic
 sudo: required
 os: linux
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-xenial-8
+#    - llvm-toolchain-xenial-8
     packages:
     - unzip
     - gawk
