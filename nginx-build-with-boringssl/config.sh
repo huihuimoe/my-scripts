@@ -1,5 +1,5 @@
 #!/bin/sh
-nginx_version=1.17.2
+nginx_version=1.17.4
 echo_nginx_module_version=0.61
 headers_more_nginx_module_version=0.33
 lua_nginx_module_version=0.10.15
@@ -11,7 +11,7 @@ nchan_version=1.2.6
 pcre_version=8.43
 clang_version=8
 
-luajit2_version=2.1-20190626
+luajit2_version=2.1-20190912
 stream_lua_nginx_module_version=0.0.7
 ngx_http_geoip2_module_version=3.2
 nginx_lua_resty_core_version=0.1.17
