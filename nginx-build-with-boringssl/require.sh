@@ -139,10 +139,7 @@ cd ..
 wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
 tar zxf nginx-${nginx_version}.tar.gz
 cd nginx-${nginx_version}
-#wget -L https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/0.4/nginx__dynamic_tls_records_1.15.5%2B.patch -O dynamic_tls_records.patch
-#patch -p1 < dynamic_tls_records.patch
-wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
-patch -p1 < nginx.patch
+wget -LO - https://raw.githubusercontent.com/kn007/patch/master/nginx.patch | patch -p1
 cd ..
 # dirname: nginx-${nginx_version}
 
