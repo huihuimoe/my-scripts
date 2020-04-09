@@ -2,6 +2,8 @@ language: shell
 dist: bionic
 sudo: required
 os: linux
+go:
+- master
 addons:
   apt:
     sources:
@@ -30,17 +32,15 @@ addons:
     - cmake
     - libunwind-dev
 before_script:
-  - sudo add-apt-repository -y ppa:longsleep/golang-backports
-  - sudo apt-get update -q
-  - sudo apt-get install -y golang
+  - eval "$(gimme stable)"
   - curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain=stable
 jobs:
   include:
-    - stage: nginx-huihui
+    - stage: nginx-boringssl-huihui
       script:
       - source $HOME/.cargo/env
       - mkdir -p releases/$TRAVIS_JOB_NUMBER
-      - cd nginx-build
+      - cd nginx-build-with-boringssl
       - sh ./require.sh
       - sh ./build.sh
       - cp -r debian nginx-1*/
@@ -64,11 +64,11 @@ jobs:
         skip_cleanup: true
         local_dir: releases
         endpoint: https://storage.huihui.cat
-    - stage: nginx-boringssl-huihui
+    - stage: nginx-huihui
       script:
       - source $HOME/.cargo/env
       - mkdir -p releases/$TRAVIS_JOB_NUMBER
-      - cd nginx-build-with-boringssl
+      - cd nginx-build
       - sh ./require.sh
       - sh ./build.sh
       - cp -r debian nginx-1*/
@@ -83,6 +83,6 @@ jobs:
       - ./nginx-1*/objs/nginx -V
       - file ./nginx-1*/objs/nginx
       - ldd ./nginx-1*/objs/nginx
-      - cd ..
+      - cd ..  
       deploy:
         <<: *s3
