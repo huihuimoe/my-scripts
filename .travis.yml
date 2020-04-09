@@ -1,12 +1,12 @@
 language: shell
-dist: xenial
+dist: bionic
 sudo: required
 os: linux
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-xenial-8
+#    - llvm-toolchain-xenial-8
     packages:
     - unzip
     - gawk
@@ -26,13 +26,12 @@ addons:
     - libatomic-ops-dev
     - uuid-dev
     - debhelper
-    - golang
     - cmake
     - libunwind-dev
 before_script:
-  - sudo sh -c 'echo "deb http://archive.ubuntu.com/ubuntu/ cosmic main restricted universe" >> /etc/apt/sources.list'
+  - sudo sh -c 'echo "deb http://archive.ubuntu.com/ubuntu/ disco main restricted universe" >> /etc/apt/sources.list'
   - sudo apt-get update -q
-  - sudo apt-get install -y libjemalloc-dev
+  - sudo apt-get install -y libjemalloc-dev golang
 jobs:
   include:
     - stage: nginx-huihui
