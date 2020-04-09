@@ -36,10 +36,10 @@ yes | ./configure \
   --with-mail_ssl_module \
   --with-http_v2_module \
   --with-http_v2_hpack_enc \
-  --with-http_xslt_module=dynamic \
-  --with-http_image_filter_module=dynamic \
-  --with-http_geoip_module=dynamic \
-  --with-mail=dynamic \
+  --with-http_xslt_module \
+  --with-http_image_filter_module \
+  --with-http_geoip_module \
+  --with-mail \
   --with-mail_ssl_module \
   --with-stream \
   --with-stream_ssl_module \
@@ -54,20 +54,20 @@ yes | ./configure \
   --with-zlib=../zlib-cf \
   --with-openssl=../openssl-${openssl_version} \
   --with-openssl-opt='enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=x86-64' \
-  --add-dynamic-module=../ngx_cache_purge \
-  --add-dynamic-module=../nginx-upload-progress-module \
-  --add-dynamic-module=../nginx-upstream-fair \
-  --add-dynamic-module=../ngx_http_substitutions_filter_module \
-  --add-dynamic-module=../ngx_http_auth_pam_module \
-  --add-dynamic-module=../nginx-dav-ext-module \
-  --add-dynamic-module=../ngx_http_geoip2_module-${ngx_http_geoip2_module_version} \
-  --add-dynamic-module=../echo-nginx-module-${echo_nginx_module_version} \
-  --add-dynamic-module=../ngx-fancyindex-${fancyindex_version} \
-  --add-dynamic-module=../nginx-rtmp-module-${rtmp_module_version} \
-  --add-dynamic-module=../nchan-${nchan_version} \
-  --add-dynamic-module=../ngx_brotli \
-  --add-dynamic-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
-  --add-dynamic-module=../${nps_dir} \
+  --add-module=../ngx_cache_purge \
+  --add-module=../nginx-upload-progress-module \
+  --add-module=../nginx-upstream-fair \
+  --add-module=../ngx_http_substitutions_filter_module \
+  --add-module=../ngx_http_auth_pam_module \
+  --add-module=../nginx-dav-ext-module \
+  --add-module=../ngx_http_geoip2_module-${ngx_http_geoip2_module_version} \
+  --add-module=../echo-nginx-module-${echo_nginx_module_version} \
+  --add-module=../ngx-fancyindex-${fancyindex_version} \
+  --add-module=../nginx-rtmp-module-${rtmp_module_version} \
+  --add-module=../nchan-${nchan_version} \
+  --add-module=../ngx_brotli \
+  --add-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
+  --add-module=../${nps_dir} \
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-module=../lua-nginx-module-${lua_nginx_module_version} \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version}
@@ -83,4 +83,4 @@ ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/liba
 make -j$(getconf _NPROCESSORS_ONLN)
 cd ..
 
-# --with-http_perl_module=dynamic \
+# --with-http_perl_module \
