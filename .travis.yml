@@ -6,14 +6,16 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-#    - llvm-toolchain-xenial-8
+    - llvm-toolchain-bionic-10
+    - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-10 main'
+      key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
     packages:
     - unzip
     - gawk
     - wget
     - git
     - perl
-    - clang-8
+    - clang-10
     - libexpat-dev
     - libpcre3-dev
     - libxml2-dev
@@ -23,7 +25,6 @@ addons:
     - libpam0g-dev
     - libperl-dev
     - libmaxminddb-dev
-    - libatomic-ops-dev
     - uuid-dev
     - debhelper
     - cmake
@@ -31,7 +32,8 @@ addons:
 before_script:
   - sudo sh -c 'echo "deb http://archive.ubuntu.com/ubuntu/ disco main restricted universe" >> /etc/apt/sources.list'
   - sudo apt-get update -q
-  - sudo apt-get install -y libjemalloc-dev golang
+  - sudo apt-get install -y golang curl
+  - curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain=stable
 jobs:
   include:
     - stage: nginx-huihui

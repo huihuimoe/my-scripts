@@ -1,16 +1,13 @@
 #!/bin/sh
 . ./config.sh
 export nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
-export LUAJIT_LIB=$(pwd)/luajit2-${luajit2_version}/src
-export LUAJIT_INC=$(pwd)/luajit2-${luajit2_version}/src
-export CFLAGS="-Wno-c++11-extensions -Wno-error -Wno-deprecated-declarations -Wno-unused-const-variable -Wno-conditional-uninitialized -Wno-mismatched-tags -Wformat -Werror=format-security"
-export COMPILER=clang-${clang_version}
+export CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src"
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
 cd nginx-${nginx_version}
 yes | ./configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=x86-64 ${CFLAGS}" \
-  --with-ld-opt="-Wl,-z,relro -Wl,-rpath,/usr/lib/x86_64-linux-gnu,-z,now -Wl,--as-needed -L${LUAJIT_INC} -lpcre -lrt -ljemalloc" \
+  --with-ld-opt="-Wl,-z,relro -Wl,--as-needed -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-5.2.1/lib -l:libjemalloc_pic.a -lm -ldl" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
@@ -52,7 +49,7 @@ yes | ./configure \
   --with-http_random_index_module \
   --with-http_secure_link_module \
   --with-threads \
-  --with-libatomic \
+  --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
   --with-pcre=../pcre-${pcre_version} \
   --with-zlib=../zlib-cf \
   --with-openssl=../boringssl \
@@ -75,8 +72,13 @@ yes | ./configure \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
   --with-http_v3_module \
   --with-quiche=../quiche
+
 # Fix "Error 127" during build
 touch ../boringssl/.openssl/include/openssl/ssl.h
+
+# Fix libatomic_ops
+ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
+
 # patch for pagespeed
 # gawk -i inplace \
 #   '/pthread/ { sub(/-lpthread /, ""); sub(/-lpthread /, ""); sub(/\\/, "-lpthread \\"); print } ! /pthread/ { print }' \

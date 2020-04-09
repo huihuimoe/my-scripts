@@ -1,6 +1,9 @@
 #!/bin/sh
 . ./config.sh
 
+export CXX=clang++-${clang_version}
+export CC=clang-${clang_version}
+
 # stream-lua-nginx-module
 wget -O stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz https://github.com/openresty/stream-lua-nginx-module/archive/v${stream_lua_nginx_module_version}.tar.gz
 tar -xzvf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
@@ -151,16 +154,30 @@ patch -p1 < nginx.patch
 cd ..
 # dirname: nginx-${nginx_version}
 
+# libatomic_ops
+wget -O libatomic_ops-${libatomic_ops_version}.tar.gz https://github.com/ivmai/libatomic_ops/releases/download/v${libatomic_ops_version}/libatomic_ops-${libatomic_ops_version}.tar.gz
+tar -xzvf libatomic_ops-${libatomic_ops_version}.tar.gz
+rm libatomic_ops-${libatomic_ops_version}.tar.gz
+
 # luajit
 # https://hub.docker.com/r/ekho/nginx-lua/dockerfile
 wget -O luajit2-${luajit2_version}.tar.gz https://github.com/openresty/luajit2/archive/v${luajit2_version}.tar.gz
 tar -xzvf luajit2-${luajit2_version}.tar.gz
 cd luajit2-${luajit2_version}
-make -j$(getconf _NPROCESSORS_ONLN)
+make -j$(getconf _NPROCESSORS_ONLN) CFLAGS='-static -static-libgcc -static-libstdc++ -fPIC'
 cd src
 ln -s libluajit.so libluajit-5.1.so
 cd ..
 cd ..
 # dirname: luajit2-${luajit2_version}
+
+# jemalloc
+wget -O jemalloc-${jemalloc_version}.tar.bz2 https://github.com/jemalloc/jemalloc/releases/download/${jemalloc_version}/jemalloc-${jemalloc_version}.tar.bz2
+tar -xvf jemalloc-${jemalloc_version}.tar.bz2
+rm jemalloc-${jemalloc_version}.tar.bz2
+cd jemalloc-${jemalloc_version}
+./configure --enable-static
+make -j$(getconf _NPROCESSORS_ONLN)
+cd ..
 
 rm *.zip *.gz

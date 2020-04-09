@@ -10,9 +10,7 @@ Depends: geoip-database,
          geoip-database-extra,
          libgd3,
          libxslt1.1,
-         libmaxminddb0,
-         libpcre3,
-         libjemalloc2
+         libmaxminddb0
 Conflicts: 
          nginx,
          nginx-boringssl-huihui,
