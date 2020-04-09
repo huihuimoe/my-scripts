@@ -38,6 +38,7 @@ jobs:
   include:
     - stage: nginx-huihui
       script:
+      - source $HOME/.cargo/env
       - mkdir -p releases/$TRAVIS_JOB_NUMBER
       - cd nginx-build
       - sh ./require.sh
@@ -65,6 +66,7 @@ jobs:
         endpoint: https://storage.huihui.cat
     - stage: nginx-boringssl-huihui
       script:
+      - source $HOME/.cargo/env
       - mkdir -p releases/$TRAVIS_JOB_NUMBER
       - cd nginx-build-with-boringssl
       - sh ./require.sh

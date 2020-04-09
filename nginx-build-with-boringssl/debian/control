@@ -13,6 +13,5 @@ Depends: geoip-database,
          libmaxminddb0
 Conflicts: 
          nginx,
-         nginx-huihui,
-         libluajit-5.1-2
+         nginx-huihui
 Description: Nginx
