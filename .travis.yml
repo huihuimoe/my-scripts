@@ -30,9 +30,9 @@ addons:
     - cmake
     - libunwind-dev
 before_script:
-  - sudo sh -c 'echo "deb http://archive.ubuntu.com/ubuntu/ disco main restricted universe" >> /etc/apt/sources.list'
+  - sudo add-apt-repository ppa:longsleep/golang-backports
   - sudo apt-get update -q
-  - sudo apt-get install -y golang curl
+  - sudo apt-get install -y golang-go curl
   - curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain=stable
 jobs:
   include:
