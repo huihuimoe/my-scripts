@@ -141,10 +141,15 @@ tar zxf nginx-${nginx_version}.tar.gz
 cd nginx-${nginx_version}
 #wget -L https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/0.4/nginx__dynamic_tls_records_1.15.5%2B.patch -O dynamic_tls_records.patch
 #patch -p1 < dynamic_tls_records.patch
-wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
-patch -p1 < nginx.patch
+wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_with_quic.patch
+patch -p1 < nginx_with_quic.patch
+wget -L https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch
+patch -p1 < Enable_BoringSSL_OCSP.patch
 cd ..
 # dirname: nginx-${nginx_version}
+
+# quiche
+git clone --recursive https://github.com/cloudflare/quiche
 
 # luajit
 # https://hub.docker.com/r/ekho/nginx-lua/dockerfile
@@ -159,7 +164,7 @@ cd ..
 # dirname: luajit2-${luajit2_version}
 
 # boringssl with tls1.3
-# thanks to https://github.com/nginx-modules/docker-nginx-boringssl/blob/master/mainline/alpine/Dockerfile
+# thanks to https://github.com/nginx-modules/docker-nginx-boringssl/blob/master/mainline/alpine/Dockerfile#L108
 git clone --depth=1 https://boringssl.googlesource.com/boringssl
 sed -i 's@out \([>=]\) TLS1_2_VERSION@out \1 TLS1_3_VERSION@' boringssl/ssl/ssl_lib.cc
 sed -i 's@ssl->version[ ]*=[ ]*TLS1_2_VERSION@ssl->version = TLS1_3_VERSION@' boringssl/ssl/s3_lib.cc
