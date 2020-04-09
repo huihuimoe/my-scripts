@@ -32,7 +32,7 @@ addons:
 before_script:
   - sudo add-apt-repository -y ppa:longsleep/golang-backports
   - sudo apt-get update -q
-  - sudo apt-get install -y golang-go curl
+  - sudo apt-get install -y golang
   - curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain=stable
 jobs:
   include:
