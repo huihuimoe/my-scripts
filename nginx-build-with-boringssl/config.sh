@@ -19,6 +19,7 @@ nchan_version=1.2.7
 # https://github.com/openssl/openssl/releases
 openssl_version=1.1.1h
 # https://ftp.pcre.org/pub/pcre
+pcre_version=8.44
 clang_version=11
 
 # https://github.com/openresty/luajit2/releases
