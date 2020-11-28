@@ -67,9 +67,10 @@ tar zxf v${nchan_version}.tar.gz
 # ngx_http_substitutions_filter_module
 git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module
 cd ngx_http_substitutions_filter_module
-git checkout bc58cb11844bc42735bbaef7085ea86ace46d05b
-wget https://github.com/yaoweibin/ngx_http_substitutions_filter_module/pull/19.patch
-patch -p1 < 19.patch
+git checkout b8a71eacc7f986ba091282ab8b1bbbc6ae1807e0
+# merged
+# wget https://github.com/yaoweibin/ngx_http_substitutions_filter_module/pull/19.patch
+# patch -p1 < 19.patch
 cd ..
 # dirname: ngx_http_substitutions_filter_module
 
@@ -110,8 +111,8 @@ cd ..
 # dirname: nginx-upstream-fair
 
 # ngx_brotli
-# git clone --depth=1 https://github.com/google/ngx_brotli.git
-git clone --depth=1 https://github.com/eustas/ngx_brotli.git
+git clone --depth=1 https://github.com/google/ngx_brotli.git
+# git clone --depth=1 https://github.com/eustas/ngx_brotli.git
 cd ngx_brotli && git submodule update --init && cd ..
 # dirname: ngx_brotli
 
