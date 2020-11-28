@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 . ./config.sh
 cd luajit2-${luajit2_version}
 sudo make install

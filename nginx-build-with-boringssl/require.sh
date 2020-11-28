@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 . ./config.sh
 
 export CXX=clang++-${clang_version}

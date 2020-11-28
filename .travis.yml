@@ -41,8 +41,8 @@ jobs:
       - source $HOME/.cargo/env
       - mkdir -p releases/$TRAVIS_JOB_NUMBER
       - cd nginx-build-with-boringssl
-      - sh ./require.sh
-      - sh ./build.sh
+      - bash ./require.sh
+      - bash ./build.sh
       - cp -r debian nginx-1*/
       - cd nginx-1*
       - sudo dpkg-buildpackage -b -uc
@@ -69,8 +69,8 @@ jobs:
       - source $HOME/.cargo/env
       - mkdir -p releases/$TRAVIS_JOB_NUMBER
       - cd nginx-build
-      - sh ./require.sh
-      - sh ./build.sh
+      - bash ./require.sh
+      - bash ./build.sh
       - cp -r debian nginx-1*/
       - cd nginx-1*
       - sudo dpkg-buildpackage -b -uc

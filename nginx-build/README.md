@@ -17,7 +17,7 @@ sudo apt-get install -y unzip clang-11 \
 ## Download, build and install Ngnx
 
 ```bash
-sh require.sh
-sh build.sh
-sh install.sh
+bash require.sh
+bash build.sh
+bash install.sh
 ```

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 . ./config.sh
 export nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
 export CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src"

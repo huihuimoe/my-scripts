@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 nginx_version=1.19.5
 # https://github.com/openresty/echo-nginx-module/releases
 echo_nginx_module_version=0.62
