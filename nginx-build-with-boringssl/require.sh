@@ -62,6 +62,7 @@ tar zxf v${rtmp_module_version}.tar.gz
 # nchan
 wget https://github.com/slact/nchan/archive/v${nchan_version}.tar.gz
 tar zxf v${nchan_version}.tar.gz
+git clone --recursive --depth=1 https://github.com/slact/nchan
 # dirname: nchan-${nchan_version}
 
 # ngx_http_substitutions_filter_module

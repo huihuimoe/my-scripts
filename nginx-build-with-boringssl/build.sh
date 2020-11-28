@@ -63,7 +63,7 @@ yes | ./configure \
   --add-module=../echo-nginx-module-${echo_nginx_module_version} \
   --add-module=../ngx-fancyindex-${fancyindex_version} \
   --add-module=../nginx-rtmp-module-${rtmp_module_version} \
-  --add-module=../nchan-${nchan_version} \
+  --add-module=../nchan \
   --add-module=../ngx_brotli \
   --add-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-module=../${nps_dir} \
