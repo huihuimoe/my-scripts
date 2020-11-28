@@ -17,7 +17,7 @@ rtmp_module_version=1.2.1
 # https://github.com/slact/nchan/releases
 nchan_version=1.2.7
 # https://github.com/openssl/openssl/releases
-openssl_version=1.1.1h
+openssl_version=3.0.0-alpha9
 # https://ftp.pcre.org/pub/pcre
 pcre_version=8.44
 clang_version=11
