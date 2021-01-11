@@ -1,5 +1,5 @@
 #!/bin/bash
-nginx_version=1.19.5
+nginx_version=1.19.6
 # https://github.com/openresty/echo-nginx-module/releases
 echo_nginx_module_version=0.62
 # https://github.com/openresty/headers-more-nginx-module/releases
@@ -17,13 +17,13 @@ rtmp_module_version=1.2.1
 # https://github.com/slact/nchan/releases
 nchan_version=1.2.7
 # https://github.com/openssl/openssl/releases
-openssl_version=1.1.1h
+openssl_version=1.1.1i
 # https://ftp.pcre.org/pub/pcre
 pcre_version=8.44
 clang_version=11
 
 # https://github.com/openresty/luajit2/releases
-luajit2_version=2.1-20201027
+luajit2_version=2.1-20201229
 # https://github.com/openresty/stream-lua-nginx-module/releases
 stream_lua_nginx_module_version=0.0.9
 # https://github.com/leev/ngx_http_geoip2_module/releases

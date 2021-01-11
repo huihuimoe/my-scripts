@@ -20,6 +20,8 @@ binary:
 #	cp ./objs/src/http/modules/perl/blib/arch/auto/nginx/nginx.so $(DEST)/etc/perl/auto/nginx
 #	cp ./objs/src/http/modules/perl/blib/lib/nginx.pm $(DEST)/etc/perl
 	cp debian/files/proxy_params $(DEST)/etc/nginx
+	mkdir -p $(DEST)/usr/lib/systemd/system/
+	cp debian/files/nginx.service $(DEST)/usr/lib/systemd/system/
 	cp debian/sed.sh . && bash sed.sh && rm sed.sh
 	rm -r debian/files debian/sed.sh
 	dh_link
