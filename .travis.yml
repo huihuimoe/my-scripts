@@ -8,8 +8,8 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-bionic-11
-    - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main'
+    - llvm-toolchain-bionic-12
+    - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-12 main'
       key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
     packages:
     - unzip
@@ -17,7 +17,7 @@ addons:
     - wget
     - git
     - perl
-    - clang-11
+    - clang-12
     - libexpat-dev
     - libpcre3-dev
     - libxml2-dev
