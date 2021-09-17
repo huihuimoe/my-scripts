@@ -1,5 +1,5 @@
 #!/bin/bash
-nginx_version=1.21.1
+nginx_version=1.21.3
 # https://github.com/openresty/echo-nginx-module/releases
 echo_nginx_module_version=0.62
 # https://github.com/openresty/headers-more-nginx-module/releases
@@ -15,7 +15,7 @@ fancyindex_version=0.5.1
 # https://github.com/arut/nginx-rtmp-module/releases
 rtmp_module_version=1.2.2
 # https://github.com/slact/nchan/releases
-nchan_version=1.2.8
+nchan_version=1.2.10
 # https://github.com/openssl/openssl/releases
 # openssl_version=1.1.1i
 # https://ftp.pcre.org/pub/pcre
@@ -37,4 +37,4 @@ nginx_lua_split_clients_version=0.0.2
 # https://github.com/jemalloc/jemalloc/releases
 jemalloc_version=5.2.1
 # https://github.com/ivmai/libatomic_ops/releases
-libatomic_ops_version=7.6.10
+libatomic_ops_version=7.6.12
