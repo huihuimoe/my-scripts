@@ -7,8 +7,35 @@ on:
   #   branches: [ master ]
 
 jobs:
-  build-nginx-normal:
+  build-nginx-openssl:
     runs-on: ubuntu-latest
+    env:
+      Dir: nginx-build
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Clang
+      uses: egor-tensin/setup-clang@v1
+      with:
+        version: 12
+    - name: Set up packages
+      run: sudo apt-get install -y unzip curl gawk wget git perl libexpat-dev libpcre3-dev libxml2-dev libxslt-dev libgeoip-dev libgd-dev libpam0g-dev libperl-dev libmaxminddb-dev uuid-dev debhelper cmake libunwind-dev
+    - name: Pack
+      run: bash ./.github/nginx-package-build/pack.sh $Dir
+    - name: Show Info
+      run: bash ./.github/nginx-package-build/show-info.sh $Dir
+    - name: Find artifact
+      run: |
+        FILE=$(find ./$Dir -name "*.deb" -type f) && echo $FILE
+        echo "Artifact=$FILE" >> $GITHUB_ENV
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ${{ env.Artifact }}
+  build-nginx-boringssl:
+    runs-on: ubuntu-latest
+    env:
+      Dir: nginx-build-with-boringssl
     steps:
     - uses: actions/checkout@v2
     - name: Set up Golang
@@ -19,13 +46,22 @@ jobs:
       uses: egor-tensin/setup-clang@v1
       with:
         version: 12
-    - name: Set up Golang
+    - name: Set up Rust
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
     - name: Set up packages
       run: sudo apt-get install -y unzip curl gawk wget git perl libexpat-dev libpcre3-dev libxml2-dev libxslt-dev libgeoip-dev libgd-dev libpam0g-dev libperl-dev libmaxminddb-dev uuid-dev debhelper cmake libunwind-dev
     - name: Pack
-      run: bash ./.github/nginx-package-build/pack.sh nginx-build
+      run: bash ./.github/nginx-package-build/pack.sh $Dir
     - name: Show Info
-      run: bash ./.github/nginx-package-build/show-info.sh nginx-build
+      run: bash ./.github/nginx-package-build/show-info.sh $Dir
+    - name: Find artifact
+      run: |
+        FILE=$(find ./$Dir -name "*.deb" -type f) && echo $FILE
+        echo "Artifact=$FILE" >> $GITHUB_ENV
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ${{ env.Artifact }}
