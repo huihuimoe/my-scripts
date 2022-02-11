@@ -137,6 +137,9 @@ tar zxf openssl-${openssl_version}.tar.gz
 # pcre
 curl -L  http://downloads.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.zip > pcre-${pcre_version}.zip
 unzip pcre-${pcre_version}.zip
+
+# wget -O pcre2-${pcre_version}.zip https://github.com/PhilipHazel/pcre2/releases/download/pcre2-${pcre_version}/pcre2-${pcre_version}.zip
+# unzip pcre2-${pcre_version}.zip
 # dirname: pcre-${pcre_version}
 
 # zlib-cf
