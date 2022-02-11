@@ -135,7 +135,7 @@ tar zxf openssl-${openssl_version}.tar.gz
 # dirname: openssl-${openssl_version}
 
 # pcre
-wget https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.zip
+curl -L  http://downloads.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.zip > pcre-${pcre_version}.zip
 unzip pcre-${pcre_version}.zip
 # dirname: pcre-${pcre_version}
 
