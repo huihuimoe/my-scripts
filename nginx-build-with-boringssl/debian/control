@@ -2,7 +2,7 @@ source: nginx
 section: httpd
 Priority: optional
 Maintainer: huihuimoe
-Standards-Version: 1.21.6
+Standards-Version: 1.23.1
 
 Package: nginx-boringssl-huihui
 Architecture: amd64
