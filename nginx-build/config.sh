@@ -22,7 +22,7 @@ openssl_version=3.0.6
 # https://ftp.pcre.org/pub/pcre
 # TODO support pcre2
 pcre_version=8.45
-clang_version=12
+clang_version=15
 
 # https://github.com/openresty/luajit2/tags
 luajit2_version=2.1-20220915
