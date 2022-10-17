@@ -20,6 +20,7 @@ nchan_version=1.3.4
 # openssl_version=1.1.1i
 # https://ftp.pcre.org/pub/pcre
 pcre_version=8.45
+pcre2_version=10.40
 clang_version=15
 
 # https://github.com/openresty/luajit2/tags

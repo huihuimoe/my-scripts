@@ -20,8 +20,9 @@ nchan_version=1.3.4
 # https://github.com/openssl/openssl/tags
 openssl_version=3.0.6
 # https://ftp.pcre.org/pub/pcre
-# TODO support pcre2
+# TODO: support pcre2
 pcre_version=8.45
+pcre2_version=10.40
 clang_version=15
 
 # https://github.com/openresty/luajit2/tags

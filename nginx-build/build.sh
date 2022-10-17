@@ -7,7 +7,7 @@ export CC=clang-${clang_version}
 cd nginx-${nginx_version}
 yes | ./configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=x86-64 ${CFLAGS}" \
-  --with-ld-opt="-Wl,-z,relro -Wl,--as-needed -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-5.2.1/lib -l:libjemalloc_pic.a -lm -ldl" \
+  --with-ld-opt="-Wl,-z,relro -Wl,--as-needed -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \

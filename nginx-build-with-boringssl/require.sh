@@ -40,8 +40,10 @@ tar zxf v${headers_more_nginx_module_version}.tar.gz
 # dirname: headers-more-nginx-module-${headers_more_nginx_module_version}
 
 # lua-nginx-module
-wget https://github.com/openresty/lua-nginx-module/archive/v${lua_nginx_module_version}.tar.gz
-tar zxf v${lua_nginx_module_version}.tar.gz
+# wget https://github.com/openresty/lua-nginx-module/archive/v${lua_nginx_module_version}.tar.gz
+# tar zxf v${lua_nginx_module_version}.tar.gz
+# FIXME: temp fix
+git clone https://github.com/openresty/lua-nginx-module.git lua-nginx-module-${lua_nginx_module_version}
 # dirname: lua-nginx-module-${lua_nginx_module_version}
 
 # ngx_devel_kit
@@ -77,6 +79,10 @@ cd ..
 
 # nginx-upload-progress-module
 git clone --depth=1 https://github.com/masterzen/nginx-upload-progress-module
+cd nginx-upload-progress-module
+wget https://github.com/masterzen/nginx-upload-progress-module/files/8980323/nginx_1.23.0.patch.txt
+patch -p1 < nginx_1.23.0.patch.txt
+cd ..
 # dirname: nginx-upload-progress-module
 
 # ngx_cache_purge
@@ -118,11 +124,14 @@ cd ngx_brotli && git submodule update --init && cd ..
 # dirname: ngx_brotli
 
 # pagespeed-ngx
-wget https://github.com/apache/incubator-pagespeed-ngx/archive/v${pagespeed_ngx_version}.zip
-unzip v${pagespeed_ngx_version}.zip
+# FIXME: replace with version after bug fixes
+# wget https://github.com/apache/incubator-pagespeed-ngx/archive/v${pagespeed_ngx_version}.zip
+# unzip v${pagespeed_ngx_version}.zip
+git clone --depth=1 https://github.com/apache/incubator-pagespeed-ngx incubator-pagespeed-ngx-${pagespeed_ngx_version}
 nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
 cd "$nps_dir"
-psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL)
+# psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL)
+psol_url="https://dist.apache.org/repos/dist/release/incubator/pagespeed/1.14.36.1/x64/psol-1.14.36.1-apache-incubating-x64.tar.gz"
 wget ${psol_url}
 tar -zxf $(basename ${psol_url})
 rm $(basename ${psol_url})
@@ -133,6 +142,10 @@ cd ..
 curl -L  http://downloads.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.zip > pcre-${pcre_version}.zip
 unzip pcre-${pcre_version}.zip
 # dirname: pcre-${pcre_version}
+
+# wget -O pcre2-${pcre2_version}.zip https://github.com/PhilipHazel/pcre2/releases/download/pcre2-${pcre2_version}/pcre2-${pcre2_version}.zip
+# unzip pcre2-${pcre2_version}.zip
+# dirname: pcre2-${pcre2_version}
 
 # zlib-cf
 git clone https://github.com/cloudflare/zlib.git zlib-cf

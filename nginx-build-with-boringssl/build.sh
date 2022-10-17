@@ -4,10 +4,14 @@ export nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
 export CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src"
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
+
+# FIXME: boringssl requires c++17 to compile
+sed -i 's/-std=c++11/-std=c++17/g' ${nps_dir}/config.make
+
 cd nginx-${nginx_version}
 yes | ./configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=x86-64 ${CFLAGS}" \
-  --with-ld-opt="-Wl,-z,relro -Wl,--as-needed -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-5.2.1/lib -l:libjemalloc_pic.a -lm -ldl" \
+  --with-ld-opt="-Wl,-z,relro -Wl,--as-needed -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
