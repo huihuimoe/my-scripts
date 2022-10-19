@@ -48,6 +48,8 @@ yes | ./configure \
   --with-http_mp4_module \
   --with-http_random_index_module \
   --with-http_secure_link_module \
+  --with-http_slice_module \
+  --with-stream_realip_module \
   --with-threads \
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
   --with-pcre=../pcre-${pcre_version} \

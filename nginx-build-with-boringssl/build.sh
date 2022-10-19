@@ -9,7 +9,8 @@ export CC=clang-${clang_version}
 sed -i 's/-std=c++11/-std=c++17/g' ${nps_dir}/config.make
 
 cd nginx-${nginx_version}
-yes | ./configure \
+# yes | ./configure \
+yes | ./auto/configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=x86-64 ${CFLAGS}" \
   --with-ld-opt="-Wl,-z,relro -Wl,--as-needed -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl" \
   --prefix=/usr/share/nginx \
@@ -39,7 +40,6 @@ yes | ./configure \
   --with-http_sub_module \
   --with-mail_ssl_module \
   --with-http_v2_module \
-  --with-http_v2_hpack_enc \
   --with-http_xslt_module \
   --with-http_image_filter_module \
   --with-http_geoip_module \
@@ -52,6 +52,8 @@ yes | ./configure \
   --with-http_mp4_module \
   --with-http_random_index_module \
   --with-http_secure_link_module \
+  --with-http_slice_module \
+  --with-stream_realip_module \
   --with-threads \
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
   --with-pcre=../pcre-${pcre_version} \
@@ -75,7 +77,9 @@ yes | ./configure \
   --add-module=../lua-nginx-module-${lua_nginx_module_version} \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
   --with-http_v3_module \
-  --with-quiche=../quiche
+  --with-stream_quic_module
+  # --with-http_v2_hpack_enc \
+  # --with-quiche=../quiche
 
 # Fix "Error 127" during build
 touch ../boringssl/.openssl/include/openssl/ssl.h

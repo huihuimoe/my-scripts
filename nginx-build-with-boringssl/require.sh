@@ -154,16 +154,20 @@ make -f Makefile.in distclean
 cd ..
 
 # nginx
-wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
-tar zxf nginx-${nginx_version}.tar.gz
-cd nginx-${nginx_version}
-#wget -L https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/0.4/nginx__dynamic_tls_records_1.15.5%2B.patch -O dynamic_tls_records.patch
-#patch -p1 < dynamic_tls_records.patch
-wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_with_quic.patch
-patch -p1 < nginx_with_quic.patch
-wget -L https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch
-patch -p1 < Enable_BoringSSL_OCSP.patch
-cd ..
+# wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+# tar zxf nginx-${nginx_version}.tar.gz
+# cd nginx-${nginx_version}
+# wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_with_quic.patch
+# patch -p1 < nginx_with_quic.patch
+# wget -L https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch
+# patch -p1 < Enable_BoringSSL_OCSP.patch
+
+# nginx-with-quic
+hg clone http://hg.nginx.org/nginx-quic -r "quic" nginx-${nginx_version}
+# cd nginx-${nginx_version}
+# wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
+# patch -p1 < nginx.patch
+# cd ..
 # dirname: nginx-${nginx_version}
 
 # quiche
