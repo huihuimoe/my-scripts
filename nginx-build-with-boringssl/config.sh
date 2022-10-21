@@ -1,13 +1,13 @@
 #!/bin/bash
-nginx_version=1.23.1
+nginx_version=1.23.2
 # https://github.com/openresty/echo-nginx-module/tags
-echo_nginx_module_version=0.62
+echo_nginx_module_version=0.63
 # https://github.com/openresty/headers-more-nginx-module/tags
 headers_more_nginx_module_version=0.34
 # https://github.com/openresty/lua-nginx-module/tags
 lua_nginx_module_version=0.10.22
 # https://github.com/vision5/ngx_devel_kit/tags
-ngx_devel_kit_version=0.3.1
+ngx_devel_kit_version=0.3.2
 # https://github.com/apache/incubator-pagespeed-ngx/tags
 pagespeed_ngx_version=1.14.33.1-RC1
 # https://github.com/aperezdc/ngx-fancyindex/tags

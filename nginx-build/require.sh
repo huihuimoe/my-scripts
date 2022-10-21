@@ -139,7 +139,8 @@ cd ..
 # dirname: ${nps_dir}
 
 # openssl
-wget https://github.com/openssl/openssl/archive/refs/tags/openssl-${openssl_version}.tar.gz
+# wget https://github.com/openssl/openssl/archive/refs/tags/openssl-${openssl_version}.tar.gz
+wget https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
 tar zxf openssl-${openssl_version}.tar.gz
 mv openssl-openssl-${openssl_version} openssl-${openssl_version}
 # dirname: openssl-${openssl_version}
