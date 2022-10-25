@@ -35,7 +35,7 @@ jobs:
     - name: Upload Binaries
       uses: actions/upload-artifact@v3
       with:
-        name: nginx-openssl-${{ github.sha }}.deb
+        name: nginx-openssl-${{ github.sha }}.zip
         path: ${{ env.Artifact }}
     - name: Release
       uses: softprops/action-gh-release@v1
@@ -76,7 +76,7 @@ jobs:
     - name: Upload Binaries
       uses: actions/upload-artifact@v3
       with:
-        name: nginx-boringssl-${{ github.sha }}.deb
+        name: nginx-boringssl-${{ github.sha }}.zip
         path: ${{ env.Artifact }}
     - name: Release
       uses: softprops/action-gh-release@v1
