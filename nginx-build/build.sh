@@ -5,7 +5,8 @@ export CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${lu
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
 cd nginx-${nginx_version}
-yes | ./configure \
+# yes | ./configure \
+yes | ./auto/configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=x86-64 ${CFLAGS}" \
   --with-ld-opt="-Wl,-z,relro -Wl,--as-needed -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl" \
   --prefix=/usr/share/nginx \
@@ -35,7 +36,6 @@ yes | ./configure \
   --with-http_sub_module \
   --with-mail_ssl_module \
   --with-http_v2_module \
-  --with-http_v2_hpack_enc \
   --with-http_xslt_module \
   --with-http_image_filter_module \
   --with-http_geoip_module \
@@ -72,7 +72,10 @@ yes | ./configure \
   --add-module=../${nps_dir} \
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-module=../lua-nginx-module-${lua_nginx_module_version} \
-  --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version}
+  --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
+  --with-http_v3_module \
+  --with-stream_quic_module
+#  --with-http_v2_hpack_enc \
 
 # Fix libatomic_ops
 ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a

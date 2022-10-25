@@ -19,6 +19,8 @@ rtmp_module_version=1.2.2
 nchan_version=1.3.4
 # https://github.com/openssl/openssl/tags
 openssl_version=3.0.5
+# https://github.com/quictls/openssl/releases
+quictls_version=openssl-3.0.5+quic1
 # https://ftp.pcre.org/pub/pcre
 # TODO: support pcre2
 pcre_version=8.45

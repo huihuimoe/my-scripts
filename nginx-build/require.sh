@@ -140,9 +140,13 @@ cd ..
 
 # openssl
 # wget https://github.com/openssl/openssl/archive/refs/tags/openssl-${openssl_version}.tar.gz
-wget https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
-tar zxf openssl-${openssl_version}.tar.gz
-mv openssl-openssl-${openssl_version} openssl-${openssl_version}
+# wget https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
+# tar zxf openssl-${openssl_version}.tar.gz
+# mv openssl-openssl-${openssl_version} openssl-${openssl_version}
+
+wget https://github.com/quictls/openssl/archive/refs/tags/${quictls_version}.tar.gz
+tar zxf ${quictls_version}.tar.gz
+mv openssl-openssl-* openssl-${openssl_version}
 # dirname: openssl-${openssl_version}
 
 # pcre
@@ -161,12 +165,14 @@ make -f Makefile.in distclean
 cd ..
 
 # nginx
-wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
-tar zxf nginx-${nginx_version}.tar.gz
-cd nginx-${nginx_version}
-wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
-patch -p1 < nginx.patch
-cd ..
+# wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+# tar zxf nginx-${nginx_version}.tar.gz
+# cd nginx-${nginx_version}
+# wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
+# patch -p1 < nginx.patch
+# cd ..
+# nginx-with-quic
+hg clone -b quic http://hg.nginx.org/nginx-quic nginx-${nginx_version}
 # dirname: nginx-${nginx_version}
 
 # libatomic_ops
