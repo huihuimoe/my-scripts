@@ -1,5 +1,4 @@
 #!/bin/bash
-# TODO support nginx_quic
 nginx_version=1.23.2
 # https://github.com/openresty/echo-nginx-module/tags
 echo_nginx_module_version=0.63
@@ -16,11 +15,11 @@ fancyindex_version=0.5.2
 # https://github.com/arut/nginx-rtmp-module/tags
 rtmp_module_version=1.2.2
 # https://github.com/slact/nchan/tags
-nchan_version=1.3.4
+nchan_version=1.3.5
 # https://github.com/openssl/openssl/tags
-openssl_version=3.0.5
+openssl_version=3.0.7
 # https://github.com/quictls/openssl/releases
-quictls_version=openssl-3.0.5+quic1
+quictls_version=openssl-3.0.7+quic1
 # https://ftp.pcre.org/pub/pcre
 # TODO: support pcre2
 pcre_version=8.45
