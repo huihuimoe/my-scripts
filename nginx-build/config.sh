@@ -15,7 +15,7 @@ fancyindex_version=0.5.2
 # https://github.com/arut/nginx-rtmp-module/tags
 rtmp_module_version=1.2.2
 # https://github.com/slact/nchan/tags
-nchan_version=1.3.5
+nchan_version=1.3.4
 # https://github.com/openssl/openssl/tags
 openssl_version=3.0.7
 # https://github.com/quictls/openssl/releases
