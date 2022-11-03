@@ -69,7 +69,6 @@ yes | ./auto/configure \
   --add-module=../echo-nginx-module-${echo_nginx_module_version} \
   --add-module=../ngx-fancyindex-${fancyindex_version} \
   --add-module=../nginx-rtmp-module-${rtmp_module_version} \
-  --add-module=../nchan \
   --add-module=../ngx_brotli \
   --add-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-module=../${nps_dir} \
@@ -78,6 +77,7 @@ yes | ./auto/configure \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
   --with-http_v3_module \
   --with-stream_quic_module
+  # --add-module=../nchan \
   # --with-http_v2_hpack_enc \
   # --with-quiche=../quiche
 
