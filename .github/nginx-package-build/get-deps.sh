@@ -222,6 +222,14 @@ make -j
 make install
 cd ..
 
+wget https://github.com/maxmind/libmaxminddb/releases/download/1.7.1/libmaxminddb-1.7.1.tar.gz
+tar -xzvf libmaxminddb-1.7.1.tar.gz
+cd libmaxminddb-1.7.1
+./configure --disable-shared --prefix=$PREFIX
+make -j
+make install
+cd ..
+
 # libxcrypt
 wget https://github.com/besser82/libxcrypt/releases/download/v4.4.30/libxcrypt-4.4.30.tar.xz
 tar -xf libxcrypt-4.4.30.tar.xz
