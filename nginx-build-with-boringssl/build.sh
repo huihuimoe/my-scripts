@@ -80,6 +80,7 @@ yes | ./auto/configure \
   # --add-module=../nchan \
   # --with-http_v2_hpack_enc \
   # --with-quiche=../quiche
+  # --with-http_perl_module \
 
 # Fix "Error 127" during build
 touch ../boringssl/.openssl/include/openssl/ssl.h
@@ -93,5 +94,3 @@ ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/liba
 #   "objs/Makefile"
 make -j$(getconf _NPROCESSORS_ONLN)
 cd ..
-
-# --with-http_perl_module \

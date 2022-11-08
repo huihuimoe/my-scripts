@@ -185,7 +185,8 @@ rm libatomic_ops-${libatomic_ops_version}.tar.gz
 wget -O luajit2-${luajit2_version}.tar.gz https://github.com/openresty/luajit2/archive/v${luajit2_version}.tar.gz
 tar -xzvf luajit2-${luajit2_version}.tar.gz
 cd luajit2-${luajit2_version}
-make -j$(getconf _NPROCESSORS_ONLN) CFLAGS='-static -static-libgcc -static-libstdc++ -fPIC'
+sed -i "s/DEFAULT_CC = gcc/DEFAULT_CC = $CC/" src/Makefile
+env CFLAGS='-static -fPIC' make -j$(getconf _NPROCESSORS_ONLN)
 cd src
 ln -s libluajit.so libluajit-5.1.so
 cd ..

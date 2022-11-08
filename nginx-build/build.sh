@@ -1,14 +1,23 @@
 #!/bin/bash
 . ./config.sh
-export nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
+nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
 export CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src"
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
+
+# ./my-scripts/nginx-build/nginx-1.23.2/objs/autoconf.err
+
+# only in CI
+if [ ! -z "$CI" ]; then
+  EX_LD_OPT="-L/usr/lib -l:libxml2.a -l:libz.a -l:liblzma.a -l:libiconv.a -l:libcrypt.a"
+  EX_LD_OPT="$EX_LD_OPT -l:libicuuc.a -l:libicudata.a"
+fi
+
 cd nginx-${nginx_version}
 # yes | ./configure \
 yes | ./auto/configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=x86-64 ${CFLAGS}" \
-  --with-ld-opt="-Wl,-z,relro -Wl,--as-needed -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl" \
+  --with-ld-opt="-Wl,-z,relro -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl $EX_LD_OPT" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
@@ -53,7 +62,6 @@ yes | ./auto/configure \
   --with-threads \
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
   --with-pcre=../pcre-${pcre_version} \
-  --with-zlib=../zlib-cf \
   --with-openssl=../openssl-${openssl_version} \
   --with-openssl-opt='enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=x86-64' \
   --add-module=../ngx_cache_purge \
@@ -74,8 +82,10 @@ yes | ./auto/configure \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
   --with-http_v3_module \
   --with-stream_quic_module
-# --add-module=../nchan \
+#  --add-module=../nchan \
+#  --with-zlib=../zlib-cf \
 #  --with-http_v2_hpack_enc \
+# --with-http_perl_module \
 
 # Fix libatomic_ops
 ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
@@ -87,5 +97,3 @@ ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/liba
 
 make -j$(getconf _NPROCESSORS_ONLN)
 cd ..
-
-# --with-http_perl_module \

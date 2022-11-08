@@ -23,7 +23,9 @@ jobs:
     - name: runner deps fixes
       run: sudo apt-get remove nginx libgd3
     - name: Set up packages
-      run: sudo apt-get install -y unzip curl gawk wget git perl libexpat-dev libpcre3-dev libxml2-dev libxslt-dev libgeoip-dev libgd-dev libpam0g-dev libperl-dev libmaxminddb-dev uuid-dev debhelper cmake libunwind-dev
+      run: sudo apt-get install -y unzip curl gawk wget git perl debhelper cmake pkg-config nasm libpam-dev
+    - name: Set up deps
+      run: bash ./.github/nginx-package-build/get-deps.sh
     - name: Pack
       run: bash ./.github/nginx-package-build/pack.sh $Dir
     - name: Show Info
