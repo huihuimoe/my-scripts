@@ -154,7 +154,7 @@ make -f Makefile.in distclean
 cd ..
 
 # nginx-module-vts
-git clone git://github.com/vozlt/nginx-module-vts.git
+git clone https://github.com/vozlt/nginx-module-vts.git
 
 # nginx
 # wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
