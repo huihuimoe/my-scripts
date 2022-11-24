@@ -75,6 +75,7 @@ yes | ./auto/configure \
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-module=../lua-nginx-module-${lua_nginx_module_version} \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
+  --add-module=../nginx-module-vts \
   --with-http_v3_module \
   --with-stream_quic_module
   # --add-module=../nchan \
