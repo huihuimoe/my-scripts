@@ -70,7 +70,7 @@ git clone --recursive --depth=1 https://github.com/slact/nchan
 # ngx_http_substitutions_filter_module
 git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module
 cd ngx_http_substitutions_filter_module
-git checkout b8a71eacc7f986ba091282ab8b1bbbc6ae1807e0
+git checkout e12e965ac1837ca709709f9a26f572a54d83430e
 # merged
 # wget https://github.com/yaoweibin/ngx_http_substitutions_filter_module/pull/19.patch
 # patch -p1 < 19.patch
@@ -123,21 +123,6 @@ git clone --depth=1 https://github.com/google/ngx_brotli.git
 cd ngx_brotli && git submodule update --init && cd ..
 # dirname: ngx_brotli
 
-# pagespeed-ngx
-# FIXME: replace with version after bug fixes
-# wget https://github.com/apache/incubator-pagespeed-ngx/archive/v${pagespeed_ngx_version}.zip
-# unzip v${pagespeed_ngx_version}.zip
-git clone --depth=1 https://github.com/apache/incubator-pagespeed-ngx incubator-pagespeed-ngx-${pagespeed_ngx_version}
-nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
-cd "$nps_dir"
-# psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL)
-psol_url="https://dist.apache.org/repos/dist/release/incubator/pagespeed/1.14.36.1/x64/psol-1.14.36.1-apache-incubating-x64.tar.gz"
-wget ${psol_url}
-tar -zxf $(basename ${psol_url})
-rm $(basename ${psol_url})
-cd ..
-# dirname: ${nps_dir}
-
 # pcre
 curl -L  http://downloads.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.zip > pcre-${pcre_version}.zip
 unzip pcre-${pcre_version}.zip
@@ -157,16 +142,19 @@ cd ..
 git clone https://github.com/vozlt/nginx-module-vts.git
 
 # nginx
-# wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
-# tar zxf nginx-${nginx_version}.tar.gz
-# cd nginx-${nginx_version}
+wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+tar zxf nginx-${nginx_version}.tar.gz
+cd nginx-${nginx_version}
+wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_records.patch
+patch -p1 < nginx_dynamic_tls_records.patch
+wget -L https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch
+patch -p1 < Enable_BoringSSL_OCSP.patch
 # wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_with_quic.patch
 # patch -p1 < nginx_with_quic.patch
-# wget -L https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch
-# patch -p1 < Enable_BoringSSL_OCSP.patch
+cd ..
 
 # nginx-with-quic
-hg clone http://hg.nginx.org/nginx-quic -r "quic" nginx-${nginx_version}
+# hg clone http://hg.nginx.org/nginx-quic -r "quic" nginx-${nginx_version}
 # cd nginx-${nginx_version}
 # wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
 # patch -p1 < nginx.patch
@@ -174,7 +162,7 @@ hg clone http://hg.nginx.org/nginx-quic -r "quic" nginx-${nginx_version}
 # dirname: nginx-${nginx_version}
 
 # quiche
-git clone --recursive --depth=1 https://github.com/cloudflare/quiche
+# git clone --recursive --depth=1 https://github.com/cloudflare/quiche
 
 # libatomic_ops
 wget -O libatomic_ops-${libatomic_ops_version}.tar.gz https://github.com/ivmai/libatomic_ops/releases/download/v${libatomic_ops_version}/libatomic_ops-${libatomic_ops_version}.tar.gz
@@ -205,17 +193,11 @@ cd ..
 # boringssl with tls1.3
 # thanks to https://github.com/nginx-modules/docker-nginx-boringssl/blob/master/mainline/alpine/Dockerfile#L108
 git clone --depth=1 https://boringssl.googlesource.com/boringssl
-sed -i 's@out \([>=]\) TLS1_2_VERSION@out \1 TLS1_3_VERSION@' boringssl/ssl/ssl_lib.cc
-sed -i 's@ssl->version[ ]*=[ ]*TLS1_2_VERSION@ssl->version = TLS1_3_VERSION@' boringssl/ssl/s3_lib.cc
-sed -i 's@(SSL3_VERSION, TLS1_2_VERSION@(SSL3_VERSION, TLS1_3_VERSION@' boringssl/ssl/ssl_test.cc
-sed -i 's@\$shaext[ ]*=[ ]*0;@\$shaext = 1;@' boringssl/crypto/*/asm/*.pl
-sed -i 's@\$avx[ ]*=[ ]*[0|1];@\$avx = 2;@' boringssl/crypto/*/asm/*.pl
-sed -i 's@\$addx[ ]*=[ ]*0;@\$addx = 1;@' boringssl/crypto/*/asm/*.pl
 mkdir -p boringssl/build boringssl/.openssl/lib boringssl/.openssl/include
 ln -sf `pwd`/boringssl/include/openssl boringssl/.openssl/include/openssl
 touch boringssl/.openssl/include/openssl/ssl.h
-cmake -B`pwd`/boringssl/build -H`pwd`/boringssl
+cmake -B`pwd`/boringssl/build -H`pwd`/boringssl -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make -C`pwd`/boringssl/build -j$(getconf _NPROCESSORS_ONLN)
-cp boringssl/build/crypto/libcrypto.a boringssl/build/ssl/libssl.a boringssl/.openssl/lib/
+cp boringssl/build/crypto/libcrypto.a boringssl/build/ssl/libssl.a boringssl/.openssl/lib
 
 rm *.zip *.gz
