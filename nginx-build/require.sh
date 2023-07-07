@@ -70,7 +70,7 @@ git clone --recursive --depth=1 https://github.com/slact/nchan
 # ngx_http_substitutions_filter_module
 git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module
 cd ngx_http_substitutions_filter_module
-git checkout b8a71eacc7f986ba091282ab8b1bbbc6ae1807e0
+git checkout e12e965ac1837ca709709f9a26f572a54d83430e
 # merged
 # wget https://github.com/yaoweibin/ngx_http_substitutions_filter_module/pull/19.patch
 # patch -p1 < 19.patch
@@ -127,15 +127,15 @@ cd ngx_brotli && git submodule update --init && cd ..
 # FIXME: replace with version after bug fixes
 # wget https://github.com/apache/incubator-pagespeed-ngx/archive/v${pagespeed_ngx_version}.zip
 # unzip v${pagespeed_ngx_version}.zip
-git clone --depth=1 https://github.com/apache/incubator-pagespeed-ngx incubator-pagespeed-ngx-${pagespeed_ngx_version}
-nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
-cd "$nps_dir"
-# psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL)
-psol_url="https://dist.apache.org/repos/dist/release/incubator/pagespeed/1.14.36.1/x64/psol-1.14.36.1-apache-incubating-x64.tar.gz"
-wget ${psol_url}
-tar -zxf $(basename ${psol_url})
-rm $(basename ${psol_url})
-cd ..
+# git clone --depth=1 https://github.com/apache/incubator-pagespeed-ngx incubator-pagespeed-ngx-${pagespeed_ngx_version}
+# nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
+# cd "$nps_dir"
+# # psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL)
+# psol_url="https://dist.apache.org/repos/dist/release/incubator/pagespeed/1.14.36.1/x64/psol-1.14.36.1-apache-incubating-x64.tar.gz"
+# wget ${psol_url}
+# tar -zxf $(basename ${psol_url})
+# rm $(basename ${psol_url})
+# cd ..
 # dirname: ${nps_dir}
 
 # openssl
@@ -144,6 +144,7 @@ cd ..
 # tar zxf openssl-${openssl_version}.tar.gz
 # mv openssl-openssl-${openssl_version} openssl-${openssl_version}
 
+# https://nginx.org/en/docs/configure.html#http_v3_module
 wget https://github.com/quictls/openssl/archive/refs/tags/${quictls_version}.tar.gz
 tar zxf ${quictls_version}.tar.gz
 mv openssl-openssl-* openssl-${openssl_version}
@@ -168,14 +169,18 @@ cd ..
 git clone https://github.com/vozlt/nginx-module-vts.git
 
 # nginx
-# wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
-# tar zxf nginx-${nginx_version}.tar.gz
-# cd nginx-${nginx_version}
+wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+tar zxf nginx-${nginx_version}.tar.gz
+cd nginx-${nginx_version}
+wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_records.patch
+patch -p1 < nginx_dynamic_tls_records.patch
+wget -L https://raw.githubusercontent.com/kn007/patch/master/use_openssl_md5_sha1.patch
+patch -p1 < use_openssl_md5_sha1.patch
 # wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
 # patch -p1 < nginx.patch
-# cd ..
+cd ..
 # nginx-with-quic
-hg clone -b quic http://hg.nginx.org/nginx-quic nginx-${nginx_version}
+# hg clone -b quic http://hg.nginx.org/nginx-quic nginx-${nginx_version}
 # dirname: nginx-${nginx_version}
 
 # libatomic_ops

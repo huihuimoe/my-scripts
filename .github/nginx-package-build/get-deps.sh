@@ -24,9 +24,9 @@ make -j
 make install
 cd ..
 
-wget https://tukaani.org/xz/xz-5.2.7.tar.gz
-tar -xzvf xz-5.2.7.tar.gz
-cd xz-5.2.7
+wget https://tukaani.org/xz/xz-5.4.3.tar.gz
+tar -xzvf xz-5.4.3.tar.gz
+cd xz-5.4.3
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -47,9 +47,9 @@ make -j
 make install
 cd ..
 
-wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.38/util-linux-2.38.tar.gz
-tar -xzvf util-linux-2.38.tar.gz
-cd util-linux-2.38
+wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.tar.gz
+tar -xzvf util-linux-2.39.tar.gz
+cd util-linux-2.39
 ./configure --disable-all-programs --disable-shared --enable-libuuid --prefix=$PREFIX
 make -j
 make install
@@ -75,24 +75,24 @@ cd ..
 
 # libxslt
 
-wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.46.tar.bz2
-tar -xjvf libgpg-error-1.46.tar.bz2
-cd libgpg-error-1.46
+wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.47.tar.bz2
+tar -xjvf libgpg-error-1.47.tar.bz2
+cd libgpg-error-1.47
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
 cd ..
 
-wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.1.tar.bz2
-tar -xjvf libgcrypt-1.10.1.tar.bz2
-cd libgcrypt-1.10.1
+wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.2.tar.bz2
+tar -xjvf libgcrypt-1.10.2.tar.bz2
+cd libgcrypt-1.10.2
 ./configure --disable-shared --prefix=$PREFIX --disable-avx2-support
 make -j
 make install
 cd ..
 
-wget https://github.com/unicode-org/icu/releases/download/release-72-1/icu4c-72_1-src.tgz
-tar -xzvf icu4c-72_1-src.tgz
+wget https://github.com/unicode-org/icu/releases/download/release-73-2/icu4c-73_2-src.tgz
+tar -xzvf icu4c-73_2-src.tgz
 cd icu/source
 env CXXFLAGS="-std=c++11 $CXXFLAGS"\
   ./configure --enable-static --disable-shared --prefix=$PREFIX --enable-tests=no --enable-samples=no --enable-dyload=no --enable-release
@@ -108,18 +108,18 @@ make -j
 make install
 cd ..
 
-wget https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.3.tar.xz
-tar -xvf libxml2-2.10.3.tar.xz
-cd libxml2-2.10.3
+wget https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.4.tar.xz
+tar -xvf libxml2-2.10.4.tar.xz
+cd libxml2-2.10.4
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install
 ln -sn /usr/include/libxml2/libxml /usr/include/libxml
 cd ..
 
-wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.37.tar.xz
-tar -xf libxslt-1.1.37.tar.xz
-cd libxslt-1.1.37
+wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.38.tar.xz
+tar -xf libxslt-1.1.38.tar.xz
+cd libxslt-1.1.38
 ./configure --disable-shared --prefix=$PREFIX --with-python=no
 make -j
 make install
@@ -153,9 +153,9 @@ cd ..
 # make install
 # cd ../..
 
-wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.4.tar.gz
-tar -xzvf libwebp-1.2.4.tar.gz
-cd libwebp-1.2.4
+wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.3.1.tar.gz
+tar -xzvf libwebp-1.3.1.tar.gz
+cd libwebp-1.3.1
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" -DENABLE_STATIC=on -DENABLE_SHARED=off ..
@@ -231,9 +231,9 @@ make install
 cd ..
 
 # libxcrypt
-wget https://github.com/besser82/libxcrypt/releases/download/v4.4.30/libxcrypt-4.4.30.tar.xz
-tar -xf libxcrypt-4.4.30.tar.xz
-cd libxcrypt-4.4.30
+wget https://github.com/besser82/libxcrypt/releases/download/v4.4.36/libxcrypt-4.4.36.tar.xz
+tar -xf libxcrypt-4.4.36.tar.xz
+cd libxcrypt-4.4.36
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install

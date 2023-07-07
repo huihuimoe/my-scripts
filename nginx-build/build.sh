@@ -1,6 +1,6 @@
 #!/bin/bash
 . ./config.sh
-nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
+# nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
 export CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src"
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
@@ -14,8 +14,7 @@ if [ ! -z "$CI" ]; then
 fi
 
 cd nginx-${nginx_version}
-# yes | ./configure \
-yes | ./auto/configure \
+./configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=x86-64 ${CFLAGS}" \
   --with-ld-opt="-Wl,-z,relro -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl $EX_LD_OPT" \
   --prefix=/usr/share/nginx \
@@ -32,7 +31,6 @@ yes | ./auto/configure \
   --http-scgi-temp-path=/var/lib/nginx/scgi \
   --http-uwsgi-temp-path=/var/lib/nginx/uwsgi \
   --with-file-aio \
-  --with-pcre-jit \
   --with-debug \
   --with-http_ssl_module \
   --with-http_stub_status_module \
@@ -45,6 +43,7 @@ yes | ./auto/configure \
   --with-http_sub_module \
   --with-mail_ssl_module \
   --with-http_v2_module \
+  --with-http_v3_module \
   --with-http_xslt_module \
   --with-http_image_filter_module \
   --with-http_geoip_module \
@@ -62,6 +61,7 @@ yes | ./auto/configure \
   --with-threads \
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
   --with-pcre=../pcre-${pcre_version} \
+  --with-pcre-jit \
   --with-openssl=../openssl-${openssl_version} \
   --with-openssl-opt='enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=x86-64' \
   --add-module=../ngx_cache_purge \
@@ -76,17 +76,14 @@ yes | ./auto/configure \
   --add-module=../nginx-rtmp-module-${rtmp_module_version} \
   --add-module=../ngx_brotli \
   --add-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
-  --add-module=../${nps_dir} \
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-module=../lua-nginx-module-${lua_nginx_module_version} \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
-  --add-module=../nginx-module-vts \
-  --with-http_v3_module \
-  --with-stream_quic_module
-#  --add-module=../nchan \
-#  --with-zlib=../zlib-cf \
-#  --with-http_v2_hpack_enc \
+  --add-module=../nchan \
+  --add-module=../nginx-module-vts
+# --add-module=../${nps_dir} \
 # --with-http_perl_module \
+#  --with-zlib=../zlib-cf \
 
 # Fix libatomic_ops
 ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
