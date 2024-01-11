@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# set -x CC clang-15
-# set -x CXX clang++-15
+# set -x CC clang-16
+# set -x CXX clang++-16
 # set -x PREFIX /usr
 # set -x PKG_CONFIG "pkg-config --static"
 
 mkdir deps
 cd deps
 
-export CXX=clang++-15
-export CC=clang-15
+export CXX=clang++-16
+export CC=clang-16
 export PKG_CONFIG="pkg-config --static"
 export PREFIX="/usr"
 
@@ -24,9 +24,9 @@ make -j
 make install
 cd ..
 
-wget https://tukaani.org/xz/xz-5.4.3.tar.gz
-tar -xzvf xz-5.4.3.tar.gz
-cd xz-5.4.3
+wget https://tukaani.org/xz/xz-5.4.5.tar.gz
+tar -xzvf xz-5.4.5.tar.gz
+cd xz-5.4.5
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -41,11 +41,12 @@ rm /usr/lib/libzstd.so*
 cd ..
 
 cd brotli
-./bootstrap
-./configure --prefix=$PREFIX --disable-shared
+
+mkdir out && cd out
+cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DBUILD_SHARED_LIBS=off ..
 make -j
 make install
-cd ..
+cd ../..
 
 wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.tar.gz
 tar -xzvf util-linux-2.39.tar.gz
@@ -64,10 +65,9 @@ cd ..
 # cd ..
 
 # libmaxminddb
-
-wget https://github.com/maxmind/libmaxminddb/releases/download/1.7.1/libmaxminddb-1.7.1.tar.gz
-tar -xzvf libmaxminddb-1.7.1.tar.gz
-cd libmaxminddb-1.7.1
+wget https://github.com/maxmind/libmaxminddb/releases/download/1.9.1/libmaxminddb-1.9.1.tar.gz
+tar -xzvf libmaxminddb-1.9.1.tar.gz
+cd libmaxminddb-1.9.1
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -83,16 +83,16 @@ make -j
 make install
 cd ..
 
-wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.2.tar.bz2
-tar -xjvf libgcrypt-1.10.2.tar.bz2
-cd libgcrypt-1.10.2
+wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2
+tar -xjvf libgcrypt-1.10.3.tar.bz2
+cd libgcrypt-1.10.3
 ./configure --disable-shared --prefix=$PREFIX --disable-avx2-support
 make -j
 make install
 cd ..
 
-wget https://github.com/unicode-org/icu/releases/download/release-73-2/icu4c-73_2-src.tgz
-tar -xzvf icu4c-73_2-src.tgz
+wget https://github.com/unicode-org/icu/releases/download/release-74-1/icu4c-74_1-src.tgz
+tar -xzvf icu4c-74_1-src.tgz
 cd icu/source
 env CXXFLAGS="-std=c++11 $CXXFLAGS"\
   ./configure --enable-static --disable-shared --prefix=$PREFIX --enable-tests=no --enable-samples=no --enable-dyload=no --enable-release
@@ -108,18 +108,18 @@ make -j
 make install
 cd ..
 
-wget https://download.gnome.org/sources/libxml2/2.10/libxml2-2.10.4.tar.xz
-tar -xvf libxml2-2.10.4.tar.xz
-cd libxml2-2.10.4
+wget https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.3.tar.xz
+tar -xvf libxml2-2.12.3.tar.xz
+cd libxml2-2.12.3
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install
 ln -sn /usr/include/libxml2/libxml /usr/include/libxml
 cd ..
 
-wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.38.tar.xz
-tar -xf libxslt-1.1.38.tar.xz
-cd libxslt-1.1.38
+wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.39.tar.xz
+tar -xf libxslt-1.1.39.tar.xz
+cd libxslt-1.1.39
 ./configure --disable-shared --prefix=$PREFIX --with-python=no
 make -j
 make install
@@ -153,9 +153,9 @@ cd ..
 # make install
 # cd ../..
 
-wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.3.1.tar.gz
-tar -xzvf libwebp-1.3.1.tar.gz
-cd libwebp-1.3.1
+wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.3.2.tar.gz
+tar -xzvf libwebp-1.3.2.tar.gz
+cd libwebp-1.3.2
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" -DENABLE_STATIC=on -DENABLE_SHARED=off ..
@@ -217,14 +217,6 @@ cd ..
 git clone https://github.com/maxmind/geoip-api-c
 cd geoip-api-c
 ./bootstrap
-./configure --disable-shared --prefix=$PREFIX
-make -j
-make install
-cd ..
-
-wget https://github.com/maxmind/libmaxminddb/releases/download/1.7.1/libmaxminddb-1.7.1.tar.gz
-tar -xzvf libmaxminddb-1.7.1.tar.gz
-cd libmaxminddb-1.7.1
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install

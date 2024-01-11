@@ -7,7 +7,7 @@ apt-get install -y fish unzip curl gawk wget git perl bison lsb-release wget sof
 #  libexpat-dev libpcre3-dev libxml2-dev libxslt-dev libgeoip-dev libgd-dev libpam0g-dev libperl-dev libmaxminddb-dev uuid-dev libunwind-dev
 
 # LLVM
-curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- 15
+curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- 16
 
 # Rust
 curl -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly

@@ -18,7 +18,7 @@ jobs:
     - name: Set up Clang
       uses: egor-tensin/setup-clang@v1
       with:
-        version: 15
+        version: 16
     # https://github.com/actions/runner-images/issues/6153
     - name: runner deps fixes
       run: sudo apt-get remove nginx libgd3
@@ -44,6 +44,15 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: ${{ env.Artifact }}
+    - name: push package to packagecloud.io
+      uses: computology/packagecloud-github-action@v0.8
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        PACKAGE-NAME: ${{ env.Artifact }}
+        PACKAGECLOUD-USERNAME: huihuimoe
+        PACKAGECLOUD-REPONAME: nginx-huihui
+        PACKAGECLOUD-DISTRO: any/any
+        PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
   build-nginx-boringssl:
     runs-on: ubuntu-latest
     env:
@@ -57,7 +66,7 @@ jobs:
     - name: Set up Clang
       uses: egor-tensin/setup-clang@v1
       with:
-        version: 15
+        version: 16
     - name: Set up Rust
       uses: actions-rs/toolchain@v1
       with:
@@ -89,3 +98,12 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: ${{ env.Artifact }}
+    - name: push package to packagecloud.io
+      uses: computology/packagecloud-github-action@v0.8
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        PACKAGE-NAME: ${{ env.Artifact }}
+        PACKAGECLOUD-USERNAME: huihuimoe
+        PACKAGECLOUD-REPONAME: nginx-boringssl-huihui
+        PACKAGECLOUD-DISTRO: any/any
+        PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
