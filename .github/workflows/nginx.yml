@@ -14,7 +14,7 @@ jobs:
     env:
       Dir: nginx-build
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Clang
       uses: egor-tensin/setup-clang@v1
       with:
@@ -58,11 +58,15 @@ jobs:
     env:
       Dir: nginx-build-with-boringssl
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+    - name: Get latest go version
+      id: go_version
+      run: |
+        echo ::set-output name=go_version::$(curl -s https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json | grep -oE '"version": "[0-9]{1}.[0-9]{1,}(.[0-9]{1,})?"' | head -1 | cut -d':' -f2 | sed 's/ //g; s/"//g')
     - name: Set up Golang
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v5
       with:
-        go-version: '1.20.5'
+        go-version: ${{ steps.go_version.outputs.go_version }}
     - name: Set up Clang
       uses: egor-tensin/setup-clang@v1
       with:
