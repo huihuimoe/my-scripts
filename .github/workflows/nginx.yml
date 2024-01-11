@@ -10,7 +10,8 @@ on:
 
 jobs:
   build-nginx-openssl:
-    runs-on: ubuntu-latest
+    # ubuntu-22 requires glibc 2.34
+    runs-on: ubuntu-20.04
     env:
       Dir: nginx-build
     steps:
@@ -23,7 +24,7 @@ jobs:
     - name: runner deps fixes
       run: sudo apt-get remove nginx libgd3
     - name: Set up packages
-      run: sudo apt-get install -y unzip curl gawk wget git perl debhelper cmake pkg-config nasm libpam-dev
+      run: sudo apt-get install -y binutils unzip curl gawk wget git perl debhelper cmake pkg-config nasm libpam-dev
     - name: Set up deps
       run: sudo bash ./.github/nginx-package-build/get-deps.sh
     - name: Pack
@@ -54,7 +55,7 @@ jobs:
         PACKAGECLOUD-DISTRO: any/any
         PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
   build-nginx-boringssl:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       Dir: nginx-build-with-boringssl
     steps:
@@ -81,7 +82,7 @@ jobs:
     - name: runner deps fixes
       run: sudo apt-get remove nginx libgd3
     - name: Set up packages
-      run: sudo apt-get install -y unzip curl gawk wget git perl debhelper cmake pkg-config nasm libpam-dev
+      run: sudo apt-get install -y binutils unzip curl gawk wget git perl debhelper cmake pkg-config nasm libpam-dev
     - name: Set up deps
       run: sudo bash ./.github/nginx-package-build/get-deps.sh
     - name: Pack

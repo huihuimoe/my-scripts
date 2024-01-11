@@ -24,10 +24,12 @@ binary:
 	cp debian/files/nginx.service $(DEST)/usr/lib/systemd/system/
 	cp debian/sed.sh . && bash sed.sh && rm sed.sh
 	rm -r debian/files debian/sed.sh
+	dh_strip
 	dh_link
 	dh_compress
 	dh_fixperms
 	dh_installdeb
 	dh_gencontrol
 	dh_md5sums
-	dh_builddeb
+# https://unix.stackexchange.com/questions/669004
+	dh_builddeb -- -Zxz

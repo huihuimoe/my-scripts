@@ -41,7 +41,6 @@ rm /usr/lib/libzstd.so*
 cd ..
 
 cd brotli
-
 mkdir out && cd out
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DBUILD_SHARED_LIBS=off ..
 make -j

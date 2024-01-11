@@ -151,7 +151,7 @@ mv openssl-openssl-* openssl-${openssl_version}
 # dirname: openssl-${openssl_version}
 
 # pcre
-curl -L  http://downloads.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.zip > pcre-${pcre_version}.zip
+wget http://downloads.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.zip -O pcre-${pcre_version}.zip
 unzip pcre-${pcre_version}.zip
 # dirname: pcre-${pcre_version}
 
