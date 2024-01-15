@@ -5,11 +5,11 @@ bash ./require.sh
 # libcurl based unavailable
 if [ ! -z "$CI" ]; then
   mkdir system_libs
-  sudo mv /usr/lib/x86_64-linux-gnu/libbrotlicommon.so.* /usr/lib/x86_64-linux-gnu/libbrotlienc.so.* system_libs/
+  sudo mv /usr/lib/$(uname -m)-linux-gnu/libbrotlicommon.so.* /usr/lib/$(uname -m)-linux-gnu/libbrotlienc.so.* system_libs/
 fi
 bash ./build.sh
 if [ ! -z "$CI" ]; then
-  sudo mv system_libs/* /usr/lib/x86_64-linux-gnu
+  sudo mv system_libs/* /usr/lib/$(uname -m)-linux-gnu
 fi
 cp -r debian nginx-1*/
 cd nginx-1*

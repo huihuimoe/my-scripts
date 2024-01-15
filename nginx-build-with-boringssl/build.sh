@@ -9,10 +9,19 @@ if [ ! -z "$CI" ]; then
   EX_LD_OPT="-L/usr/lib -l:libxml2.a -l:libz.a -l:liblzma.a -l:libiconv.a -l:libcrypt.a"
   EX_LD_OPT="$EX_LD_OPT -l:libicuuc.a -l:libicudata.a"
 fi
+ARCH=$(uname -m)
+case $ARCH in
+  x86_64)
+    ARCH=x86-64
+    ;;
+  aarch64)
+    ARCH=armv8-a
+    ;;
+esac
 
 cd nginx-${nginx_version}
 ./configure \
-  --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=x86-64 ${CFLAGS}" \
+  --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=${ARCH} ${CFLAGS}" \
   --with-ld-opt="-Wl,-z,relro -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl $EX_LD_OPT" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
