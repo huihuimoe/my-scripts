@@ -142,8 +142,12 @@ cd ..
 git clone https://github.com/vozlt/nginx-module-vts.git
 
 # nginx
-wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
-tar zxf nginx-${nginx_version}.tar.gz
+#wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+#tar zxf nginx-${nginx_version}.tar.gz
+# freenginx
+wget http://freenginx.org/download/freenginx-${nginx_version}.tar.gz
+tar zxf freenginx-${nginx_version}.tar.gz
+mv freenginx-${nginx_version} nginx-${nginx_version}
 cd nginx-${nginx_version}
 wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_records.patch
 patch -p1 < nginx_dynamic_tls_records.patch
@@ -191,13 +195,21 @@ make -j$(getconf _NPROCESSORS_ONLN)
 cd ..
 
 # boringssl with tls1.3
-# thanks to https://github.com/nginx-modules/docker-nginx-boringssl/blob/master/mainline/alpine/Dockerfile#L108
-git clone --depth=1 https://boringssl.googlesource.com/boringssl
+# thanks to https://github.com/nginx-modules/docker-nginx-boringssl/blob/main/mainline-alpine.Dockerfile#L111
+git clone https://boringssl.googlesource.com/boringssl
+cd boringssl
+git checkout --force --quiet e648990
+cd ..
+grep -qxF 'SET_TARGET_PROPERTIES(crypto PROPERTIES SOVERSION 1)' boringssl/crypto/CMakeLists.txt || echo -e '\nSET_TARGET_PROPERTIES(crypto PROPERTIES SOVERSION 1)' >> boringssl/crypto/CMakeLists.txt
+grep -qxF 'SET_TARGET_PROPERTIES(ssl PROPERTIES SOVERSION 1)' boringssl/ssl/CMakeLists.txt || echo -e '\nSET_TARGET_PROPERTIES(ssl PROPERTIES SOVERSION 1)' >> boringssl/ssl/CMakeLists.txt
 mkdir -p boringssl/build boringssl/.openssl/lib boringssl/.openssl/include
 ln -sf `pwd`/boringssl/include/openssl boringssl/.openssl/include/openssl
 touch boringssl/.openssl/include/openssl/ssl.h
 cmake -B`pwd`/boringssl/build -H`pwd`/boringssl -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make -C`pwd`/boringssl/build -j$(getconf _NPROCESSORS_ONLN)
 cp boringssl/build/crypto/libcrypto.a boringssl/build/ssl/libssl.a boringssl/.openssl/lib
+
+# njs
+hg clone http://hg.nginx.org/njs njs
 
 rm *.zip *.gz

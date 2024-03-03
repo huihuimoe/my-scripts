@@ -2,14 +2,12 @@ source: nginx
 section: httpd
 Priority: optional
 Maintainer: huihuimoe
-Standards-Version: 1.25.3
+Standards-Version: 1.25.4
 
 Package: nginx-boringssl-huihui
 Architecture: any
 Depends: 
          geoip-database
-Recommends:
-         geoip-database-extra
 Conflicts: 
          nginx,
          nginx-huihui

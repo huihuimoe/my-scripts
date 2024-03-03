@@ -25,7 +25,7 @@ jobs:
     env:
       Dir: ${{ matrix.env.Dir }}
       Name: ${{ matrix.env.Name }}
-      CLANG_VERSION: 16
+      CLANG_VERSION: 17
     steps:
     - uses: actions/checkout@v4
     - name: Set up Clang
@@ -52,16 +52,16 @@ jobs:
     - name: runner deps fixes
       run: sudo apt-get remove nginx libgd3
     - name: Set up packages
-      run: sudo apt-get install -y binutils unzip curl gawk wget git perl debhelper cmake pkg-config nasm libpam-dev
+      run: sudo apt-get install -y binutils unzip curl gawk wget git mercurial perl debhelper cmake pkg-config nasm libpam-dev
     - name: Set up deps
-      run: sudo bash ./.github/nginx-package-build/get-deps.sh
+      run: sudo bash ./.github/nginx-package-build/get-deps.sh && sudo chown -R $USER:$USER deps
     - name: Pack
       run: bash ./.github/nginx-package-build/pack.sh $Dir
     - name: Show Info
       run: bash ./.github/nginx-package-build/show-info.sh $Dir
     - name: Find artifact
       run: |
-        FILE=$(find ./$Dir -name "*.deb" -type f) && echo $FILE
+        FILE=$(find ./$Dir -name "*.deb" -type f | grep -v dbgsym) && echo $FILE
         echo "Artifact=$FILE" >> $GITHUB_ENV
     - name: Upload Binaries
       uses: actions/upload-artifact@v3

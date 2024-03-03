@@ -1,5 +1,5 @@
 #!/bin/bash
-nginx_version=1.25.3
+nginx_version=1.25.4
 # https://github.com/openresty/echo-nginx-module/tags
 echo_nginx_module_version=0.63
 # https://github.com/openresty/headers-more-nginx-module/tags
@@ -19,12 +19,12 @@ nchan_version=1.3.6
 # https://github.com/openssl/openssl/tags
 # openssl_version=3.1.1
 # https://github.com/quictls/openssl/releases
-quictls_version=openssl-3.1.4-quic1
+quictls_version=openssl-3.1.5-quic1
 # https://sourceforge.net/projects/pcre/files/pcre/
 # TODO: support pcre2, but most of the lua modules are not supported
 pcre_version=8.45
 # pcre2_version=10.42
-clang_version=16
+clang_version=17
 
 # https://github.com/openresty/luajit2/tags
 luajit2_version=2.1-20231117

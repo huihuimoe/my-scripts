@@ -90,10 +90,11 @@ cd nginx-${nginx_version}
   --add-module=../lua-nginx-module-${lua_nginx_module_version} \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
   --add-module=../nchan \
-  --add-module=../nginx-module-vts
+  --add-module=../nginx-module-vts \
+  --add-module=../njs/nginx
 # --add-module=../${nps_dir} \
-# --with-http_perl_module \
 #  --with-zlib=../zlib-cf \
+# --with-http_perl_module \
 
 # Fix libatomic_ops
 ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a

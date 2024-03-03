@@ -85,11 +85,12 @@ cd nginx-${nginx_version}
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
   --add-module=../nginx-module-vts \
   --with-http_v3_module \
-  --add-module=../nchan
+  --add-module=../nchan \
+  --add-module=../njs/nginx
   # --with-http_v2_hpack_enc \
   # --with-quiche=../quiche
-  # --with-http_perl_module \
   # --with-zlib=../zlib-cf \
+  # --with-http_perl_module \
 
 # Fix "Error 127" during build
 touch ../boringssl/.openssl/include/openssl/ssl.h

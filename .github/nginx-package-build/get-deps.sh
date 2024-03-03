@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# set -x CC clang-16
-# set -x CXX clang++-16
+# set -x CC clang-17
+# set -x CXX clang++-17
 # set -x PREFIX /usr
 # set -x PKG_CONFIG "pkg-config --static"
 
 mkdir deps
 cd deps
 
-export CXX=clang++-16
-export CC=clang-16
+export CXX=clang++-17
+export CC=clang-17
 export PKG_CONFIG="pkg-config --static"
 export PREFIX="/usr"
 
