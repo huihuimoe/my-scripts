@@ -142,8 +142,13 @@ cd ..
 git clone https://github.com/vozlt/nginx-module-vts.git
 
 # nginx
-wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
-tar zxf nginx-${nginx_version}.tar.gz
+#wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+#tar zxf nginx-${nginx_version}.tar.gz
+#cd nginx-${nginx_version}
+# freenginx
+wget http://freenginx.org/download/freenginx-${nginx_version}.tar.gz
+tar zxf freenginx-${nginx_version}.tar.gz
+mv freenginx-${nginx_version} nginx-${nginx_version}
 cd nginx-${nginx_version}
 wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_records.patch
 patch -p1 < nginx_dynamic_tls_records.patch

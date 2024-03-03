@@ -54,7 +54,7 @@ jobs:
     - name: Set up packages
       run: sudo apt-get install -y binutils unzip curl gawk wget git perl debhelper cmake pkg-config nasm libpam-dev
     - name: Set up deps
-      run: sudo bash ./.github/nginx-package-build/get-deps.sh
+      run: sudo bash ./.github/nginx-package-build/get-deps.sh && sudo chown -R $USER:$USER deps
     - name: Pack
       run: bash ./.github/nginx-package-build/pack.sh $Dir
     - name: Show Info
