@@ -24,9 +24,9 @@ make -j
 make install
 cd ..
 
-wget https://tukaani.org/xz/xz-5.4.5.tar.gz
-tar -xzvf xz-5.4.5.tar.gz
-cd xz-5.4.5
+wget https://tukaani.org/xz/xz-5.4.6.tar.gz
+tar -xzvf xz-5.4.6.tar.gz
+cd xz-5.4.6
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -41,15 +41,15 @@ rm /usr/lib/libzstd.so*
 cd ..
 
 cd brotli
-mkdir out && cd out
+mkdir -p out && cd out
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DBUILD_SHARED_LIBS=off ..
 make -j
 make install
 cd ../..
 
-wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.tar.gz
-tar -xzvf util-linux-2.39.tar.gz
-cd util-linux-2.39
+wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.tar.gz
+tar -xzvf util-linux-2.40.tar.gz
+cd util-linux-2.40
 ./configure --disable-all-programs --disable-shared --enable-libuuid --prefix=$PREFIX
 make -j
 make install
@@ -74,9 +74,9 @@ cd ..
 
 # libxslt
 
-wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.47.tar.bz2
-tar -xjvf libgpg-error-1.47.tar.bz2
-cd libgpg-error-1.47
+wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.49.tar.bz2
+tar -xjvf libgpg-error-1.49.tar.bz2
+cd libgpg-error-1.49
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -90,10 +90,10 @@ make -j
 make install
 cd ..
 
-wget https://github.com/unicode-org/icu/releases/download/release-74-1/icu4c-74_1-src.tgz
-tar -xzvf icu4c-74_1-src.tgz
+wget https://github.com/unicode-org/icu/releases/download/release-75-1/icu4c-75_1-src.tgz
+tar -xzvf icu4c-75_1-src.tgz
 cd icu/source
-env CXXFLAGS="-std=c++11 $CXXFLAGS"\
+env CXXFLAGS="-std=c++17 $CXXFLAGS" CFLAGS="-std=c11" \
   ./configure --enable-static --disable-shared --prefix=$PREFIX --enable-tests=no --enable-samples=no --enable-dyload=no --enable-release
 make -j$(nproc)
 make install
@@ -107,9 +107,9 @@ make -j
 make install
 cd ..
 
-wget https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.3.tar.xz
-tar -xvf libxml2-2.12.3.tar.xz
-cd libxml2-2.12.3
+wget https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.7.tar.xz
+tar -xvf libxml2-2.12.7.tar.xz
+cd libxml2-2.12.7
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install
@@ -152,9 +152,9 @@ cd ..
 # make install
 # cd ../..
 
-wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.3.2.tar.gz
-tar -xzvf libwebp-1.3.2.tar.gz
-cd libwebp-1.3.2
+wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.4.0.tar.gz
+tar -xzvf libwebp-1.4.0.tar.gz
+cd libwebp-1.4.0
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" -DENABLE_STATIC=on -DENABLE_SHARED=off ..

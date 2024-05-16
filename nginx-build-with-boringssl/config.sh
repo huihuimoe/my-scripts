@@ -1,5 +1,5 @@
 #!/bin/bash
-nginx_version=1.25.4
+nginx_version=1.27.0
 # https://github.com/openresty/echo-nginx-module/tags
 echo_nginx_module_version=0.63
 # https://github.com/openresty/headers-more-nginx-module/tags
@@ -24,7 +24,7 @@ pcre_version=8.45
 clang_version=17
 
 # https://github.com/openresty/luajit2/tags
-luajit2_version=2.1-20231117
+luajit2_version=2.1-20240314
 # https://github.com/openresty/stream-lua-nginx-module/tags
 stream_lua_nginx_module_version=0.0.14
 # https://github.com/leev/ngx_http_geoip2_module/tags

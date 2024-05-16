@@ -72,7 +72,7 @@ cd nginx-${nginx_version}
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
   --with-pcre=../pcre-${pcre_version} \
   --with-pcre-jit \
-  --with-openssl=../openssl-${openssl_version} \
+  --with-openssl=../openssl-${quictls_version} \
   --with-openssl-opt="enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=${ARCH}" \
   --add-module=../ngx_cache_purge \
   --add-module=../nginx-upload-progress-module \

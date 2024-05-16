@@ -147,8 +147,8 @@ cd ngx_brotli && git submodule update --init && cd ..
 # https://nginx.org/en/docs/configure.html#http_v3_module
 wget https://github.com/quictls/openssl/archive/refs/tags/${quictls_version}.tar.gz
 tar zxf ${quictls_version}.tar.gz
-mv openssl-openssl-* openssl-${openssl_version}
-# dirname: openssl-${openssl_version}
+mv openssl-openssl-* openssl-${quictls_version}
+# dirname: openssl-${quictls_version}
 
 # pcre
 wget http://downloads.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.zip -O pcre-${pcre_version}.zip
@@ -180,6 +180,7 @@ wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_r
 patch -p1 < nginx_dynamic_tls_records.patch
 wget -L https://raw.githubusercontent.com/kn007/patch/master/use_openssl_md5_sha1.patch
 patch -p1 < use_openssl_md5_sha1.patch
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stream-proxy-protocol-v2/main/stream-proxy-protocol-v2-release-1.27.0.patch)
 # wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
 # patch -p1 < nginx.patch
 cd ..

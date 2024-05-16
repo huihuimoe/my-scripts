@@ -8,6 +8,7 @@ apt-get install -y fish unzip curl gawk wget git mercurial perl bison lsb-releas
 
 # LLVM
 curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- 17
+curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- 17
 
 # Rust
 curl -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly
