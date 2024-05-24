@@ -79,10 +79,6 @@ cd ..
 
 # nginx-upload-progress-module
 git clone https://github.com/masterzen/nginx-upload-progress-module
-cd nginx-upload-progress-module
-wget https://github.com/masterzen/nginx-upload-progress-module/files/8980323/nginx_1.23.0.patch.txt
-patch -p1 < nginx_1.23.0.patch.txt
-cd ..
 # dirname: nginx-upload-progress-module
 
 # ngx_cache_purge
@@ -122,21 +118,6 @@ git clone --depth=1 https://github.com/google/ngx_brotli.git
 # git clone --depth=1 https://github.com/eustas/ngx_brotli.git
 cd ngx_brotli && git submodule update --init && cd ..
 # dirname: ngx_brotli
-
-# pagespeed-ngx
-# FIXME: replace with version after bug fixes
-# wget https://github.com/apache/incubator-pagespeed-ngx/archive/v${pagespeed_ngx_version}.zip
-# unzip v${pagespeed_ngx_version}.zip
-# git clone --depth=1 https://github.com/apache/incubator-pagespeed-ngx incubator-pagespeed-ngx-${pagespeed_ngx_version}
-# nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
-# cd "$nps_dir"
-# # psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL)
-# psol_url="https://dist.apache.org/repos/dist/release/incubator/pagespeed/1.14.36.1/x64/psol-1.14.36.1-apache-incubating-x64.tar.gz"
-# wget ${psol_url}
-# tar -zxf $(basename ${psol_url})
-# rm $(basename ${psol_url})
-# cd ..
-# dirname: ${nps_dir}
 
 # openssl
 # wget https://github.com/openssl/openssl/archive/refs/tags/openssl-${openssl_version}.tar.gz
@@ -184,8 +165,6 @@ patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stre
 # wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
 # patch -p1 < nginx.patch
 cd ..
-# nginx-with-quic
-# hg clone -b quic http://hg.nginx.org/nginx-quic nginx-${nginx_version}
 # dirname: nginx-${nginx_version}
 
 # libatomic_ops

@@ -15,7 +15,8 @@ jobs:
         os:
           # ubuntu-22 requires glibc 2.34
           - ubuntu-20.04
-          - [self-hosted, linux, ARM64]
+          # - [self-hosted, linux, ARM64]
+          - codebuild-github-my-scripts-${{ github.run_id }}-${{ github.run_attempt }}
         env:
           - Dir: nginx-build
             Name: nginx
@@ -27,6 +28,19 @@ jobs:
       Name: ${{ matrix.env.Name }}
       CLANG_VERSION: 17
     steps:
+    - name: Set up packages
+      run: |
+        [ -z "$(command -v sudo)" ] && apt-get update && apt-get install -y sudo --no-install-recommends
+        sudo apt-get update
+        sudo env DEBIAN_FRONTEND=noninteractive TZ=Asia/Tokyo apt-get install -y \
+          binutils unzip curl gawk wget ca-certificates \
+          git mercurial perl debhelper \
+          cmake pkg-config nasm libpam-dev build-essential \
+          lsb-release wget software-properties-common gnupg \
+          --no-install-recommends
+    # https://github.com/actions/runner-images/issues/6153
+    - name: runner deps fixes
+      run: sudo apt-get remove -y nginx libgd3
     - uses: actions/checkout@v4
     - name: Set up Clang
       run: |
@@ -48,11 +62,6 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
         toolchain: stable
-    # https://github.com/actions/runner-images/issues/6153
-    - name: runner deps fixes
-      run: sudo apt-get remove nginx libgd3
-    - name: Set up packages
-      run: sudo apt-get install -y binutils unzip curl gawk wget git mercurial perl debhelper cmake pkg-config nasm libpam-dev
     - name: Set up deps
       run: sudo bash ./.github/nginx-package-build/get-deps.sh && sudo chown -R $USER:$USER deps
     - name: Pack

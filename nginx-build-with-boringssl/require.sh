@@ -79,10 +79,6 @@ cd ..
 
 # nginx-upload-progress-module
 git clone --depth=1 https://github.com/masterzen/nginx-upload-progress-module
-cd nginx-upload-progress-module
-wget https://github.com/masterzen/nginx-upload-progress-module/files/8980323/nginx_1.23.0.patch.txt
-patch -p1 < nginx_1.23.0.patch.txt
-cd ..
 # dirname: nginx-upload-progress-module
 
 # ngx_cache_purge
@@ -157,17 +153,6 @@ patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stre
 # wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_with_quic.patch
 # patch -p1 < nginx_with_quic.patch
 cd ..
-
-# nginx-with-quic
-# hg clone http://hg.nginx.org/nginx-quic -r "quic" nginx-${nginx_version}
-# cd nginx-${nginx_version}
-# wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
-# patch -p1 < nginx.patch
-# cd ..
-# dirname: nginx-${nginx_version}
-
-# quiche
-# git clone --recursive --depth=1 https://github.com/cloudflare/quiche
 
 # libatomic_ops
 wget -O libatomic_ops-${libatomic_ops_version}.tar.gz https://github.com/ivmai/libatomic_ops/releases/download/v${libatomic_ops_version}/libatomic_ops-${libatomic_ops_version}.tar.gz

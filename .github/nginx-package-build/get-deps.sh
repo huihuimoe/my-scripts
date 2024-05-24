@@ -74,7 +74,8 @@ cd ..
 
 # libxslt
 
-wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.49.tar.bz2
+# wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.49.tar.bz2
+wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.49.tar.gz
 tar -xjvf libgpg-error-1.49.tar.bz2
 cd libgpg-error-1.49
 ./configure --disable-shared --prefix=$PREFIX
@@ -82,7 +83,8 @@ make -j
 make install
 cd ..
 
-wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2
+# wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2
+wget https://mirrors.dotsrc.org/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2
 tar -xjvf libgcrypt-1.10.3.tar.bz2
 cd libgcrypt-1.10.3
 ./configure --disable-shared --prefix=$PREFIX --disable-avx2-support
@@ -99,7 +101,8 @@ make -j$(nproc)
 make install
 cd ../..
 
-wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz
+# wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz
+wget https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
 tar -xzvf libiconv-1.17.tar.gz
 cd libiconv-1.17
 ./configure --disable-shared --prefix=$PREFIX
