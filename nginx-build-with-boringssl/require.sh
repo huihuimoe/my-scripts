@@ -150,6 +150,7 @@ patch -p1 < nginx_dynamic_tls_records.patch
 wget -L https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch
 patch -p1 < Enable_BoringSSL_OCSP.patch
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stream-proxy-protocol-v2/main/stream-proxy-protocol-v2-release-1.27.0.patch)
+patch -p1 < ../../nginx-disable-http-to-https.patch
 # wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_with_quic.patch
 # patch -p1 < nginx_with_quic.patch
 cd ..

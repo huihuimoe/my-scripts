@@ -162,6 +162,7 @@ patch -p1 < nginx_dynamic_tls_records.patch
 wget -L https://raw.githubusercontent.com/kn007/patch/master/use_openssl_md5_sha1.patch
 patch -p1 < use_openssl_md5_sha1.patch
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stream-proxy-protocol-v2/main/stream-proxy-protocol-v2-release-1.27.0.patch)
+patch -p1 < ../../nginx-disable-http-to-https.patch
 # wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx.patch
 # patch -p1 < nginx.patch
 cd ..

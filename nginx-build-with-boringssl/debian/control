@@ -6,8 +6,7 @@ Standards-Version: 1.27.0
 
 Package: nginx-boringssl-huihui
 Architecture: any
-Depends: 
-         geoip-database
+Suggests: geoip-database
 Conflicts: 
          nginx,
          nginx-huihui
