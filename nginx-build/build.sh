@@ -86,7 +86,7 @@ cd nginx-${nginx_version}
   --add-module=../ngx_http_geoip2_module-${ngx_http_geoip2_module_version} \
   --add-module=../echo-nginx-module-${echo_nginx_module_version} \
   --add-module=../ngx-fancyindex-${fancyindex_version} \
-  --add-module=../nginx-rtmp-module-${rtmp_module_version} \
+  --add-module=../nginx-rtmp-module \
   --add-module=../ngx_brotli \
   --add-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
