@@ -131,7 +131,8 @@ unzip pcre-${pcre_version}.zip
 # zlib-cf
 git clone https://github.com/cloudflare/zlib.git zlib-cf
 cd zlib-cf
-make -f Makefile.in distclean
+#make -f Makefile.in distclean
+./configure --static --64
 cd ..
 
 # nginx-module-vts
@@ -165,7 +166,7 @@ rm libatomic_ops-${libatomic_ops_version}.tar.gz
 wget -O luajit2-${luajit2_version}.tar.gz https://github.com/openresty/luajit2/archive/v${luajit2_version}.tar.gz
 tar -xzvf luajit2-${luajit2_version}.tar.gz
 cd luajit2-${luajit2_version}
-make -j$(getconf _NPROCESSORS_ONLN) CFLAGS='-static -static-libgcc -static-libstdc++ -fPIC'
+make -j$(getconf _NPROCESSORS_ONLN) CFLAGS='-static -fPIC' CC=$CC
 cd src
 ln -s libluajit.so libluajit-5.1.so
 cd ..
@@ -186,6 +187,8 @@ cd ..
 git clone https://boringssl.googlesource.com/boringssl
 cd boringssl
 git checkout --force --quiet e648990
+# https://trac.nginx.org/nginx/ticket/2605
+# git checkout --force --quiet chromium-stable
 cd ..
 grep -qxF 'SET_TARGET_PROPERTIES(crypto PROPERTIES SOVERSION 1)' boringssl/crypto/CMakeLists.txt || echo -e '\nSET_TARGET_PROPERTIES(crypto PROPERTIES SOVERSION 1)' >> boringssl/crypto/CMakeLists.txt
 grep -qxF 'SET_TARGET_PROPERTIES(ssl PROPERTIES SOVERSION 1)' boringssl/ssl/CMakeLists.txt || echo -e '\nSET_TARGET_PROPERTIES(ssl PROPERTIES SOVERSION 1)' >> boringssl/ssl/CMakeLists.txt

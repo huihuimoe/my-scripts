@@ -4,7 +4,7 @@ bash ./require.sh
 
 # libcurl based unavailable
 if [ ! -z "$CI" ]; then
-  mkdir system_libs
+  mkdir -p system_libs
   sudo mv /usr/lib/$(uname -m)-linux-gnu/libbrotlicommon.so.* /usr/lib/$(uname -m)-linux-gnu/libbrotlienc.so.* system_libs/
 fi
 bash ./build.sh

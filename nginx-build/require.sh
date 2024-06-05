@@ -143,7 +143,8 @@ unzip pcre-${pcre_version}.zip
 # zlib-cf
 git clone https://github.com/cloudflare/zlib.git zlib-cf
 cd zlib-cf
-make -f Makefile.in distclean
+#make -f Makefile.in distclean
+./configure --static --64
 cd ..
 
 # nginx-module-vts
@@ -179,7 +180,7 @@ wget -O luajit2-${luajit2_version}.tar.gz https://github.com/openresty/luajit2/a
 tar -xzvf luajit2-${luajit2_version}.tar.gz
 cd luajit2-${luajit2_version}
 sed -i "s/DEFAULT_CC = gcc/DEFAULT_CC = $CC/" src/Makefile
-env CFLAGS='-static -fPIC' make -j$(getconf _NPROCESSORS_ONLN)
+make -j$(getconf _NPROCESSORS_ONLN) CFLAGS='-static -fPIC' CC=$CC
 cd src
 ln -s libluajit.so libluajit-5.1.so
 cd ..
