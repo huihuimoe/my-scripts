@@ -59,7 +59,8 @@ tar zxf v${fancyindex_version}.tar.gz
 # nginx-rtmp-module
 wget https://github.com/arut/nginx-rtmp-module/archive/v${rtmp_module_version}.tar.gz
 tar zxf v${rtmp_module_version}.tar.gz
-# dirname: nginx-rtmp-module-${rtmp_module_version}
+mv nginx-rtmp-module-${rtmp_module_version} nginx-rtmp-module
+# dirname: nginx-rtmp-module
 
 # nchan
 wget https://github.com/slact/nchan/archive/v${nchan_version}.tar.gz
@@ -132,12 +133,18 @@ mv openssl-openssl-* openssl-${quictls_version}
 # dirname: openssl-${quictls_version}
 
 # pcre
-wget http://downloads.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.zip -O pcre-${pcre_version}.zip
-unzip pcre-${pcre_version}.zip
+# wget http://downloads.sourceforge.net/project/pcre/pcre/${pcre_version}/pcre-${pcre_version}.zip -O pcre-${pcre_version}.zip
+# unzip pcre-${pcre_version}.zip
 # dirname: pcre-${pcre_version}
 
-# wget -O pcre2-${pcre2_version}.zip https://github.com/PhilipHazel/pcre2/releases/download/pcre2-${pcre2_version}/pcre2-${pcre2_version}.zip
-# unzip pcre2-${pcre2_version}.zip
+wget -O pcre2-${pcre2_version}.zip https://github.com/PhilipHazel/pcre2/releases/download/pcre2-${pcre2_version}/pcre2-${pcre2_version}.zip
+unzip pcre2-${pcre2_version}.zip
+cd pcre2-${pcre2_version}
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DPCRE2_SUPPORT_JIT=ON ..
+make -j$(getconf _NPROCESSORS_ONLN)
+cd ../..
 # dirname: pcre2-${pcre2_version}
 
 # zlib-cf

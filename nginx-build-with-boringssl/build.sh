@@ -1,12 +1,18 @@
 #!/bin/bash
 . ./config.sh
-export CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src"
 export CXX=clang++-${clang_version}
+# https://trac.nginx.org/nginx/ticket/2605
+# export CC=clang++-${clang_version}
 export CC=clang-${clang_version}
 
+CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src -I`pwd`/pcre2-${pcre2_version}/build"
+# https://github.com/arut/nginx-rtmp-module/commit/c56fd73def3eb407155ecebc28af84ea83dc99e5
+CFLAGS="$CFLAGS -Wno-error=unused-but-set-variable"
+EX_LD_OPT="-L`pwd`/pcre2-${pcre2_version}/build"
+EX_LD_OPT="$EX_LD_OPT -L`pwd`/luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl -lstdc++"
 # only in CI
 if [ ! -z "$CI" ]; then
-  EX_LD_OPT="-L/usr/lib -l:libxml2.a -l:libz.a -l:liblzma.a -l:libiconv.a -l:libcrypt.a"
+  EX_LD_OPT="$EX_LD_OPT -L/usr/lib -l:libxml2.a -l:libz.a -l:liblzma.a -l:libiconv.a -l:libcrypt.a"
   EX_LD_OPT="$EX_LD_OPT -l:libicuuc.a -l:libicudata.a"
 fi
 ARCH=$(uname -m)
@@ -22,7 +28,7 @@ esac
 cd nginx-${nginx_version}
 ./configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=${ARCH} ${CFLAGS}" \
-  --with-ld-opt="-Wl,-z,relro -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl $EX_LD_OPT" \
+  --with-ld-opt="-Wl,-z,relro $EX_LD_OPT" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
@@ -66,7 +72,6 @@ cd nginx-${nginx_version}
   --with-stream_realip_module \
   --with-threads \
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
-  --with-pcre=../pcre-${pcre_version} \
   --with-openssl=../boringssl \
   --add-module=../ngx_cache_purge \
   --add-module=../nginx-upload-progress-module \
@@ -77,7 +82,7 @@ cd nginx-${nginx_version}
   --add-module=../ngx_http_geoip2_module-${ngx_http_geoip2_module_version} \
   --add-module=../echo-nginx-module-${echo_nginx_module_version} \
   --add-module=../ngx-fancyindex-${fancyindex_version} \
-  --add-module=../nginx-rtmp-module-${rtmp_module_version} \
+  --add-module=../nginx-rtmp-module \
   --add-module=../ngx_brotli \
   --add-module=../headers-more-nginx-module-${headers_more_nginx_module_version} \
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
@@ -91,6 +96,7 @@ cd nginx-${nginx_version}
   # --with-quiche=../quiche
   # --with-zlib=../zlib-cf \
   # --with-http_perl_module \
+  # --with-pcre=../pcre2-${pcre2_version} \
 
 # Fix "Error 127" during build
 touch ../boringssl/.openssl/include/openssl/ssl.h
@@ -100,7 +106,7 @@ touch ../boringssl/.openssl/include/openssl/ssl.h
 sed -i '0,/#define SSL_R/s//#define SSL_R_MISSING_QUIC_TRANSPORT_PARAMETERS_EXTENSION 801\n#define SSL_R/' ../boringssl/.openssl/include/openssl/ssl.h
 
 # Fix libatomic_ops
-ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
+ln -sf ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
 
 make -j$(getconf _NPROCESSORS_ONLN)
 cd ..

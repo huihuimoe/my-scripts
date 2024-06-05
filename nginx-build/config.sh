@@ -20,8 +20,8 @@ nchan_version=1.3.6
 quictls_version=openssl-3.1.5-quic1
 # https://sourceforge.net/projects/pcre/files/pcre/
 # TODO: support pcre2, but most of the lua modules are not supported
-pcre_version=8.45
-# pcre2_version=10.42
+# pcre_version=8.45
+pcre2_version=10.43
 clang_version=17
 
 # https://github.com/openresty/luajit2/tags

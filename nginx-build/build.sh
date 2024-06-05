@@ -1,15 +1,19 @@
 #!/bin/bash
 . ./config.sh
 # nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
-export CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src"
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
 
 # ./my-scripts/nginx-build/nginx-1.23.2/objs/autoconf.err
 
+CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src -I`pwd`/pcre2-${pcre2_version}/build"
+# https://github.com/arut/nginx-rtmp-module/commit/c56fd73def3eb407155ecebc28af84ea83dc99e5
+CFLAGS="$CFLAGS -Wno-error=unused-but-set-variable"
+EX_LD_OPT="-L`pwd`/pcre2-${pcre2_version}/build"
+EX_LD_OPT="$EX_LD_OPT -L`pwd`/luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl"
 # only in CI
 if [ ! -z "$CI" ]; then
-  EX_LD_OPT="-L/usr/lib -l:libxml2.a -l:libz.a -l:liblzma.a -l:libiconv.a -l:libcrypt.a"
+  EX_LD_OPT="$EX_LD_OPT -L/usr/lib -l:libxml2.a -l:libz.a -l:liblzma.a -l:libiconv.a -l:libcrypt.a"
   EX_LD_OPT="$EX_LD_OPT -l:libicuuc.a -l:libicudata.a"
 fi
 ARCH=$(uname -m)
@@ -26,7 +30,7 @@ esac
 cd nginx-${nginx_version}
 ./configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=${ARCH} ${CFLAGS}" \
-  --with-ld-opt="-Wl,-z,relro -L`pwd`/../luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/../jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl $EX_LD_OPT" \
+  --with-ld-opt="-Wl,-z,relro $EX_LD_OPT" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \
@@ -70,7 +74,6 @@ cd nginx-${nginx_version}
   --with-stream_realip_module \
   --with-threads \
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
-  --with-pcre=../pcre-${pcre_version} \
   --with-pcre-jit \
   --with-openssl=../openssl-${quictls_version} \
   --with-openssl-opt="enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=${ARCH}" \
@@ -95,9 +98,10 @@ cd nginx-${nginx_version}
 # --add-module=../${nps_dir} \
 #  --with-zlib=../zlib-cf \
 # --with-http_perl_module \
+# --with-pcre=../pcre-${pcre_version} \
 
 # Fix libatomic_ops
-ln -s ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
+ln -sf ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
 
 # patch for pagespeed
 # gawk -i inplace \
