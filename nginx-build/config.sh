@@ -13,16 +13,21 @@ fancyindex_version=0.5.2
 # https://github.com/arut/nginx-rtmp-module/tags
 rtmp_module_version=1.2.2
 # https://github.com/slact/nchan/tags
-nchan_version=1.3.6
+# nchan_version=1.3.6
+
 # https://github.com/openssl/openssl/tags
 # openssl_version=3.1.1
 # https://github.com/quictls/openssl/releases
+# wait for 3.3 https://github.com/quictls/openssl/issues/138
+# https://github.com/haproxy/haproxy/issues/2294
 quictls_version=openssl-3.1.5-quic1
+# higher performance than openssl3
+# quictls_version=OpenSSL_1_1_1w-quic1
+
 # https://sourceforge.net/projects/pcre/files/pcre/
-# TODO: support pcre2, but most of the lua modules are not supported
 # pcre_version=8.45
 pcre2_version=10.43
-clang_version=17
+clang_version=18
 
 # https://github.com/openresty/luajit2/tags
 luajit2_version=2.1-20240314

@@ -26,7 +26,7 @@ jobs:
     env:
       Dir: ${{ matrix.env.Dir }}
       Name: ${{ matrix.env.Name }}
-      CLANG_VERSION: 17
+      CLANG_VERSION: 18
     steps:
     - name: Set up packages
       run: |
@@ -34,7 +34,7 @@ jobs:
         sudo apt-get update
         sudo env DEBIAN_FRONTEND=noninteractive TZ=Asia/Tokyo apt-get install -y \
           binutils unzip curl gawk wget ca-certificates \
-          git mercurial perl debhelper \
+          git perl debhelper \
           cmake pkg-config nasm libpam-dev build-essential \
           lsb-release wget software-properties-common gnupg \
           --no-install-recommends
@@ -57,11 +57,11 @@ jobs:
       uses: actions/setup-go@v5
       with:
         go-version: ${{ steps.go_version.outputs.go_version }}
-    - name: Set up Rust
-      if: ${{ matrix.env.Name }} == "nginx-boringssl"
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
+    # - name: Set up Rust
+    #   if: ${{ matrix.env.Name }} == "nginx-boringssl"
+    #   uses: actions-rs/toolchain@v1
+    #   with:
+    #     toolchain: stable
     - name: Set up deps
       run: sudo bash ./.github/nginx-package-build/get-deps.sh && sudo chown -R $USER:$USER deps
     - name: Pack

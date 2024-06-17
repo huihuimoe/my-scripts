@@ -8,8 +8,8 @@
 mkdir deps
 cd deps
 
-export CXX=clang++-17
-export CC=clang-17
+export CXX=clang++-18
+export CC=clang-18
 export PKG_CONFIG="pkg-config --static"
 export PREFIX="/usr"
 
@@ -24,9 +24,10 @@ make -j
 make install
 cd ..
 
-wget https://tukaani.org/xz/xz-5.4.6.tar.gz
-tar -xzvf xz-5.4.6.tar.gz
-cd xz-5.4.6
+# https://github.com/tukaani-project/xz
+wget https://tukaani.org/xz/xz-5.6.2.tar.gz
+tar -xzvf xz-5.6.2.tar.gz
+cd xz-5.6.2
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -42,7 +43,7 @@ cd ..
 
 cd brotli
 mkdir -p out && cd out
-cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DBUILD_SHARED_LIBS=off ..
+cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DBUILD_SHARED_LIBS=off -DCMAKE_INSTALL_LIBDIR=lib ..
 make -j
 make install
 cd ../..
@@ -155,15 +156,14 @@ cd ..
 # make install
 # cd ../..
 
+# https://github.com/webmproject/libwebp/tags
 wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.4.0.tar.gz
 tar -xzvf libwebp-1.4.0.tar.gz
 cd libwebp-1.4.0
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" -DENABLE_STATIC=on -DENABLE_SHARED=off ..
+./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
-cd ../..
+cd ..
 
 # wget https://github.com/strukturag/libheif/releases/download/v1.13.0/libheif-1.13.0.tar.gz
 # tar -xzvf libheif-1.13.0.tar.gz

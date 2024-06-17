@@ -9,12 +9,10 @@ wget -O stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz https:
 tar -xzvf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
 # dirname: stream-lua-nginx-module-${stream_lua_nginx_module_version}
 
-# stream-lua-nginx-module
 wget -O lua-resty-lrucache-${nginx_lua_resty_lrucache_version}.tar.gz https://github.com/openresty/lua-resty-lrucache/archive/v${nginx_lua_resty_lrucache_version}.tar.gz
 tar -xzvf lua-resty-lrucache-${nginx_lua_resty_lrucache_version}.tar.gz
 # dirname: lua-resty-lrucache-${nginx_lua_resty_lrucache_version}
 
-# stream-lua-nginx-module
 wget -O lua-resty-core-${nginx_lua_resty_core_version}.tar.gz https://github.com/openresty/lua-resty-core/archive/v${nginx_lua_resty_core_version}.tar.gz
 tar -xzvf lua-resty-core-${nginx_lua_resty_core_version}.tar.gz
 # dirname: lua-resty-core-${nginx_lua_resty_core_version}
@@ -23,6 +21,9 @@ tar -xzvf lua-resty-core-${nginx_lua_resty_core_version}.tar.gz
 wget -O lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz https://github.com/ekho/lua-nginx-split-clients/archive/v${nginx_lua_split_clients_version}.tar.gz
 tar -xzvf lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz
 # dirname: lua-nginx-split-clients-${nginx_lua_split_clients_version}
+
+git clone --depth=1 https://github.com/openresty/lua-upstream-nginx-module
+git clone --depth=1 https://github.com/openresty/set-misc-nginx-module
 
 # ngx_http_geoip2_module
 wget -O ngx_http_geoip2_module-${ngx_http_geoip2_module_version}.tar.gz https://github.com/leev/ngx_http_geoip2_module/archive/${ngx_http_geoip2_module_version}.tar.gz
@@ -43,7 +44,7 @@ tar zxf v${headers_more_nginx_module_version}.tar.gz
 # wget https://github.com/openresty/lua-nginx-module/archive/v${lua_nginx_module_version}.tar.gz
 # tar zxf v${lua_nginx_module_version}.tar.gz
 # FIXME: temp fix
-git clone https://github.com/openresty/lua-nginx-module.git lua-nginx-module-${lua_nginx_module_version}
+git clone --depth=1 https://github.com/openresty/lua-nginx-module.git lua-nginx-module-${lua_nginx_module_version}
 # dirname: lua-nginx-module-${lua_nginx_module_version}
 
 # ngx_devel_kit
@@ -63,8 +64,8 @@ mv nginx-rtmp-module-${rtmp_module_version} nginx-rtmp-module
 # dirname: nginx-rtmp-module
 
 # nchan
-wget https://github.com/slact/nchan/archive/v${nchan_version}.tar.gz
-tar zxf v${nchan_version}.tar.gz
+# wget https://github.com/slact/nchan/archive/v${nchan_version}.tar.gz
+# tar zxf v${nchan_version}.tar.gz
 git clone --recursive --depth=1 https://github.com/slact/nchan
 # dirname: nchan-${nchan_version}
 
@@ -72,9 +73,6 @@ git clone --recursive --depth=1 https://github.com/slact/nchan
 git clone https://github.com/yaoweibin/ngx_http_substitutions_filter_module
 cd ngx_http_substitutions_filter_module
 git checkout e12e965ac1837ca709709f9a26f572a54d83430e
-# merged
-# wget https://github.com/yaoweibin/ngx_http_substitutions_filter_module/pull/19.patch
-# patch -p1 < 19.patch
 cd ..
 # dirname: ngx_http_substitutions_filter_module
 
@@ -136,14 +134,14 @@ cd ../..
 # dirname: pcre2-${pcre2_version}
 
 # zlib-cf
-git clone https://github.com/cloudflare/zlib.git zlib-cf
+git clone --depth=1 https://github.com/cloudflare/zlib.git zlib-cf
 cd zlib-cf
 #make -f Makefile.in distclean
 ./configure --static --64
 cd ..
 
 # nginx-module-vts
-git clone https://github.com/vozlt/nginx-module-vts.git
+git clone --depth=1 https://github.com/vozlt/nginx-module-vts.git
 
 # nginx
 #wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
@@ -153,20 +151,20 @@ wget http://freenginx.org/download/freenginx-${nginx_version}.tar.gz
 tar zxf freenginx-${nginx_version}.tar.gz
 mv freenginx-${nginx_version} nginx-${nginx_version}
 cd nginx-${nginx_version}
-wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_records.patch
-patch -p1 < nginx_dynamic_tls_records.patch
-wget -L https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch
-patch -p1 < Enable_BoringSSL_OCSP.patch
+# huihui's patches
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stream-proxy-protocol-v2/main/stream-proxy-protocol-v2-release-1.27.0.patch)
-patch -p1 < ../../nginx-disable-http-to-https.patch
-# wget -L https://raw.githubusercontent.com/kn007/patch/master/nginx_with_quic.patch
-# patch -p1 < nginx_with_quic.patch
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/nginx-disable-http-to-https.patch)
+# https://openresty.org/en/nginx-ssl-patches.html
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.17.1-ssl_cert_cb_yield.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.17.1-ssl_sess_cb_yield.patch)
+# kn007's patches
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_records.patch)
+# patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch)
 cd ..
 
 # libatomic_ops
 wget -O libatomic_ops-${libatomic_ops_version}.tar.gz https://github.com/ivmai/libatomic_ops/releases/download/v${libatomic_ops_version}/libatomic_ops-${libatomic_ops_version}.tar.gz
 tar -xzvf libatomic_ops-${libatomic_ops_version}.tar.gz
-rm libatomic_ops-${libatomic_ops_version}.tar.gz
 
 # luajit
 # https://hub.docker.com/r/ekho/nginx-lua/dockerfile
@@ -180,6 +178,15 @@ cd ..
 cd ..
 # dirname: luajit2-${luajit2_version}
 
+git clone --depth=1 https://github.com/openresty/lua-cjson
+mkdir -p lua-cjson/build
+cd lua-cjson/build
+cmake .. \
+  -DLUA_LIBRARIES=$(pwd)/../../luajit2-${luajit2_version}/src \
+  -DLUA_INCLUDE_DIR=$(pwd)/../../luajit2-${luajit2_version}/src
+make -j
+cd ../..
+
 # jemalloc
 wget -O jemalloc-${jemalloc_version}.tar.bz2 https://github.com/jemalloc/jemalloc/releases/download/${jemalloc_version}/jemalloc-${jemalloc_version}.tar.bz2
 tar -xvf jemalloc-${jemalloc_version}.tar.bz2
@@ -191,22 +198,24 @@ cd ..
 
 # boringssl with tls1.3
 # thanks to https://github.com/nginx-modules/docker-nginx-boringssl/blob/main/mainline-alpine.Dockerfile#L111
-git clone https://boringssl.googlesource.com/boringssl
-cd boringssl
+# git clone https://boringssl.googlesource.com/boringssl
+# cd boringssl
 # git checkout --force --quiet e648990
+# cd ..
 # https://trac.nginx.org/nginx/ticket/2605
-git checkout --force --quiet chromium-stable
-cd ..
+git clone https://boringssl.googlesource.com/boringssl --depth=1 -b chromium-stable
 grep -qxF 'SET_TARGET_PROPERTIES(crypto PROPERTIES SOVERSION 1)' boringssl/crypto/CMakeLists.txt || echo -e '\nSET_TARGET_PROPERTIES(crypto PROPERTIES SOVERSION 1)' >> boringssl/crypto/CMakeLists.txt
 grep -qxF 'SET_TARGET_PROPERTIES(ssl PROPERTIES SOVERSION 1)' boringssl/ssl/CMakeLists.txt || echo -e '\nSET_TARGET_PROPERTIES(ssl PROPERTIES SOVERSION 1)' >> boringssl/ssl/CMakeLists.txt
 mkdir -p boringssl/build boringssl/.openssl/lib boringssl/.openssl/include
 ln -sf `pwd`/boringssl/include/openssl boringssl/.openssl/include/openssl
 touch boringssl/.openssl/include/openssl/ssl.h
-cmake -B`pwd`/boringssl/build -H`pwd`/boringssl -DCMAKE_BUILD_TYPE=RelWithDebInfo
+cmake -B`pwd`/boringssl/build -H`pwd`/boringssl \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DCMAKE_CXX_FLAGS="-Wno-error=deprecated-declarations"
 make -C`pwd`/boringssl/build -j$(getconf _NPROCESSORS_ONLN)
 cp boringssl/build/crypto/libcrypto.a boringssl/build/ssl/libssl.a boringssl/.openssl/lib
 
 # njs
-hg clone http://hg.nginx.org/njs njs
+git clone --depth=1 https://github.com/nginx/njs
 
 rm *.zip *.gz

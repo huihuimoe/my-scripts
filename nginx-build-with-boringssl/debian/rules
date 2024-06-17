@@ -8,12 +8,10 @@ clean:
 build:
 
 binary:
-	# cd ../luajit2-* && make install DESTDIR=$(DEST)
-	cd ../lua-resty-lrucache-* && make install DESTDIR=$(DEST)
-	cd ../lua-resty-core-* && make install DESTDIR=$(DEST)
-	cd ../lua-nginx-split-clients-* && make install DESTDIR=$(DEST)
-	mkdir -p $(DEST)/usr/local/share/lua/5.1
-	cd $(DEST)/usr/local/lib/lua && mv ngx resty split-clients $(DEST)/usr/local/share/lua/5.1
+	cd ../lua-resty-lrucache-* && make install DESTDIR=$(DEST) LUA_LIB_DIR=/usr/local/share/lua/5.1
+	cd ../lua-resty-core-* && make install DESTDIR=$(DEST) LUA_LIB_DIR=/usr/local/share/lua/5.1
+	cd ../lua-nginx-split-clients-* && make install DESTDIR=$(DEST) LUA_LIB_DIR=/usr/local/share/lua/5.1
+	cd ../lua-cjson/build && make install DESTDIR=$(DEST)/usr/local/lib
 	make install DESTDIR=$(DEST)
 	mkdir -p $(DEST)/var/lib/nginx/body
 #	mkdir -p $(DEST)/etc/perl/auto/nginx

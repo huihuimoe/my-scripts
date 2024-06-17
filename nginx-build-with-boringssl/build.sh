@@ -26,6 +26,7 @@ case $ARCH in
 esac
 
 cd nginx-${nginx_version}
+sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic/make
 ./configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=${ARCH} ${CFLAGS}" \
   --with-ld-opt="-Wl,-z,relro $EX_LD_OPT" \
@@ -73,6 +74,7 @@ cd nginx-${nginx_version}
   --with-threads \
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
   --with-openssl=../boringssl \
+  --with-zlib=../zlib-cf \
   --add-module=../ngx_cache_purge \
   --add-module=../nginx-upload-progress-module \
   --add-module=../nginx-upstream-fair \
@@ -88,15 +90,13 @@ cd nginx-${nginx_version}
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-module=../lua-nginx-module-${lua_nginx_module_version} \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
+  --add-module=../lua-upstream-nginx-module \
+  --add-module=../set-misc-nginx-module \
   --add-module=../nginx-module-vts \
   --with-http_v3_module \
   --add-module=../nchan \
   --add-module=../njs/nginx
-  # --with-http_v2_hpack_enc \
-  # --with-quiche=../quiche
-  # --with-zlib=../zlib-cf \
   # --with-http_perl_module \
-  # --with-pcre=../pcre2-${pcre2_version} \
 
 # Fix "Error 127" during build
 touch ../boringssl/.openssl/include/openssl/ssl.h

@@ -28,6 +28,7 @@ case $ARCH in
 esac
 
 cd nginx-${nginx_version}
+sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic/make
 ./configure \
   --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=${ARCH} ${CFLAGS}" \
   --with-ld-opt="-Wl,-z,relro $EX_LD_OPT" \
@@ -76,7 +77,8 @@ cd nginx-${nginx_version}
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
   --with-pcre-jit \
   --with-openssl=../openssl-${quictls_version} \
-  --with-openssl-opt="enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=${ARCH}" \
+  --with-openssl-opt="enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=${ARCH} CC=${CC} CXX=${CXX}" \
+  --with-zlib=../zlib-cf \
   --add-module=../ngx_cache_purge \
   --add-module=../nginx-upload-progress-module \
   --add-module=../nginx-upstream-fair \
@@ -92,13 +94,12 @@ cd nginx-${nginx_version}
   --add-module=../ngx_devel_kit-${ngx_devel_kit_version} \
   --add-module=../lua-nginx-module-${lua_nginx_module_version} \
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
+  --add-module=../lua-upstream-nginx-module \
+  --add-module=../set-misc-nginx-module \
   --add-module=../nchan \
   --add-module=../nginx-module-vts \
   --add-module=../njs/nginx
-# --add-module=../${nps_dir} \
-#  --with-zlib=../zlib-cf \
 # --with-http_perl_module \
-# --with-pcre=../pcre-${pcre_version} \
 
 # Fix libatomic_ops
 ln -sf ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a

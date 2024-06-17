@@ -13,13 +13,13 @@ fancyindex_version=0.5.2
 # https://github.com/arut/nginx-rtmp-module/tags
 rtmp_module_version=1.2.2
 # https://github.com/slact/nchan/tags
-nchan_version=1.3.6
+# nchan_version=1.3.6
 # https://github.com/openssl/openssl/tags
 # openssl_version=1.1.1i
 # https://ftp.pcre.org/pub/pcre
 # pcre_version=8.45
 pcre2_version=10.43
-clang_version=17
+clang_version=18
 
 # https://github.com/openresty/luajit2/tags
 luajit2_version=2.1-20240314
