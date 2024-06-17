@@ -83,7 +83,6 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --add-module=../nginx-upload-progress-module \
   --add-module=../nginx-upstream-fair \
   --add-module=../ngx_http_substitutions_filter_module \
-  --add-module=../ngx_http_auth_pam_module \
   --add-module=../nginx-dav-ext-module \
   --add-module=../ngx_http_geoip2_module-${ngx_http_geoip2_module_version} \
   --add-module=../echo-nginx-module-${echo_nginx_module_version} \
@@ -100,6 +99,7 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --add-module=../nginx-module-vts \
   --add-module=../njs/nginx
 # --with-http_perl_module \
+# --add-module=../ngx_http_auth_pam_module \
 
 # Fix libatomic_ops
 ln -sf ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
