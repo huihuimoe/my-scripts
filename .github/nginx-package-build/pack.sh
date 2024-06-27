@@ -3,7 +3,8 @@ cd $1
 bash ./require.sh
 
 bash ./build.sh
-cp -r debian nginx-1*/
+cp -r ../nginx-base/debian nginx-1*/
+cp -r debian/* nginx-1*/debian/
 cd nginx-1*
 sudo dpkg-buildpackage -b -uc
 cd ..

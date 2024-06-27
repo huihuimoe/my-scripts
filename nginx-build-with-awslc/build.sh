@@ -1,10 +1,7 @@
 #!/bin/bash
 . ./config.sh
-# nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
-
-# ./my-scripts/nginx-build/nginx-1.23.2/objs/autoconf.err
 
 CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src -I`pwd`/pcre2-${pcre2_version}/build"
 # https://github.com/arut/nginx-rtmp-module/commit/c56fd73def3eb407155ecebc28af84ea83dc99e5
@@ -22,7 +19,6 @@ case $ARCH in
     ARCH=x86-64
     ;;
   aarch64)
-    # https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
     ARCH=armv8-a
     ;;
 esac
@@ -76,8 +72,7 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --with-stream_realip_module \
   --with-threads \
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
-  --with-openssl=../openssl-${quictls_version} \
-  --with-openssl-opt="enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=${ARCH} CC=${CC} CXX=${CXX}" \
+  --with-openssl=../aws-lc \
   --with-zlib=../zlib-cf \
   --add-module=../ngx_cache_purge \
   --add-module=../nginx-upload-progress-module \
@@ -98,8 +93,11 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --add-module=../nchan \
   --add-module=../nginx-module-vts \
   --add-module=../njs/nginx
-# --with-http_perl_module \
-# --add-module=../ngx_http_auth_pam_module \
+  # --with-http_perl_module \
+  # --add-module=../ngx_http_auth_pam_module \
+
+# Fix "Error 127" during build
+touch ../aws-lc/.openssl/include/openssl/ssl.h
 
 # Fix libatomic_ops
 ln -sf ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a

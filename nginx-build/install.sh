@@ -1,8 +1,5 @@
 #!/bin/bash
 . ./config.sh
-cd luajit2-${luajit2_version}
-sudo make install
-cd ..
 cd lua-resty-lrucache-${nginx_lua_resty_lrucache_version}
 sudo make install
 cd ..
@@ -15,7 +12,6 @@ cd ..
 cd nginx-${nginx_version}
 sudo make install
 cd ..
-cd luajit2-* && sudo make install && sudo ldconfig && cd ..
 cd lua-resty-lrucache-* && sudo make install && cd ..
 cd lua-resty-core-* && sudo make install && cd ..
 cd lua-nginx-split-clients-* && sudo make install && cd ..

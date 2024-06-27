@@ -57,6 +57,7 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --with-http_sub_module \
   --with-mail_ssl_module \
   --with-http_v2_module \
+  --with-http_v3_module \
   --with-http_xslt_module \
   --with-http_image_filter_module \
   --with-http_geoip_module \
@@ -91,9 +92,8 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
   --add-module=../lua-upstream-nginx-module \
   --add-module=../set-misc-nginx-module \
-  --add-module=../nginx-module-vts \
-  --with-http_v3_module \
   --add-module=../nchan \
+  --add-module=../nginx-module-vts \
   --add-module=../njs/nginx
   # --with-http_perl_module \
   # --add-module=../ngx_http_auth_pam_module \

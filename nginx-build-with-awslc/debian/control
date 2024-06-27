@@ -4,11 +4,11 @@ Priority: optional
 Maintainer: huihuimoe
 Standards-Version: 1.27.1
 
-Package: nginx-boringssl-huihui
+Package: nginx-awslc-huihui
 Architecture: any
 Suggests: geoip-database
 Conflicts: 
          nginx,
          nginx-huihui,
-         nginx-awslc-huihui
+         nginx-boringssl-huihui
 Description: Nginx

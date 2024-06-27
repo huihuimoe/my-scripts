@@ -9,5 +9,6 @@ Architecture: any
 Suggests: geoip-database
 Conflicts: 
          nginx,
-         nginx-boringssl-huihui
+         nginx-boringssl-huihui,
+         nginx-awslc-huihui
 Description: Nginx

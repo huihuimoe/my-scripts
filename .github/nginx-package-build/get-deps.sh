@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# set -x CC clang-17
-# set -x CXX clang++-17
-# set -x PREFIX /usr
-# set -x PKG_CONFIG "pkg-config --static"
-
 mkdir deps
 cd deps
 
@@ -77,7 +72,7 @@ cd ..
 
 # wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.49.tar.bz2
 wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.49.tar.gz
-tar -xjvf libgpg-error-1.49.tar.bz2
+tar -xvf libgpg-error-1.49.tar.gz
 cd libgpg-error-1.49
 ./configure --disable-shared --prefix=$PREFIX
 make -j

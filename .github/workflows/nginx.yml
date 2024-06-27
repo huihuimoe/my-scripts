@@ -22,6 +22,8 @@ jobs:
             Name: nginx
           - Dir: nginx-build-with-boringssl
             Name: nginx-boringssl
+          - Dir: nginx-build-with-awslc
+            Name: nginx-awslc
     runs-on: ${{ matrix.os }}
     env:
       Dir: ${{ matrix.env.Dir }}
@@ -48,20 +50,15 @@ jobs:
         chmod +x llvm.sh
         sudo ./llvm.sh $CLANG_VERSION
     - name: Get latest go version
-      if: ${{ matrix.env.Name }} == "nginx-boringssl"
+      if: ${{ matrix.env.Name }} != "nginx"
       id: go_version
       run: |
         echo ::set-output name=go_version::$(curl -s https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json | grep -oE '"version": "[0-9]{1}.[0-9]{1,}(.[0-9]{1,})?"' | head -1 | cut -d':' -f2 | sed 's/ //g; s/"//g')
     - name: Set up Golang
-      if: ${{ matrix.env.Name }} == "nginx-boringssl"
+      if: ${{ matrix.env.Name }} != "nginx"
       uses: actions/setup-go@v5
       with:
         go-version: ${{ steps.go_version.outputs.go_version }}
-    # - name: Set up Rust
-    #   if: ${{ matrix.env.Name }} == "nginx-boringssl"
-    #   uses: actions-rs/toolchain@v1
-    #   with:
-    #     toolchain: stable
     - name: Set up deps
       run: sudo bash ./.github/nginx-package-build/get-deps.sh && sudo chown -R $USER:$USER deps
     - name: Pack
