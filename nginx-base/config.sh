@@ -1,5 +1,5 @@
 #!/bin/bash
-nginx_version=1.27.1
+nginx_version=1.27.2
 # https://github.com/openresty/echo-nginx-module/tags
 echo_nginx_module_version=0.63
 # https://github.com/openresty/headers-more-nginx-module/tags
@@ -17,11 +17,12 @@ rtmp_module_version=1.2.2
 
 # https://sourceforge.net/projects/pcre/files/pcre/
 # pcre_version=8.45
-pcre2_version=10.43
+# https://github.com/PCRE2Project/pcre2/releases
+pcre2_version=10.44
 clang_version=18
 
 # https://github.com/openresty/luajit2/tags
-luajit2_version=2.1-20240314
+luajit2_version=2.1-20240626
 # https://github.com/openresty/stream-lua-nginx-module/tags
 stream_lua_nginx_module_version=0.0.14
 # https://github.com/leev/ngx_http_geoip2_module/tags

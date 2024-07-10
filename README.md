@@ -1,7 +1,5 @@
 # my-scripts
 
-[![Build Status](https://travis-ci.com/huihuimoe/my-scripts.svg?branch=master)](https://travis-ci.com/huihuimoe/my-scripts)
-
 Some personal scripts
 
 ## How to choose SSL Library for Nginx
@@ -12,7 +10,7 @@ Some personal scripts
 |OCSP Stapling       |Yes          |Yes          |Yes          |Yes          |No         |Yes     |
 |Post-Quantum[^1]    |Fork Repo[^2]|Provider[^3] |No           |Provider     |built-in   |built-in|
 |Performance         |Good         |Bad[^4]      |Good         |Bad          |Good       |Good    |
-|Security            |EOL          |-            |EOF          |-            |-          |-       |
+|Security            |EOL          |-            |EOL          |-            |-          |-       |
 
 [^1]: https://blog.cloudflare.com/nist-post-quantum-surprise/
 [^2]: https://github.com/open-quantum-safe/openssl

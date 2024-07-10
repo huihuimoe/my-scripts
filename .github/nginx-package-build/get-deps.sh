@@ -43,6 +43,7 @@ make -j
 make install
 cd ../..
 
+# https://mirrors.edge.kernel.org/pub/linux/utils/util-linux
 wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.tar.gz
 tar -xzvf util-linux-2.40.tar.gz
 cd util-linux-2.40
@@ -59,10 +60,10 @@ cd ..
 # make install
 # cd ..
 
-# libmaxminddb
-wget https://github.com/maxmind/libmaxminddb/releases/download/1.9.1/libmaxminddb-1.9.1.tar.gz
-tar -xzvf libmaxminddb-1.9.1.tar.gz
-cd libmaxminddb-1.9.1
+# https://github.com/maxmind/libmaxminddb/releases
+wget https://github.com/maxmind/libmaxminddb/releases/download/1.10.0/libmaxminddb-1.10.0.tar.gz
+tar -xzvf libmaxminddb-1.10.0.tar.gz
+cd libmaxminddb-1.10.0
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -70,24 +71,25 @@ cd ..
 
 # libxslt
 
-# wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.49.tar.bz2
-wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.49.tar.gz
-tar -xvf libgpg-error-1.49.tar.gz
-cd libgpg-error-1.49
+# wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.50.tar.bz2
+wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.50.tar.gz
+tar -xvf libgpg-error-1.50.tar.gz
+cd libgpg-error-1.50
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
 cd ..
 
-# wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2
-wget https://mirrors.dotsrc.org/gcrypt/libgcrypt/libgcrypt-1.10.3.tar.bz2
-tar -xjvf libgcrypt-1.10.3.tar.bz2
-cd libgcrypt-1.10.3
+# wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2
+wget https://mirrors.dotsrc.org/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2
+tar -xjvf libgcrypt-1.11.0.tar.bz2
+cd libgcrypt-1.11.0
 ./configure --disable-shared --prefix=$PREFIX --disable-avx2-support
 make -j
 make install
 cd ..
 
+# https://github.com/unicode-org/icu/releases
 wget https://github.com/unicode-org/icu/releases/download/release-75-1/icu4c-75_1-src.tgz
 tar -xzvf icu4c-75_1-src.tgz
 cd icu/source
@@ -106,18 +108,18 @@ make -j
 make install
 cd ..
 
-wget https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.7.tar.xz
-tar -xvf libxml2-2.12.7.tar.xz
-cd libxml2-2.12.7
+wget https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.8.tar.xz
+tar -xvf libxml2-2.12.8.tar.xz
+cd libxml2-2.12.8
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install
 ln -sn /usr/include/libxml2/libxml /usr/include/libxml
 cd ..
 
-wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.39.tar.xz
-tar -xf libxslt-1.1.39.tar.xz
-cd libxslt-1.1.39
+wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.42.tar.xz
+tar -xf libxslt-1.1.42.tar.xz
+cd libxslt-1.1.42
 ./configure --disable-shared --prefix=$PREFIX --with-python=no
 make -j
 make install
@@ -196,7 +198,7 @@ cd ..
 # make install
 # cd ..
 
-
+# https://github.com/libgd/libgd/releases
 wget https://github.com/libgd/libgd/releases/download/gd-2.3.3/libgd-2.3.3.tar.gz
 tar -xzvf libgd-2.3.3.tar.gz
 cd libgd-2.3.3
@@ -219,7 +221,7 @@ make -j
 make install
 cd ..
 
-# libxcrypt
+# https://github.com/besser82/libxcrypt/releases
 wget https://github.com/besser82/libxcrypt/releases/download/v4.4.36/libxcrypt-4.4.36.tar.xz
 tar -xf libxcrypt-4.4.36.tar.xz
 cd libxcrypt-4.4.36

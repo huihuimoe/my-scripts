@@ -18,8 +18,11 @@ cd nginx-${nginx_version}
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stream-proxy-protocol-v2/main/stream-proxy-protocol-v2-release-1.27.0.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-disable-http-to-https.patch)
 # https://openresty.org/en/nginx-ssl-patches.html
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.17.1-ssl_cert_cb_yield.patch)
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.17.1-ssl_sess_cb_yield.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-single_process_graceful_exit.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-socket_cloexec.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_cert_cb_yield.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_client_hello_cb_yield.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_sess_cb_yield.patch)
 # kn007's patches
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_records.patch)
 # patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch)

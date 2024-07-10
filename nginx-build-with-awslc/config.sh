@@ -2,4 +2,4 @@
 . ../nginx-base/config.sh
 
 # https://github.com/aws/aws-lc/releases
-awslc_version=1.30.1
+awslc_version=1.31.0
