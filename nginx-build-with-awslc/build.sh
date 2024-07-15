@@ -7,7 +7,8 @@ CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_v
 # https://github.com/arut/nginx-rtmp-module/commit/c56fd73def3eb407155ecebc28af84ea83dc99e5
 CFLAGS="$CFLAGS -Wno-error=unused-but-set-variable"
 EX_LD_OPT="-L`pwd`/pcre2-${pcre2_version}/build"
-EX_LD_OPT="$EX_LD_OPT -L`pwd`/luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a -lm -ldl"
+EX_LD_OPT="$EX_LD_OPT -L`pwd`/luajit2-${luajit2_version}/src -l:libluajit.a -L`pwd`/jemalloc-${jemalloc_version}/lib -l:libjemalloc_pic.a"
+EX_LD_OPT="$EX_LD_OPT -lm -ldl -lpthread"
 # only in CI
 if [ ! -z "$CI" ]; then
   EX_LD_OPT="$EX_LD_OPT -L/usr/lib -l:libxml2.a -l:libz.a -l:liblzma.a -l:libiconv.a -l:libcrypt.a"
@@ -22,6 +23,10 @@ case $ARCH in
     ARCH=armv8-a
     ;;
 esac
+
+# https://github.com/tokers/zstd-nginx-module#installation
+export ZSTD_INC=`pwd`/zstd/lib
+export ZSTD_LIB=`pwd`/zstd/out/lib
 
 cd nginx-${nginx_version}
 sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic/make
@@ -92,7 +97,8 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --add-module=../set-misc-nginx-module \
   --add-module=../nchan \
   --add-module=../nginx-module-vts \
-  --add-module=../njs/nginx
+  --add-module=../njs/nginx \
+  --add-module=../zstd-nginx-module
   # --with-http_perl_module \
   # --add-module=../ngx_http_auth_pam_module \
 

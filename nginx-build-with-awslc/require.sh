@@ -40,6 +40,8 @@ ln -sf `pwd`/aws-lc/include/openssl aws-lc/.openssl/include/openssl
 touch aws-lc/.openssl/include/openssl/ssl.h
 cmake -B`pwd`/aws-lc/build -H`pwd`/aws-lc \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-  -DCMAKE_CXX_FLAGS="-Wno-error=deprecated-declarations"
+  -DCMAKE_CXX_FLAGS="-Wno-error=deprecated-declarations" \
+  -DBUILD_TESTING=OFF \
+  -DBUILD_TOOL=OFF
 make -C`pwd`/aws-lc/build -j$(getconf _NPROCESSORS_ONLN)
 cp aws-lc/build/crypto/libcrypto.a aws-lc/build/ssl/libssl.a aws-lc/.openssl/lib

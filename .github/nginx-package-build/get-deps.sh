@@ -29,13 +29,6 @@ make install
 cd ..
 
 git clone --recursive https://github.com/google/brotli --depth=1
-git clone --recursive https://github.com/facebook/zstd --depth=1
-
-cd zstd
-env LDFLAGS="-fPIC" make -j lib-mt install
-rm /usr/lib/libzstd.so*
-cd ..
-
 cd brotli
 mkdir -p out && cd out
 cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DBUILD_SHARED_LIBS=off -DCMAKE_INSTALL_LIBDIR=lib ..

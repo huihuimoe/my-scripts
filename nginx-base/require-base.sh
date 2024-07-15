@@ -138,6 +138,16 @@ cd zlib-cf
 ./configure --static --64
 cd ..
 
+git clone --recursive https://github.com/facebook/zstd --depth=1
+cd zstd
+mkdir out
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" \
+  -DZSTD_BUILD_SHARED=OFF \
+  -B out -S build/cmake
+make -C out -j
+cd ..
+git clone https://github.com/tokers/zstd-nginx-module --depth=1
+
 # nginx-module-vts
 git clone --depth=1 https://github.com/vozlt/nginx-module-vts.git
 

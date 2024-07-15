@@ -13,9 +13,9 @@ jobs:
     strategy:
       matrix:
         os:
-          # ubuntu-22 requires glibc 2.34
-          - ubuntu-20.04
+          - ubuntu-latest
           # - [self-hosted, linux, ARM64]
+          # - ${{ format('codebuild-github-my-scripts-{0}-{1}', github.run_id, github.run_attempt) }}
           - codebuild-github-my-scripts-${{ github.run_id }}-${{ github.run_attempt }}
         env:
           - Dir: nginx-build
@@ -24,7 +24,14 @@ jobs:
             Name: nginx-boringssl
           - Dir: nginx-build-with-awslc
             Name: nginx-awslc
+        exclude:
+          - os: ${{ ! startsWith(github.ref, 'refs/tags/') && format('codebuild-github-my-scripts-{0}-{1}', github.run_id, github.run_attempt) }}
     runs-on: ${{ matrix.os }}
+    container:
+      image: quay.io/huihuimoe/ubuntu-ci-base:20.04
+    defaults:
+      run:
+        shell: bash
     env:
       Dir: ${{ matrix.env.Dir }}
       Name: ${{ matrix.env.Name }}
@@ -36,31 +43,22 @@ jobs:
         sudo apt-get update
         sudo env DEBIAN_FRONTEND=noninteractive TZ=Asia/Tokyo apt-get install -y \
           binutils unzip curl gawk wget ca-certificates \
-          git perl debhelper \
-          cmake pkg-config nasm libpam-dev build-essential \
+          git perl debhelper pkg-config nasm build-essential \
           lsb-release wget software-properties-common gnupg \
           --no-install-recommends
-    # https://github.com/actions/runner-images/issues/6153
-    - name: runner deps fixes
-      run: sudo apt-get remove -y nginx libgd3
     - uses: actions/checkout@v4
     - name: Set up Clang
       run: |
         wget https://apt.llvm.org/llvm.sh
         chmod +x llvm.sh
         sudo ./llvm.sh $CLANG_VERSION
-    - name: Get latest go version
-      if: ${{ matrix.env.Name }} != "nginx"
-      id: go_version
-      run: |
-        echo ::set-output name=go_version::$(curl -s https://raw.githubusercontent.com/actions/go-versions/main/versions-manifest.json | grep -oE '"version": "[0-9]{1}.[0-9]{1,}(.[0-9]{1,})?"' | head -1 | cut -d':' -f2 | sed 's/ //g; s/"//g')
     - name: Set up Golang
       if: ${{ matrix.env.Name }} != "nginx"
       uses: actions/setup-go@v5
       with:
-        go-version: ${{ steps.go_version.outputs.go_version }}
+        go-version: 'stable'
     - name: Set up deps
-      run: sudo bash ./.github/nginx-package-build/get-deps.sh && sudo chown -R $USER:$USER deps
+      run: sudo bash ./.github/nginx-package-build/get-deps.sh && sudo rm -rf deps
     - name: Pack
       run: bash ./.github/nginx-package-build/pack.sh $Dir
     - name: Show Info
@@ -70,12 +68,12 @@ jobs:
         FILE=$(find ./$Dir -name "*.deb" -type f | grep -v dbgsym) && echo $FILE
         echo "Artifact=$FILE" >> $GITHUB_ENV
     - name: Upload Binaries
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.Name }}-${{ github.sha }}.zip
         path: ${{ env.Artifact }}
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: ${{ env.Artifact }}

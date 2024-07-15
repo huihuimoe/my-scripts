@@ -1,11 +1,25 @@
 #!/bin/bash
 
-docker run -it --rm debian bash
+# docker run -v $(pwd):/work -it --rm debian bash
+# or
+# docker run -v $(pwd):/work -it --rm quay.io/huihuimoe/ubuntu-ci-base:18.04 bash
+# bash /work/.github/nginx-package-build/.dev-env-init.sh DIR
+
+set -e
+
+if [[ -z "$1" ]]; then
+  echo "Usage: $0 <nginx-build-dir>"
+  exit 1
+fi
+if [[ ! -d "/work/$1" ]]; then
+  echo "Usage: $0 <nginx-build-dir>"
+  exit 1
+fi
 
 apt-get update
 apt-get install -y fish unzip curl gawk wget git perl bison lsb-release wget software-properties-common gnupg debhelper cmake pkg-config \
+  vim tree \
   --no-install-recommends
-#  libexpat-dev libpcre3-dev libxml2-dev libxslt-dev libgeoip-dev libgd-dev libpam0g-dev libperl-dev libmaxminddb-dev uuid-dev libunwind-dev
 
 # LLVM
 curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- 18
@@ -16,6 +30,18 @@ curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- 18
 
 # Golang
 curl -sSL https://git.io/g-install | sh -s -- fish bash -y
-# source ~/.bashrc
+source ~/.bashrc
 
-fish
+DIR=$1
+export CI=1
+mkdir /ci-build
+cd /ci-build
+bash /work/.github/nginx-package-build/get-deps.sh
+rm -rf /ci-build/deps
+cd /work
+# bash /work/.github/nginx-package-build/pack.sh $DIR
+cd $DIR
+bash ./require.sh
+bash ./build.sh
+cd ..
+bash /work/.github/nginx-package-build/show-info.sh $DIR
