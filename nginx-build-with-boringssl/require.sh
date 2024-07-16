@@ -43,6 +43,6 @@ ln -sf `pwd`/boringssl/include/openssl boringssl/.openssl/include/openssl
 touch boringssl/.openssl/include/openssl/ssl.h
 cmake -B`pwd`/boringssl/build -H`pwd`/boringssl \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-  -DCMAKE_CXX_FLAGS="-Wno-error=deprecated-declarations"
+  -DCMAKE_CXX_FLAGS="-Wno-error=deprecated-declarations -O3"
 make -C`pwd`/boringssl/build -j$(getconf _NPROCESSORS_ONLN)
 cp boringssl/build/crypto/libcrypto.a boringssl/build/ssl/libssl.a boringssl/.openssl/lib

@@ -33,7 +33,7 @@ export ZSTD_LIB=`pwd`/zstd/out/lib
 cd nginx-${nginx_version}
 sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic/make
 ./configure \
-  --with-cc-opt="-g -O2 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=${ARCH} ${CFLAGS}" \
+  --with-cc-opt="-g -O3 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=${ARCH} ${CFLAGS}" \
   --with-ld-opt="-Wl,-z,relro $EX_LD_OPT" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
