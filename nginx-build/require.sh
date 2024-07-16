@@ -34,8 +34,8 @@ patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-single_process_graceful_exit.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-socket_cloexec.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_cert_cb_yield.patch)
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_client_hello_cb_yield.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_sess_cb_yield.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_client_hello_cb_yield.patch)
 # kn007's patches
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_records.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/use_openssl_md5_sha1.patch)

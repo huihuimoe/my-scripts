@@ -2,7 +2,7 @@
 
 # docker run -v $(pwd):/work -it --rm debian bash
 # or
-# docker run -v $(pwd):/work -it --rm quay.io/huihuimoe/ubuntu-ci-base:18.04 bash
+# docker run -v $(pwd):/work -it --rm quay.io/huihuimoe/ubuntu-ci-base:20.04 bash
 # bash /work/.github/nginx-package-build/.dev-env-init.sh DIR
 
 set -e
@@ -22,7 +22,10 @@ apt-get install -y fish unzip curl gawk wget git perl bison lsb-release wget sof
   --no-install-recommends
 
 # LLVM
-curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- 18
+. $(dirname $0)/../../nginx-base/config.sh
+curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- ${clang_version}
+update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/lld-${clang_version}" 20
+update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 
 # Rust (not need anymore)
 # curl -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly

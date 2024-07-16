@@ -1,10 +1,12 @@
 #!/bin/bash
 
+. $(dirname $0)/../../nginx-base/config.sh
+
 mkdir deps
 cd deps
 
-export CXX=clang++-18
-export CC=clang-18
+export CXX=clang++-${clang_version}
+export CC=clang-${clang_version}
 export PKG_CONFIG="pkg-config --static"
 export PREFIX="/usr"
 
@@ -31,7 +33,13 @@ cd ..
 git clone --recursive https://github.com/google/brotli --depth=1
 cd brotli
 mkdir -p out && cd out
-cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DBUILD_SHARED_LIBS=off -DCMAKE_INSTALL_LIBDIR=lib ..
+cmake \
+  -DCMAKE_INSTALL_PREFIX=$PREFIX \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_C_FLAGS="$CFLAGS -fPIC" \
+  -DBUILD_SHARED_LIBS=off \
+  -DCMAKE_INSTALL_LIBDIR=lib \
+  ..
 make -j
 make install
 cd ../..
