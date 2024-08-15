@@ -11,9 +11,11 @@ on:
 jobs:
   build-nginx:
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
+          # wait 2024Q4 https://github.blog/changelog/2024-06-03-actions-arm-based-linux-and-windows-runners-are-now-in-public-beta/
           # - [self-hosted, linux, ARM64]
           # - ${{ format('codebuild-github-my-scripts-{0}-{1}', github.run_id, github.run_attempt) }}
           - codebuild-github-my-scripts-${{ github.run_id }}-${{ github.run_attempt }}

@@ -45,9 +45,9 @@ make install
 cd ../..
 
 # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux
-wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.tar.gz
-tar -xzvf util-linux-2.40.tar.gz
-cd util-linux-2.40
+wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.gz
+tar -xzvf util-linux-2.40.2.tar.gz
+cd util-linux-2.40.2
 ./configure --disable-all-programs --disable-shared --enable-libuuid --prefix=$PREFIX
 make -j
 make install
@@ -71,7 +71,7 @@ make install
 cd ..
 
 # libxslt
-
+# https://mirrors.dotsrc.org/gcrypt/libgpg-error
 # wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.50.tar.bz2
 wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.50.tar.gz
 tar -xvf libgpg-error-1.50.tar.gz
@@ -81,6 +81,7 @@ make -j
 make install
 cd ..
 
+# https://mirrors.dotsrc.org/gcrypt/libgcrypt
 # wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2
 wget https://mirrors.dotsrc.org/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2
 tar -xjvf libgcrypt-1.11.0.tar.bz2
@@ -100,6 +101,7 @@ make -j$(nproc)
 make install
 cd ../..
 
+# https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv
 # wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz
 wget https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
 tar -xzvf libiconv-1.17.tar.gz
@@ -109,9 +111,9 @@ make -j
 make install
 cd ..
 
-wget https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.8.tar.xz
-tar -xvf libxml2-2.12.8.tar.xz
-cd libxml2-2.12.8
+wget https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.3.tar.xz
+tar -xvf libxml2-2.13.3.tar.xz
+cd libxml2-2.13.3
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install

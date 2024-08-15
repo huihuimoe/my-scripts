@@ -16,4 +16,3 @@ Some personal scripts
 [^2]: https://github.com/open-quantum-safe/openssl
 [^3]: https://github.com/open-quantum-safe/oqs-provider
 [^4]: https://github.com/haproxy/wiki/wiki/SSL-Libraries-Support-Status
-

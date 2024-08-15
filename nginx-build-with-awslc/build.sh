@@ -95,10 +95,10 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --add-module=../stream-lua-nginx-module-${stream_lua_nginx_module_version} \
   --add-module=../lua-upstream-nginx-module \
   --add-module=../set-misc-nginx-module \
-  --add-module=../nchan \
   --add-module=../nginx-module-vts \
   --add-module=../njs/nginx \
   --add-module=../zstd-nginx-module
+  # --add-module=../nchan \
   # --with-http_perl_module \
   # --add-module=../ngx_http_auth_pam_module \
 

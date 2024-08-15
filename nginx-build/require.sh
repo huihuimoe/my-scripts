@@ -12,10 +12,11 @@ export CC=clang-${clang_version}
 # mv openssl-openssl-${openssl_version} openssl-${openssl_version}
 
 # https://nginx.org/en/docs/configure.html#http_v3_module
-wget https://github.com/quictls/openssl/archive/refs/tags/${quictls_version}.tar.gz
-tar zxf ${quictls_version}.tar.gz
-rm -rf ${quictls_version}.tar.gz
-mv openssl-openssl-* openssl-${quictls_version}
+# wget https://github.com/quictls/openssl/archive/refs/tags/${quictls_version}.tar.gz
+# tar zxf ${quictls_version}.tar.gz
+# rm -rf ${quictls_version}.tar.gz
+# mv openssl-openssl-* openssl-${quictls_version}
+git clone https://github.com/quictls/openssl -b wladd/quic-on-3.3-dirty --depth=1 --recursive openssl-${quictls_version}
 # dirname: openssl-${quictls_version}
 
 # nginx
