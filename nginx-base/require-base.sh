@@ -7,6 +7,10 @@ export CC=clang-${clang_version}
 # stream-lua-nginx-module
 wget -O stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz https://github.com/openresty/stream-lua-nginx-module/archive/v${stream_lua_nginx_module_version}.tar.gz
 tar -xzvf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
+# revert change in pr #344 (not change in freenginx)
+# https://github.com/openresty/stream-lua-nginx-module/pull/344
+patch -d stream-lua-nginx-module-${stream_lua_nginx_module_version} -R -p1 \
+  <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/stream-lua-nginx-module-pr344.patch)
 # dirname: stream-lua-nginx-module-${stream_lua_nginx_module_version}
 
 wget -O lua-resty-lrucache-${nginx_lua_resty_lrucache_version}.tar.gz https://github.com/openresty/lua-resty-lrucache/archive/v${nginx_lua_resty_lrucache_version}.tar.gz
