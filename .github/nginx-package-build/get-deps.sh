@@ -62,9 +62,9 @@ cd ..
 # cd ..
 
 # https://github.com/maxmind/libmaxminddb/releases
-wget https://github.com/maxmind/libmaxminddb/releases/download/1.10.0/libmaxminddb-1.10.0.tar.gz
-tar -xzvf libmaxminddb-1.10.0.tar.gz
-cd libmaxminddb-1.10.0
+wget https://github.com/maxmind/libmaxminddb/releases/download/1.11.0/libmaxminddb-1.11.0.tar.gz
+tar -xzvf libmaxminddb-1.11.0.tar.gz
+cd libmaxminddb-1.11.0
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -111,6 +111,7 @@ make -j
 make install
 cd ..
 
+# https://download.gnome.org/sources/libxml2
 wget https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.3.tar.xz
 tar -xvf libxml2-2.13.3.tar.xz
 cd libxml2-2.13.3
@@ -120,6 +121,7 @@ make install
 ln -sn /usr/include/libxml2/libxml /usr/include/libxml
 cd ..
 
+# https://download.gnome.org/sources/libxslt
 wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.42.tar.xz
 tar -xf libxslt-1.1.42.tar.xz
 cd libxslt-1.1.42

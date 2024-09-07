@@ -1,5 +1,5 @@
 #!/bin/bash
-nginx_version=1.27.3
+nginx_version=1.27.4
 # https://github.com/openresty/echo-nginx-module/tags
 echo_nginx_module_version=0.63
 # https://github.com/openresty/headers-more-nginx-module/tags
