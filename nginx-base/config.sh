@@ -1,6 +1,7 @@
 #!/bin/bash
 nginx_version=1.27.4
-njs_version=0.8.5
+# https://github.com/nginx/njs
+njs_version=0.8.6
 # https://github.com/openresty/echo-nginx-module/tags
 echo_nginx_module_version=0.63
 # https://github.com/openresty/headers-more-nginx-module/tags

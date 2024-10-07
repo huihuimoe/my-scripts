@@ -43,6 +43,8 @@ jobs:
       run: |
         [ -z "$(command -v sudo)" ] && apt-get update && apt-get install -y sudo --no-install-recommends
         sudo apt-get update
+        sudo apt list --upgradable
+        sudo apt-get dist-upgrade -y
         sudo env DEBIAN_FRONTEND=noninteractive TZ=Asia/Tokyo apt-get install -y \
           binutils unzip curl gawk wget ca-certificates \
           git perl debhelper pkg-config nasm build-essential \
@@ -56,6 +58,8 @@ jobs:
         sudo ./llvm.sh $CLANG_VERSION
         sudo update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/lld-${CLANG_VERSION}" 20
         sudo update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
+        sudo update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/llvm-ar-${CLANG_VERSION}" 20
+        sudo update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/x86_64-linux-gnu-ar" 10
     - name: Set up Golang
       if: ${{ matrix.env.Name }} != "nginx"
       uses: actions/setup-go@v5

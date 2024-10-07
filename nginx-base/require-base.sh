@@ -181,15 +181,28 @@ cmake .. \
 make -j
 cd ../..
 
+rm *.zip *.gz
+
 # jemalloc
 git clone https://github.com/jemalloc/jemalloc jemalloc-${jemalloc_version}
 cd jemalloc-${jemalloc_version}
 git checkout ${jemalloc_version}
-./autogen.sh --enable-static
+./autogen.sh --enable-static --enable-shared=no
 make -j$(getconf _NPROCESSORS_ONLN)
+cd ..
+
+# quickjs
+git clone https://github.com/bellard/quickjs --depth=1
+cd quickjs
+sed -i "s/HOST_CC=clang/HOST_CC=clang-${clang_version}/" Makefile
+sed -i "s/CC=\$(CROSS_PREFIX)clang/CC=\$(CROSS_PREFIX)clang-${clang_version}/" Makefile
+sed -i "s/AR=\$(CROSS_PREFIX)llvm-ar/AR=\$(CROSS_PREFIX)llvm-ar-${clang_version}/" Makefile
+env CFLAGS="$(dpkg-buildflags --get CFLAGS) -fPIC" LDFLAGS="$(dpkg-buildflags --get LDFLAGS)" \
+  make -j$(getconf _NPROCESSORS_ONLN) CONFIG_LTO=y CONFIG_CLANG=y
 cd ..
 
 # njs
 git clone --depth=1 https://github.com/nginx/njs -b ${njs_version}
-
-rm *.zip *.gz
+# https://github.com/bellard/quickjs/blob/master/Makefile#L98C13-L98C30
+sed -i 's|NJS_CFLAGS="$NJS_CFLAGS -Wno-unused-parameter"|NJS_CFLAGS="$NJS_CFLAGS -Wno-unused-parameter -Wno-error=cast-function-type-mismatch"|' \
+  njs/auto/cc

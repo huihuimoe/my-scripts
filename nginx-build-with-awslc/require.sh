@@ -29,7 +29,7 @@ cd ..
 
 
 wget https://github.com/aws/aws-lc/archive/refs/tags/v${awslc_version}.tar.gz -qO aws-lc.tar.gz
-tar xfv aws-lc.tar.gz
+tar xf aws-lc.tar.gz
 mv aws-lc-${awslc_version} aws-lc
 patch -d aws-lc -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-with-aws-lc.patch)
 

@@ -26,6 +26,8 @@ apt-get install -y fish unzip curl gawk wget git perl bison lsb-release wget sof
 curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- ${clang_version}
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/lld-${clang_version}" 20
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
+update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/llvm-ar-${clang_version}" 20
+update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/x86_64-linux-gnu-ar" 10
 
 # Rust (not need anymore)
 # curl -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly
