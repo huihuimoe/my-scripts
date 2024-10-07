@@ -1,5 +1,6 @@
 #!/bin/bash
 nginx_version=1.27.4
+njs_version=0.8.5
 # https://github.com/openresty/echo-nginx-module/tags
 echo_nginx_module_version=0.63
 # https://github.com/openresty/headers-more-nginx-module/tags
@@ -19,7 +20,7 @@ rtmp_module_version=1.2.2
 # pcre_version=8.45
 # https://github.com/PCRE2Project/pcre2/releases
 pcre2_version=10.44
-clang_version=18
+clang_version=19
 
 # https://github.com/openresty/luajit2/tags
 luajit2_version=2.1-20240815
@@ -34,6 +35,8 @@ nginx_lua_resty_lrucache_version=0.14
 # https://github.com/ekho/lua-nginx-split-clients/tags
 nginx_lua_split_clients_version=0.0.2
 # https://github.com/jemalloc/jemalloc/tags
-jemalloc_version=5.3.0
+# https://github.com/jemalloc/jemalloc/issues/2060
+# jemalloc_version=5.3.0
+jemalloc_version=6cc4217
 # https://github.com/ivmai/libatomic_ops/tags
 libatomic_ops_version=7.8.2

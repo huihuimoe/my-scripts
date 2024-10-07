@@ -37,7 +37,7 @@ jobs:
     env:
       Dir: ${{ matrix.env.Dir }}
       Name: ${{ matrix.env.Name }}
-      CLANG_VERSION: 18
+      CLANG_VERSION: 19
     steps:
     - name: Set up packages
       run: |

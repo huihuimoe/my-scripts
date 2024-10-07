@@ -6,7 +6,7 @@ export CC=clang-${clang_version}
 
 # stream-lua-nginx-module
 wget -O stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz https://github.com/openresty/stream-lua-nginx-module/archive/v${stream_lua_nginx_module_version}.tar.gz
-tar -xzvf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
+tar -xzf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
 # revert change in pr #344 (not change in freenginx)
 # https://github.com/openresty/stream-lua-nginx-module/pull/344
 patch -d stream-lua-nginx-module-${stream_lua_nginx_module_version} -R -p1 \
@@ -14,16 +14,16 @@ patch -d stream-lua-nginx-module-${stream_lua_nginx_module_version} -R -p1 \
 # dirname: stream-lua-nginx-module-${stream_lua_nginx_module_version}
 
 wget -O lua-resty-lrucache-${nginx_lua_resty_lrucache_version}.tar.gz https://github.com/openresty/lua-resty-lrucache/archive/v${nginx_lua_resty_lrucache_version}.tar.gz
-tar -xzvf lua-resty-lrucache-${nginx_lua_resty_lrucache_version}.tar.gz
+tar -xzf lua-resty-lrucache-${nginx_lua_resty_lrucache_version}.tar.gz
 # dirname: lua-resty-lrucache-${nginx_lua_resty_lrucache_version}
 
 wget -O lua-resty-core-${nginx_lua_resty_core_version}.tar.gz https://github.com/openresty/lua-resty-core/archive/v${nginx_lua_resty_core_version}.tar.gz
-tar -xzvf lua-resty-core-${nginx_lua_resty_core_version}.tar.gz
+tar -xzf lua-resty-core-${nginx_lua_resty_core_version}.tar.gz
 # dirname: lua-resty-core-${nginx_lua_resty_core_version}
 
 # lua-nginx-split-clients
 wget -O lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz https://github.com/ekho/lua-nginx-split-clients/archive/v${nginx_lua_split_clients_version}.tar.gz
-tar -xzvf lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz
+tar -xzf lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz
 # dirname: lua-nginx-split-clients-${nginx_lua_split_clients_version}
 
 git clone --depth=1 https://github.com/openresty/lua-upstream-nginx-module
@@ -31,7 +31,7 @@ git clone --depth=1 https://github.com/openresty/set-misc-nginx-module
 
 # ngx_http_geoip2_module
 wget -O ngx_http_geoip2_module-${ngx_http_geoip2_module_version}.tar.gz https://github.com/leev/ngx_http_geoip2_module/archive/${ngx_http_geoip2_module_version}.tar.gz
-tar -xzvf ngx_http_geoip2_module-${ngx_http_geoip2_module_version}.tar.gz
+tar -xzf ngx_http_geoip2_module-${ngx_http_geoip2_module_version}.tar.gz
 # dirname: ngx_http_geoip2_module-${ngx_http_geoip2_module_version}
 
 # echo-nginx-module
@@ -157,12 +157,12 @@ git clone --depth=1 https://github.com/vozlt/nginx-module-vts.git
 
 # libatomic_ops
 wget -O libatomic_ops-${libatomic_ops_version}.tar.gz https://github.com/ivmai/libatomic_ops/releases/download/v${libatomic_ops_version}/libatomic_ops-${libatomic_ops_version}.tar.gz
-tar -xzvf libatomic_ops-${libatomic_ops_version}.tar.gz
+tar -xzf libatomic_ops-${libatomic_ops_version}.tar.gz
 
 # luajit
 # https://hub.docker.com/r/ekho/nginx-lua/dockerfile
 wget -O luajit2-${luajit2_version}.tar.gz https://github.com/openresty/luajit2/archive/v${luajit2_version}.tar.gz
-tar -xzvf luajit2-${luajit2_version}.tar.gz
+tar -xzf luajit2-${luajit2_version}.tar.gz
 cd luajit2-${luajit2_version}
 sed -i "s/DEFAULT_CC = gcc/DEFAULT_CC = $CC/" src/Makefile
 make -j$(getconf _NPROCESSORS_ONLN) CFLAGS='-static -fPIC' CC=$CC
@@ -182,15 +182,14 @@ make -j
 cd ../..
 
 # jemalloc
-wget -O jemalloc-${jemalloc_version}.tar.bz2 https://github.com/jemalloc/jemalloc/releases/download/${jemalloc_version}/jemalloc-${jemalloc_version}.tar.bz2
-tar -xvf jemalloc-${jemalloc_version}.tar.bz2
-rm jemalloc-${jemalloc_version}.tar.bz2
+git clone https://github.com/jemalloc/jemalloc jemalloc-${jemalloc_version}
 cd jemalloc-${jemalloc_version}
-./configure --enable-static
+git checkout ${jemalloc_version}
+./autogen.sh --enable-static
 make -j$(getconf _NPROCESSORS_ONLN)
 cd ..
 
 # njs
-git clone --depth=1 https://github.com/nginx/njs
+git clone --depth=1 https://github.com/nginx/njs -b ${njs_version}
 
 rm *.zip *.gz

@@ -22,9 +22,9 @@ make install
 cd ..
 
 # https://github.com/tukaani-project/xz
-wget https://tukaani.org/xz/xz-5.6.2.tar.gz
-tar -xzvf xz-5.6.2.tar.gz
-cd xz-5.6.2
+wget https://tukaani.org/xz/xz-5.6.3.tar.gz
+tar -xzf xz-5.6.3.tar.gz
+cd xz-5.6.3
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -46,7 +46,7 @@ cd ../..
 
 # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux
 wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.gz
-tar -xzvf util-linux-2.40.2.tar.gz
+tar -xzf util-linux-2.40.2.tar.gz
 cd util-linux-2.40.2
 ./configure --disable-all-programs --disable-shared --enable-libuuid --prefix=$PREFIX
 make -j
@@ -63,7 +63,7 @@ cd ..
 
 # https://github.com/maxmind/libmaxminddb/releases
 wget https://github.com/maxmind/libmaxminddb/releases/download/1.11.0/libmaxminddb-1.11.0.tar.gz
-tar -xzvf libmaxminddb-1.11.0.tar.gz
+tar -xzf libmaxminddb-1.11.0.tar.gz
 cd libmaxminddb-1.11.0
 ./configure --disable-shared --prefix=$PREFIX
 make -j
@@ -92,8 +92,8 @@ make install
 cd ..
 
 # https://github.com/unicode-org/icu/releases
-wget https://github.com/unicode-org/icu/releases/download/release-75-1/icu4c-75_1-src.tgz
-tar -xzvf icu4c-75_1-src.tgz
+wget https://github.com/unicode-org/icu/releases/download/release-76-rc/icu4c-76_1rc-src.tgz
+tar -xzf icu4c-76_1rc-src.tgz
 cd icu/source
 env CXXFLAGS="-std=c++17 $CXXFLAGS" CFLAGS="-std=c11" \
   ./configure --enable-static --disable-shared --prefix=$PREFIX --enable-tests=no --enable-samples=no --enable-dyload=no --enable-release
@@ -104,7 +104,7 @@ cd ../..
 # https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv
 # wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz
 wget https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
-tar -xzvf libiconv-1.17.tar.gz
+tar -xzf libiconv-1.17.tar.gz
 cd libiconv-1.17
 ./configure --disable-shared --prefix=$PREFIX
 make -j
@@ -112,9 +112,9 @@ make install
 cd ..
 
 # https://download.gnome.org/sources/libxml2
-wget https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.3.tar.xz
-tar -xvf libxml2-2.13.3.tar.xz
-cd libxml2-2.13.3
+wget https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.4.tar.xz
+tar -xvf libxml2-2.13.4.tar.xz
+cd libxml2-2.13.4
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install
@@ -133,7 +133,7 @@ cd ..
 # libgd
 
 # wget https://download.sourceforge.net/libpng/libpng-1.6.38.tar.gz
-# tar -xzvf libpng-1.6.38.tar.gz
+# tar -xzf libpng-1.6.38.tar.gz
 # cd libpng-1.6.38
 # ./configure --disable-shared --prefix=$PREFIX
 # make -j
@@ -141,7 +141,7 @@ cd ..
 # cd ..
 
 # wget https://download.savannah.gnu.org/releases/freetype/freetype-2.12.1.tar.gz
-# tar -xzvf freetype-2.12.1.tar.gz
+# tar -xzf freetype-2.12.1.tar.gz
 # cd freetype-2.12.1
 # ./configure --disable-shared --prefix=$PREFIX
 # make -j
@@ -149,7 +149,7 @@ cd ..
 # cd ..
 
 # wget https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/2.1.4.tar.gz
-# tar -xzvf 2.1.4.tar.gz
+# tar -xzf 2.1.4.tar.gz
 # cd libjpeg-turbo-2.1.4
 # mkdir build
 # cd build
@@ -160,7 +160,7 @@ cd ..
 
 # https://github.com/webmproject/libwebp/tags
 wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.4.0.tar.gz
-tar -xzvf libwebp-1.4.0.tar.gz
+tar -xzf libwebp-1.4.0.tar.gz
 cd libwebp-1.4.0
 ./configure --disable-shared --prefix=$PREFIX
 make -j
@@ -168,7 +168,7 @@ make install
 cd ..
 
 # wget https://github.com/strukturag/libheif/releases/download/v1.13.0/libheif-1.13.0.tar.gz
-# tar -xzvf libheif-1.13.0.tar.gz
+# tar -xzf libheif-1.13.0.tar.gz
 # cd libheif-1.13.0
 # mkdir build
 # cd build
@@ -178,7 +178,7 @@ cd ..
 # cd ../..
 
 # wget https://github.com/AOMediaCodec/libavif/archive/refs/tags/v0.11.1.tar.gz
-# tar -xzvf v0.11.1.tar.gz
+# tar -xzf v0.11.1.tar.gz
 # cd libavif-0.11.1
 # mkdir build
 # cd build
@@ -188,7 +188,7 @@ cd ..
 # cd ../..
 
 # wget https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.1.tar.gz
-# tar -xzvf fontconfig-2.14.1.tar.gz
+# tar -xzf fontconfig-2.14.1.tar.gz
 # cd fontconfig-2.14.1
 # ./configure --disable-shared --prefix=$PREFIX --enable-libxml2 --with-add-fonts=/usr/share/fonts,/usr/local/share/fonts
 # make -j
@@ -196,7 +196,7 @@ cd ..
 # cd ..
 
 # wget https://download.osgeo.org/libtiff/tiff-4.4.0.tar.gz
-# tar -xzvf tiff-4.4.0.tar.gz
+# tar -xzf tiff-4.4.0.tar.gz
 # cd tiff-4.4.0
 # ./configure --disable-shared --prefix=$PREFIX
 # make -j
@@ -205,7 +205,7 @@ cd ..
 
 # https://github.com/libgd/libgd/releases
 wget https://github.com/libgd/libgd/releases/download/gd-2.3.3/libgd-2.3.3.tar.gz
-tar -xzvf libgd-2.3.3.tar.gz
+tar -xzf libgd-2.3.3.tar.gz
 cd libgd-2.3.3
 ./configure --disable-shared --prefix=$PREFIX \
   --with-freetype=no --with-jpeg=no --with-png=no --with-webp --with-zlib \

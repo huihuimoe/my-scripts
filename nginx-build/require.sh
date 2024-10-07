@@ -12,7 +12,7 @@ export CC=clang-${clang_version}
 # mv openssl-openssl-${openssl_version} openssl-${openssl_version}
 
 # https://nginx.org/en/docs/configure.html#http_v3_module
-wget https://github.com/quictls/openssl/archive/refs/tags/${quictls_version}.tar.gz
+wget -q https://github.com/quictls/openssl/archive/refs/tags/${quictls_version}.tar.gz
 tar zxf ${quictls_version}.tar.gz
 rm -rf ${quictls_version}.tar.gz
 mv openssl-openssl-* openssl-${quictls_version}
@@ -37,7 +37,7 @@ patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_sess_cb_yield.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_client_hello_cb_yield.patch)
 # kn007's patches
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/nginx_dynamic_tls_records.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/e2fcf45e320bb8317042b6796b8f9dd42ffdb25c/nginx_dynamic_tls_records.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/use_openssl_md5_sha1.patch)
 cd ..
 # dirname: nginx-${nginx_version}
