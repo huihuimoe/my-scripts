@@ -9,8 +9,8 @@ wget -O stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz https:
 tar -xzf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
 # revert change in pr #344 (not change in freenginx)
 # https://github.com/openresty/stream-lua-nginx-module/pull/344
-patch -d stream-lua-nginx-module-${stream_lua_nginx_module_version} -R -p1 \
-  <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/stream-lua-nginx-module-pr344.patch)
+# patch -d stream-lua-nginx-module-${stream_lua_nginx_module_version} -R -p1 \
+#   <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/stream-lua-nginx-module-pr344.patch)
 # dirname: stream-lua-nginx-module-${stream_lua_nginx_module_version}
 
 wget -O lua-resty-lrucache-${nginx_lua_resty_lrucache_version}.tar.gz https://github.com/openresty/lua-resty-lrucache/archive/v${nginx_lua_resty_lrucache_version}.tar.gz
@@ -158,6 +158,13 @@ git clone --depth=1 https://github.com/vozlt/nginx-module-vts.git
 # libatomic_ops
 wget -O libatomic_ops-${libatomic_ops_version}.tar.gz https://github.com/ivmai/libatomic_ops/releases/download/v${libatomic_ops_version}/libatomic_ops-${libatomic_ops_version}.tar.gz
 tar -xzf libatomic_ops-${libatomic_ops_version}.tar.gz
+cd libatomic_ops-${libatomic_ops_version}
+./configure --enable-shared=no
+make -j$(getconf _NPROCESSORS_ONLN)
+mkdir -p build/lib
+# cp src/.libs/libatomic_ops.a build/lib
+ln -s ../../src/.libs/libatomic_ops.a build/lib
+cd ..
 
 # luajit
 # https://hub.docker.com/r/ekho/nginx-lua/dockerfile
@@ -176,6 +183,7 @@ git clone --depth=1 https://github.com/openresty/lua-cjson
 mkdir -p lua-cjson/build
 cd lua-cjson/build
 cmake .. \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   -DLUA_LIBRARIES=$(pwd)/../../luajit2-${luajit2_version}/src \
   -DLUA_INCLUDE_DIR=$(pwd)/../../luajit2-${luajit2_version}/src
 make -j

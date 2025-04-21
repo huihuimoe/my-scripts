@@ -19,13 +19,14 @@ mv openssl-openssl-* openssl-${quictls_version}
 # dirname: openssl-${quictls_version}
 
 # nginx
-#wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
-#tar zxf nginx-${nginx_version}.tar.gz
+wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+tar zxf nginx-${nginx_version}.tar.gz
+rm -rf nginx-${nginx_version}.tar.gz
 # freenginx
-wget http://freenginx.org/download/freenginx-${nginx_version}.tar.gz
-tar zxf freenginx-${nginx_version}.tar.gz
-rm -rf freenginx-${nginx_version}.tar.gz
-mv freenginx-${nginx_version} nginx-${nginx_version}  
+# wget http://freenginx.org/download/freenginx-${nginx_version}.tar.gz
+# tar zxf freenginx-${nginx_version}.tar.gz
+# rm -rf freenginx-${nginx_version}.tar.gz
+# mv freenginx-${nginx_version} nginx-${nginx_version}  
 cd nginx-${nginx_version}
 # huihui's patches
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stream-proxy-protocol-v2/main/stream-proxy-protocol-v2-release-1.27.0.patch)
@@ -37,7 +38,7 @@ patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_sess_cb_yield.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx-1.27.0-ssl_client_hello_cb_yield.patch)
 # kn007's patches
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/e2fcf45e320bb8317042b6796b8f9dd42ffdb25c/nginx_dynamic_tls_records.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/refs/heads/master/nginx_dynamic_tls_records.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/use_openssl_md5_sha1.patch)
 cd ..
 # dirname: nginx-${nginx_version}

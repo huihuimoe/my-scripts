@@ -109,8 +109,5 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
 # --with-http_perl_module \
 # --add-module=../ngx_http_auth_pam_module \
 
-# Fix libatomic_ops
-ln -sf ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
-
 make -j$(getconf _NPROCESSORS_ONLN)
 cd ..

@@ -14,11 +14,11 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-latest
+          - ubuntu-24.04
           # wait 2024Q4 https://github.blog/changelog/2024-06-03-actions-arm-based-linux-and-windows-runners-are-now-in-public-beta/
           # - [self-hosted, linux, ARM64]
           # - ${{ format('codebuild-github-my-scripts-{0}-{1}', github.run_id, github.run_attempt) }}
-          - codebuild-github-my-scripts-${{ github.run_id }}-${{ github.run_attempt }}
+          - ubuntu-24.04-arm
         env:
           - Dir: nginx-build
             Name: nginx
@@ -26,8 +26,6 @@ jobs:
             Name: nginx-boringssl
           - Dir: nginx-build-with-awslc
             Name: nginx-awslc
-        exclude:
-          - os: ${{ ! startsWith(github.ref, 'refs/tags/') && format('codebuild-github-my-scripts-{0}-{1}', github.run_id, github.run_attempt) }}
     runs-on: ${{ matrix.os }}
     container:
       image: quay.io/huihuimoe/ubuntu-ci-base:20.04
@@ -59,7 +57,8 @@ jobs:
         sudo update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/lld-${CLANG_VERSION}" 20
         sudo update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
         sudo update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/llvm-ar-${CLANG_VERSION}" 20
-        sudo update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/x86_64-linux-gnu-ar" 10
+        # properly aarch64
+        #sudo update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/x86_64-linux-gnu-ar" 10
     - name: Set up Golang
       if: ${{ matrix.env.Name }} != "nginx"
       uses: actions/setup-go@v5
@@ -68,12 +67,12 @@ jobs:
     - name: Set up deps
       run: sudo bash ./.github/nginx-package-build/get-deps.sh && sudo rm -rf deps
     - name: Pack
-      run: bash ./.github/nginx-package-build/pack.sh $Dir
+      run: bash ./.github/nginx-package-build/pack.sh ${{ env.Dir }}
     - name: Show Info
-      run: bash ./.github/nginx-package-build/show-info.sh $Dir
+      run: bash ./.github/nginx-package-build/show-info.sh ${{ env.Dir }}
     - name: Find artifact
       run: |
-        FILE=$(find ./$Dir -name "*.deb" -type f | grep -v dbgsym) && echo $FILE
+        FILE=$(find ./${{ env.Dir }} -name "*.deb" -type f | grep -v dbgsym) && echo $FILE
         echo "Artifact=$FILE" >> $GITHUB_ENV
     - name: Upload Binaries
       uses: actions/upload-artifact@v4

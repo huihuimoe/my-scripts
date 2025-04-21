@@ -113,8 +113,5 @@ touch ../boringssl/.openssl/include/openssl/ssl.h
 # src/event/quic/ngx_event_quic_openssl_compat.h:31:16: error: redefinition of 'ssl_quic_method_st'
 sed -i '0,/#define SSL_R/s//#define SSL_R_MISSING_QUIC_TRANSPORT_PARAMETERS_EXTENSION 801\n#define SSL_R/' ../boringssl/.openssl/include/openssl/ssl.h
 
-# Fix libatomic_ops
-ln -sf ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
-
 make -j$(getconf _NPROCESSORS_ONLN)
 cd ..

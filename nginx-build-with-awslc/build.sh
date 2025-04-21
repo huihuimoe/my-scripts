@@ -107,8 +107,5 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
 # Fix "Error 127" during build
 touch ../aws-lc/.openssl/include/openssl/ssl.h
 
-# Fix libatomic_ops
-ln -sf ./.libs/libatomic_ops.a ../libatomic_ops-${libatomic_ops_version}/src/libatomic_ops.a
-
 make -j$(getconf _NPROCESSORS_ONLN)
 cd ..

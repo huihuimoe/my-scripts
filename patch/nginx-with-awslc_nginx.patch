@@ -1,0 +1,13 @@
+diff --git a/src/event/ngx_event_openssl.c b/src/event/ngx_event_openssl.c
+index 6992cc4a4..b23147713 100644
+--- a/src/event/ngx_event_openssl.c
++++ b/src/event/ngx_event_openssl.c
+@@ -760,7 +760,7 @@ ngx_ssl_client_certificate(ngx_conf_t *cf, ngx_ssl_t *ssl, ngx_str_t *cert,
+         }
+ 
+ #ifdef OPENSSL_IS_BORINGSSL
+-        if (sk_X509_NAME_find(list, NULL, name) > 0) {
++        if (sk_X509_NAME_find_awslc(list, NULL, name) > 0) {
+ #else
+         if (sk_X509_NAME_find(list, name) >= 0) {
+ #endif
