@@ -34,7 +34,7 @@ update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/llvm-ar-${clang_versi
 # source "$HOME/.cargo/env"
 
 # Golang
-curl -sSL https://git.io/g-install | sh -s -- fish bash -y
+curl -sSL https://git.io/g-install | sh -s -- bash -y
 source ~/.bashrc
 
 DIR=$1

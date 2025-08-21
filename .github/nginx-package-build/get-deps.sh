@@ -45,9 +45,9 @@ make install
 cd ../..
 
 # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux
-wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.41/util-linux-2.41.tar.gz
-tar -xzf util-linux-2.41.tar.gz
-cd util-linux-2.41
+wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.41/util-linux-2.41.1.tar.gz
+tar -xzf util-linux-2.41.1.tar.gz
+cd util-linux-2.41.1
 ./configure --disable-all-programs --disable-shared --enable-libuuid --prefix=$PREFIX
 make -j
 make install
@@ -73,9 +73,9 @@ cd ..
 # libxslt
 # https://mirrors.dotsrc.org/gcrypt/libgpg-error
 # wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.50.tar.bz2
-wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.51.tar.gz
-tar -xvf libgpg-error-1.51.tar.gz
-cd libgpg-error-1.51
+wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.55.tar.gz
+tar -xvf libgpg-error-1.55.tar.gz
+cd libgpg-error-1.55
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -83,9 +83,9 @@ cd ..
 
 # https://mirrors.dotsrc.org/gcrypt/libgcrypt
 # wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2
-wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2
-tar -xjvf libgcrypt-1.11.0.tar.bz2
-cd libgcrypt-1.11.0
+wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.2.tar.bz2
+tar -xjvf libgcrypt-1.11.2.tar.bz2
+cd libgcrypt-1.11.2
 ./configure --disable-shared --prefix=$PREFIX --disable-avx2-support
 make -j
 make install
@@ -103,7 +103,7 @@ cd ../..
 
 # https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv
 # wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz
-wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.18.tar.gz
+wget https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv/libiconv-1.18.tar.gz
 tar -xzf libiconv-1.18.tar.gz
 cd libiconv-1.18
 ./configure --disable-shared --prefix=$PREFIX
@@ -112,20 +112,21 @@ make install
 cd ..
 
 # https://download.gnome.org/sources/libxml2
-wget https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.8.tar.xz
-tar -xvf libxml2-2.13.8.tar.xz
-cd libxml2-2.13.8
+wget https://download.gnome.org/sources/libxml2/2.14/libxml2-2.14.5.tar.xz
+tar -xvf libxml2-2.14.5.tar.xz
+cd libxml2-2.14.5
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install
-ln -sn /usr/include/libxml2/libxml /usr/include/libxml
+# ln -sn /usr/include/libxml2/libxml /usr/include/libxml
 cd ..
 
 # https://download.gnome.org/sources/libxslt
 wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.43.tar.xz
 tar -xf libxslt-1.1.43.tar.xz
 cd libxslt-1.1.43
-./configure --disable-shared --prefix=$PREFIX --with-python=no
+./configure --disable-shared --prefix=$PREFIX --with-python=no \
+  --with-libxml-src=$(pwd)/../libxml2-2.14.5
 make -j
 make install
 cd ..
@@ -159,9 +160,9 @@ cd ..
 # cd ../..
 
 # https://github.com/webmproject/libwebp/tags
-wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.5.0.tar.gz
-tar -xzf libwebp-1.5.0.tar.gz
-cd libwebp-1.5.0
+wget https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz
+tar -xzf libwebp-1.6.0.tar.gz
+cd libwebp-1.6.0
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install

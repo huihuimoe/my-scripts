@@ -1,7 +1,7 @@
-diff --git a/include/openssl/base.h b/include/openssl/base.h
-index 16796c5..2e70f20 100644
---- a/include/openssl/base.h
-+++ b/include/openssl/base.h
+diff --git a/include/openssl/base.h.in b/include/openssl/base.h.in
+index 60877e9..0c2d2ff 100644
+--- a/include/openssl/base.h.in
++++ b/include/openssl/base.h.in
 @@ -100,6 +100,8 @@ extern "C" {
  
  #define AWSLC_VERSION_NAME "AWS-LC"
@@ -9,19 +9,20 @@ index 16796c5..2e70f20 100644
 +// compatible with nginx
 +#define OPENSSL_IS_BORINGSSL
  // |OPENSSL_VERSION_NUMBER| should match the version number in opensslv.h.
- #define OPENSSL_VERSION_NUMBER 0x1010107f
+ #define OPENSSL_VERSION_NUMBER @OPENSSL_VERSION_NUMBER@
  #define SSLEAY_VERSION_NUMBER OPENSSL_VERSION_NUMBER
 diff --git a/include/openssl/ssl.h b/include/openssl/ssl.h
-index 7208c4b..81de8e1 100644
+index 0e75768..50f94c0 100644
 --- a/include/openssl/ssl.h
 +++ b/include/openssl/ssl.h
-@@ -6452,4 +6452,9 @@ BSSL_NAMESPACE_END
- #define SSL_R_TLSV1_ALERT_ECH_REQUIRED 1121
- #define SSL_R_SERIALIZATION_INVALID_SERDE_VERSION 1122
- 
+@@ -6217,6 +6217,10 @@ OPENSSL_EXPORT OPENSSL_DEPRECATED int SSL_set_tmp_rsa(SSL *ssl, const RSA *rsa);
+ #define SSL_CTRL_GET_SESS_CACHE_MODE doesnt_exist
+ #define SSL_CTRL_GET_SESS_CACHE_SIZE doesnt_exist
+ #define SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE doesnt_exist
 +// ref: https://github.com/openresty/lua-nginx-module/blob/master/src/ngx_http_lua_ssl_ocsp.c#L514
-+#define SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE     127
++//#define SSL_CTRL_GET_TLSEXT_STATUS_REQ_TYPE     127
 +// ref: https://github.com/freenginx/nginx/blob/default/src/event/quic/ngx_event_quic_openssl_compat.h#L10
 +#define SSL_R_MISSING_QUIC_TRANSPORT_PARAMETERS_EXTENSION 801
-+
- #endif  // OPENSSL_HEADER_SSL_H
+ #define SSL_CTRL_GET_TLSEXT_TICKET_KEYS doesnt_exist
+ #define SSL_CTRL_GET_TOTAL_RENEGOTIATIONS doesnt_exist
+ #define SSL_CTRL_MODE doesnt_exist
