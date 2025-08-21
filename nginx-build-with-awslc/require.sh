@@ -36,9 +36,12 @@ rm -rf nginx-${nginx_version}.tar.gz
 # rm -rf freenginx-${nginx_version}.tar.gz
 cd nginx-${nginx_version}
 # huihui's patches
+# 
+# https://raw.githubusercontent.com/openresty/openresty/refs/heads/master/patches/nginx/1.27.1/nginx-1.27.1-stream_proxy_protocol_v2.patch
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stream-proxy-protocol-v2/main/stream-proxy-protocol-v2-release-1.27.0.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-disable-http-to-https.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-with-awslc_nginx.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-with-boringssl_nginx.patch)
 # awslc patch
 patch -p1 < ../aws-lc/tests/ci/integration/nginx_patch/aws-lc-nginx.patch
 # https://openresty.org/en/nginx-ssl-patches.html

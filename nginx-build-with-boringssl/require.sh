@@ -16,8 +16,11 @@ rm -rf nginx-${nginx_version}.tar.gz
 # rm -rf freenginx-${nginx_version}.tar.gz
 cd nginx-${nginx_version}
 # huihui's patches
+# 
+# https://raw.githubusercontent.com/openresty/openresty/refs/heads/master/patches/nginx/1.27.1/nginx-1.27.1-stream_proxy_protocol_v2.patch
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stream-proxy-protocol-v2/main/stream-proxy-protocol-v2-release-1.27.0.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-disable-http-to-https.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-with-boringssl_nginx.patch)
 # https://openresty.org/en/nginx-ssl-patches.html
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.27.1/nginx-1.27.1-single_process_graceful_exit.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.27.1/nginx-1.27.1-socket_cloexec.patch)
@@ -31,21 +34,22 @@ patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/refs/hea
 # patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/master/Enable_BoringSSL_OCSP.patch)
 cd ..
 
-# boringssl with tls1.3
-# thanks to https://github.com/nginx-modules/docker-nginx-boringssl/blob/main/mainline-alpine.Dockerfile#L111
-# git clone https://boringssl.googlesource.com/boringssl
-# cd boringssl
-# git checkout --force --quiet e648990
-# cd ..
 # https://trac.nginx.org/nginx/ticket/2605
-git clone https://boringssl.googlesource.com/boringssl --depth=1 -b chromium-stable
-grep -qxF 'SET_TARGET_PROPERTIES(crypto PROPERTIES SOVERSION 1)' boringssl/crypto/CMakeLists.txt || echo -e '\nSET_TARGET_PROPERTIES(crypto PROPERTIES SOVERSION 1)' >> boringssl/crypto/CMakeLists.txt
-grep -qxF 'SET_TARGET_PROPERTIES(ssl PROPERTIES SOVERSION 1)' boringssl/ssl/CMakeLists.txt || echo -e '\nSET_TARGET_PROPERTIES(ssl PROPERTIES SOVERSION 1)' >> boringssl/ssl/CMakeLists.txt
+
+# The `chromium-stable` branch is no longer being updated. Historically, this
+# branch pointed to, though lagged behind, the revision of BoringSSL that the
+# current latest stable release of Chromium used. It was used by projects that
+# wanted some slower-moving branch to follow than `HEAD`.
+
+# BoringSSL now tags periodic releases that can be used instead. See the tags of
+# the form `0.YYYYMMDD.N`.
+
+git clone https://boringssl.googlesource.com/boringssl --depth=1 -b $boringssl_version
 mkdir -p boringssl/build boringssl/.openssl/lib boringssl/.openssl/include
-ln -sf `pwd`/boringssl/include/openssl boringssl/.openssl/include/openssl
+ln -sf $(pwd)/boringssl/include/openssl boringssl/.openssl/include/openssl
 touch boringssl/.openssl/include/openssl/ssl.h
-cmake -B`pwd`/boringssl/build -H`pwd`/boringssl \
+cmake -B$(pwd)/boringssl/build -H$(pwd)/boringssl \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_CXX_FLAGS="-Wno-error=deprecated-declarations -O3"
-make -C`pwd`/boringssl/build -j$(getconf _NPROCESSORS_ONLN)
-cp boringssl/build/crypto/libcrypto.a boringssl/build/ssl/libssl.a boringssl/.openssl/lib
+make -C$(pwd)/boringssl/build -j$(getconf _NPROCESSORS_ONLN)
+cp boringssl/build/libcrypto.a boringssl/build/libssl.a boringssl/.openssl/lib

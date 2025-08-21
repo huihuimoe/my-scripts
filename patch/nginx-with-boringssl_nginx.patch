@@ -1,0 +1,16 @@
+diff --git a/src/event/quic/ngx_event_quic.h b/src/event/quic/ngx_event_quic.h
+index bab085f46..149755221 100644
+--- a/src/event/quic/ngx_event_quic.h
++++ b/src/event/quic/ngx_event_quic.h
+@@ -12,7 +12,10 @@
+ #include <ngx_core.h>
+ 
+ 
+-#if (OPENSSL_VERSION_NUMBER >= 0x30500010L)
++#if (defined OPENSSL_IS_AWSLC || defined OPENSSL_IS_BORINGSSL)
++#define NGX_QUIC_BORINGSSL_API               1
++
++#elif (OPENSSL_VERSION_NUMBER >= 0x30500010L)
+ #define NGX_QUIC_OPENSSL_API                 1
+ 
+ #elif (defined SSL_R_MISSING_QUIC_TRANSPORT_PARAMETERS_EXTENSION)
