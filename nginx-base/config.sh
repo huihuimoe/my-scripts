@@ -26,12 +26,11 @@ clang_version=20
 # https://github.com/openresty/luajit2/tags
 luajit2_version=2.1-20250826
 # https://github.com/openresty/stream-lua-nginx-module/tags
-# FIXME: require-base.sh#11
 stream_lua_nginx_module_version=0.0.17rc1
 # https://github.com/leev/ngx_http_geoip2_module/tags
 ngx_http_geoip2_module_version=3.4
 # https://github.com/openresty/lua-resty-core/tags
-nginx_lua_resty_core_version=0.1.32rc1
+nginx_lua_resty_core_version=0.1.32rc2
 # https://github.com/openresty/lua-resty-lrucache/tags
 nginx_lua_resty_lrucache_version=0.15
 # https://github.com/ekho/lua-nginx-split-clients/tags

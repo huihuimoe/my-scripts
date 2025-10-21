@@ -1,0 +1,99 @@
+diff --git a/config b/config
+index a621403..e7cde6c 100644
+--- a/config
++++ b/config
+@@ -159,7 +159,7 @@ ngx_module_libs=
+ if [ $ngx_found = yes ]; then
+     # this is a hack to persuade nginx's build system to favor
+     # the paths set by our user environment
+-    CFLAGS="$ngx_lua_opt_I $CFLAGS"
++    CFLAGS="$ngx_lua_opt_I $CFLAGS -Wno-error=unused-variable -Wno-error=unused-function -Wno-error=conditional-uninitialized"
+     NGX_LD_OPT="$ngx_lua_opt_L $NGX_LD_OPT"
+ 
+     ngx_module_incs="$ngx_module_incs $ngx_feature_path"
+diff --git a/src/ngx_stream_lua_proxy_ssl_verifyby.c b/src/ngx_stream_lua_proxy_ssl_verifyby.c
+index 91c8255..f34877a 100644
+--- a/src/ngx_stream_lua_proxy_ssl_verifyby.c
++++ b/src/ngx_stream_lua_proxy_ssl_verifyby.c
+@@ -275,21 +275,6 @@ ngx_stream_lua_proxy_ssl_verify_by_lua(ngx_conf_t *cf, ngx_command_t *cmd,
+ int
+ ngx_stream_lua_proxy_ssl_verify_handler(X509_STORE_CTX *x509_store, void *arg)
+ {
+-#if defined(LIBRESSL_VERSION_NUMBER)
+-
+-    ngx_log_debug0(NGX_LOG_DEBUG_STREAM, c->log, 0,
+-        "LibreSSL does not support by proxy_ssl_verify_by_lua*");
+-
+-    return 1;
+-
+-#elif defined(OPENSSL_IS_BORINGSSL)
+-
+-    ngx_log_debug0(NGX_LOG_DEBUG_STREAM, c->log, 0,
+-        "BoringSSL does not support by proxy_ssl_verify_by_lua*");
+-
+-    return 1;
+-
+-#else
+ 
+     lua_State                          *L;
+     ngx_int_t                           rc;
+@@ -306,6 +291,21 @@ ngx_stream_lua_proxy_ssl_verify_handler(X509_STORE_CTX *x509_store, void *arg)
+ 
+     c = ngx_ssl_get_connection(ssl_conn);  /* upstream connection */
+ 
++#if defined(LIBRESSL_VERSION_NUMBER)
++
++    ngx_log_debug0(NGX_LOG_DEBUG_STREAM, c->log, 0,
++        "LibreSSL does not support by proxy_ssl_verify_by_lua*");
++
++    return 1;
++
++#elif defined(OPENSSL_IS_BORINGSSL)
++
++    ngx_log_debug0(NGX_LOG_DEBUG_STREAM, c->log, 0,
++        "BoringSSL does not support by proxy_ssl_verify_by_lua*");
++
++    return 1;
++
++#else
+     ngx_log_debug1(NGX_LOG_DEBUG_STREAM, c->log, 0,
+                    "proxy ssl verify: connection reusable: %ud", c->reusable);
+ 
+@@ -763,13 +763,13 @@ ngx_stream_lua_ffi_proxy_ssl_get_verify_cert(ngx_stream_lua_request_t *r,
+ 
+     *err = "LibreSSL does not support this function";
+ 
+-    return NGX_ERROR;
++    return NULL;
+ 
+ #elif defined(OPENSSL_IS_BORINGSSL)
+ 
+     *err = "BoringSSL does not support this function";
+ 
+-    return NGX_ERROR;
++    return NULL;
+ 
+ #else
+ 
+@@ -853,7 +853,7 @@ ngx_stream_lua_ffi_proxy_ssl_get_verify_result(ngx_stream_lua_request_t *r,
+ 
+ 
+ void
+-ngx_stream_lua_ffi_proxy_ssl_free_verify_cert(void *)
++ngx_stream_lua_ffi_proxy_ssl_free_verify_cert(void *v)
+ {
+ }
+ 
+diff --git a/src/ngx_stream_lua_ssl_client_helloby.c b/src/ngx_stream_lua_ssl_client_helloby.c
+index db478ec..b17ac32 100644
+--- a/src/ngx_stream_lua_ssl_client_helloby.c
++++ b/src/ngx_stream_lua_ssl_client_helloby.c
+@@ -218,7 +218,7 @@ ngx_stream_lua_ssl_client_hello_handler(ngx_ssl_conn_t *ssl_conn,
+         return -1;
+     }
+ 
+-#if (nginx_version > 1029001)
++#if (nginx_version > 1029001 && defined(SSL_CLIENT_HELLO_SUCCESS))
+     /* see commit 0373fe5d98c1515640 for more details */
+     rc = ngx_ssl_client_hello_callback(ssl_conn, al, arg);
+ 

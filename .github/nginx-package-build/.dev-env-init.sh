@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# docker run -v $(pwd):/work -it --rm debian bash
+# docker run -v $(pwd):/work -w /work -it --rm debian bash
 # or
-# docker run -v $(pwd):/work -it --rm quay.io/huihuimoe/ubuntu-ci-base:20.04 bash
+# docker run -v $(pwd):/work -w /work -it --rm quay.io/huihuimoe/ubuntu-ci-base:20.04 bash
 # bash /work/.github/nginx-package-build/.dev-env-init.sh DIR
 
 set -e
@@ -20,6 +20,7 @@ apt-get update
 apt-get install -y fish unzip curl gawk wget git perl bison lsb-release wget software-properties-common gnupg debhelper cmake pkg-config \
   vim tree \
   --no-install-recommends
+apt-get upgrade -y
 
 # LLVM
 . $(dirname $0)/../../nginx-base/config.sh
@@ -35,7 +36,8 @@ update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/llvm-ar-${clang_versi
 
 # Golang
 curl -sSL https://git.io/g-install | sh -s -- bash -y
-source ~/.bashrc
+# source ~/.bashrc
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH";
 
 DIR=$1
 export CI=1

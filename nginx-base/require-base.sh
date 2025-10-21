@@ -9,7 +9,7 @@ export CC=clang-${clang_version}
 wget -O stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz https://github.com/openresty/stream-lua-nginx-module/archive/v${stream_lua_nginx_module_version}.tar.gz
 tar -xzf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
 # FIXME: delete it, would be fix in next version 
-sed -i 's|\bvoid \*)|void *r)|g' stream-lua-nginx-module-${stream_lua_nginx_module_version}/src/ngx_stream_lua_proxy_ssl_verifyby.c
+patch -p1 -d stream-lua-nginx-module-${stream_lua_nginx_module_version} <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/stream-lua-nginx-module.patch)
 # revert change in pr #344 (not change in freenginx)
 # https://github.com/openresty/stream-lua-nginx-module/pull/344
 # patch -d stream-lua-nginx-module-${stream_lua_nginx_module_version} -R -p1 \
@@ -50,8 +50,9 @@ tar zxf v${headers_more_nginx_module_version}.tar.gz
 # lua-nginx-module
 # wget https://github.com/openresty/lua-nginx-module/archive/v${lua_nginx_module_version}.tar.gz
 # tar zxf v${lua_nginx_module_version}.tar.gz
-# FIXME: temp fix
 git clone --depth=1 https://github.com/openresty/lua-nginx-module.git lua-nginx-module-${lua_nginx_module_version}
+# FIXME: temp fix
+patch -p1 -d lua-nginx-module-${lua_nginx_module_version} <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/lua-nginx-module.patch)
 # dirname: lua-nginx-module-${lua_nginx_module_version}
 
 # ngx_devel_kit
