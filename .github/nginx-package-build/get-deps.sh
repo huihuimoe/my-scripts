@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 . $(dirname $0)/../../nginx-base/config.sh
 
@@ -45,9 +46,9 @@ make install
 cd ../..
 
 # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux
-wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.41/util-linux-2.41.1.tar.gz
-tar -xzf util-linux-2.41.1.tar.gz
-cd util-linux-2.41.1
+wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.41/util-linux-2.41.2.tar.gz
+tar -xzf util-linux-2.41.2.tar.gz
+cd util-linux-2.41.2
 ./configure --disable-all-programs --disable-shared --enable-libuuid --prefix=$PREFIX
 make -j
 make install
@@ -73,9 +74,9 @@ cd ..
 # libxslt
 # https://mirrors.dotsrc.org/gcrypt/libgpg-error
 # wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.50.tar.bz2
-wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.55.tar.gz
-tar -xvf libgpg-error-1.55.tar.gz
-cd libgpg-error-1.55
+wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.56.tar.gz
+tar -xvf libgpg-error-1.56.tar.gz
+cd libgpg-error-1.56
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -112,9 +113,9 @@ make install
 cd ..
 
 # https://download.gnome.org/sources/libxml2
-wget https://download.gnome.org/sources/libxml2/2.14/libxml2-2.14.5.tar.xz
-tar -xvf libxml2-2.14.5.tar.xz
-cd libxml2-2.14.5
+wget https://download.gnome.org/sources/libxml2/2.14/libxml2-2.14.6.tar.xz
+tar -xvf libxml2-2.14.6.tar.xz
+cd libxml2-2.14.6
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install
@@ -126,7 +127,7 @@ wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.43.tar.xz
 tar -xf libxslt-1.1.43.tar.xz
 cd libxslt-1.1.43
 ./configure --disable-shared --prefix=$PREFIX --with-python=no \
-  --with-libxml-src=$(pwd)/../libxml2-2.14.5
+  --with-libxml-src=$(pwd)/../libxml2-2.14.6
 make -j
 make install
 cd ..

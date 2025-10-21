@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 . ./config.sh
 # nps_dir=$(find . -name "*pagespeed-ngx-${pagespeed_ngx_version}" -type d)
 export CXX=clang++-${clang_version}

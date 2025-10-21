@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 . ./config.sh
 cd lua-resty-lrucache-${nginx_lua_resty_lrucache_version}
 sudo make install

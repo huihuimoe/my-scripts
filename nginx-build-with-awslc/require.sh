@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 . ./config.sh
 . ../nginx-base/require-base.sh
 
@@ -37,21 +38,21 @@ rm -rf nginx-${nginx_version}.tar.gz
 cd nginx-${nginx_version}
 # huihui's patches
 # 
-# https://raw.githubusercontent.com/openresty/openresty/refs/heads/master/patches/nginx/1.27.1/nginx-1.27.1-stream_proxy_protocol_v2.patch
+# https://raw.githubusercontent.com/openresty/openresty/refs/heads/master/patches/nginx/1.29.2/nginx-1.29.2-stream_proxy_protocol_v2.patch
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/nginx-stream-proxy-protocol-v2/main/stream-proxy-protocol-v2-release-1.27.0.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-disable-http-to-https.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-with-awslc_nginx.patch)
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-with-boringssl_nginx.patch)
 # awslc patch
-patch -p1 < ../aws-lc/tests/ci/integration/nginx_patch/aws-lc-nginx.patch
+# patch -p1 < ../aws-lc/tests/ci/integration/nginx_patch/aws-lc-nginx.patch
 # https://openresty.org/en/nginx-ssl-patches.html
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.27.1/nginx-1.27.1-single_process_graceful_exit.patch)
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.27.1/nginx-1.27.1-socket_cloexec.patch)
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.27.1/nginx-1.27.1-ssl_cert_cb_yield.patch)
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.27.1/nginx-1.27.1-ssl_sess_cb_yield.patch)
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.27.1/nginx-1.27.1-ssl_client_hello_cb_yield.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.29.2/nginx-1.29.2-single_process_graceful_exit.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.29.2/nginx-1.29.2-socket_cloexec.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.29.2/nginx-1.29.2-ssl_cert_cb_yield.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.29.2/nginx-1.29.2-ssl_sess_cb_yield.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.29.2/nginx-1.29.2-ssl_client_hello_cb_yield.patch)
 # https://github.com/openresty/lua-nginx-module/issues/2443
-patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.27.1/nginx-1.27.1-quic_ssl_lua_yield.patch)
+patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/1.29.2/nginx-1.29.2-quic_ssl_lua_yield.patch)
 # kn007's patches
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/refs/heads/master/nginx_dynamic_tls_records.patch)
 cd ..

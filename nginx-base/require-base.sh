@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 . ./config.sh
 
 export CXX=clang++-${clang_version}
@@ -7,6 +8,8 @@ export CC=clang-${clang_version}
 # stream-lua-nginx-module
 wget -O stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz https://github.com/openresty/stream-lua-nginx-module/archive/v${stream_lua_nginx_module_version}.tar.gz
 tar -xzf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
+# FIXME: delete it, would be fix in next version 
+sed -i 's|\bvoid \*)|void *r)|g' stream-lua-nginx-module-${stream_lua_nginx_module_version}/src/ngx_stream_lua_proxy_ssl_verifyby.c
 # revert change in pr #344 (not change in freenginx)
 # https://github.com/openresty/stream-lua-nginx-module/pull/344
 # patch -d stream-lua-nginx-module-${stream_lua_nginx_module_version} -R -p1 \

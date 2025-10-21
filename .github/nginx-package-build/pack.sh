@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 cd $1
 bash ./require.sh
 

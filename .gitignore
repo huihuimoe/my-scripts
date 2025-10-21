@@ -1,0 +1,9 @@
+nginx-build/*
+!nginx-build/*.sh
+!nginx-build/debian
+nginx-build-with-awslc/*
+!nginx-build-with-awslc/*.sh
+!nginx-build-with-awslc/debian
+nginx-build-with-boringssl/*
+!nginx-build-with-boringssl/*.sh
+!nginx-build-with-boringssl/debian

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 . ./config.sh
 export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
