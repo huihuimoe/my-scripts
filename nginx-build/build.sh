@@ -7,7 +7,7 @@ export CC=clang-${clang_version}
 
 # ./my-scripts/nginx-build/nginx-1.23.2/objs/autoconf.err
 
-CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src -I`pwd`/pcre2-${pcre2_version}/build -I`pwd`/quickjs"
+CFLAGS="-I`pwd`/jemalloc-${jemalloc_version}/include -I`pwd`/luajit2-${luajit2_version}/src -I`pwd`/pcre2-${pcre2_version}/build/interface -I`pwd`/quickjs"
 # https://github.com/arut/nginx-rtmp-module/commit/c56fd73def3eb407155ecebc28af84ea83dc99e5
 CFLAGS="$CFLAGS -Wno-error=unused-but-set-variable"
 # https://github.com/bellard/quickjs/blob/master/Makefile#L98C13-L98C30

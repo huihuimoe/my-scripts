@@ -6,9 +6,8 @@ export CXX=clang++-${clang_version}
 export CC=clang-${clang_version}
 
 # stream-lua-nginx-module
-wget -O stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz https://github.com/openresty/stream-lua-nginx-module/archive/v${stream_lua_nginx_module_version}.tar.gz
-tar -xzf stream-lua-nginx-module-${stream_lua_nginx_module_version}.tar.gz
-# FIXME: delete it, would be fix in next version 
+git clone --depth=1 https://github.com/openresty/stream-lua-nginx-module.git \
+ -b v${stream_lua_nginx_module_version} stream-lua-nginx-module-${stream_lua_nginx_module_version}
 patch -p1 -d stream-lua-nginx-module-${stream_lua_nginx_module_version} <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/stream-lua-nginx-module.patch)
 # revert change in pr #344 (not change in freenginx)
 # https://github.com/openresty/stream-lua-nginx-module/pull/344
@@ -50,8 +49,8 @@ tar zxf v${headers_more_nginx_module_version}.tar.gz
 # lua-nginx-module
 # wget https://github.com/openresty/lua-nginx-module/archive/v${lua_nginx_module_version}.tar.gz
 # tar zxf v${lua_nginx_module_version}.tar.gz
-git clone --depth=1 https://github.com/openresty/lua-nginx-module.git lua-nginx-module-${lua_nginx_module_version}
-# FIXME: temp fix
+git clone --depth=1 https://github.com/openresty/lua-nginx-module.git \
+ -b v${lua_nginx_module_version} lua-nginx-module-${lua_nginx_module_version}
 patch -p1 -d lua-nginx-module-${lua_nginx_module_version} <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/lua-nginx-module.patch)
 # dirname: lua-nginx-module-${lua_nginx_module_version}
 
@@ -204,13 +203,21 @@ make -j$(getconf _NPROCESSORS_ONLN)
 cd ..
 
 # quickjs
-git clone https://github.com/bellard/quickjs --depth=1
+# git clone https://github.com/bellard/quickjs --depth=1
+# cd quickjs
+# sed -i "s/HOST_CC=clang/HOST_CC=clang-${clang_version}/" Makefile
+# sed -i "s/CC=\$(CROSS_PREFIX)clang/CC=\$(CROSS_PREFIX)clang-${clang_version}/" Makefile
+# sed -i "s/AR=\$(CROSS_PREFIX)llvm-ar/AR=\$(CROSS_PREFIX)llvm-ar-${clang_version}/" Makefile
+# env CFLAGS="$(dpkg-buildflags --get CFLAGS) -fPIC" LDFLAGS="$(dpkg-buildflags --get LDFLAGS)" \
+#   make -j$(getconf _NPROCESSORS_ONLN) CONFIG_LTO=y CONFIG_CLANG=y
+# cd ..
+# quickjs-ng
+git clone https://github.com/quickjs-ng/quickjs --depth=1 -b v${quickjs_ng_version}
 cd quickjs
-sed -i "s/HOST_CC=clang/HOST_CC=clang-${clang_version}/" Makefile
-sed -i "s/CC=\$(CROSS_PREFIX)clang/CC=\$(CROSS_PREFIX)clang-${clang_version}/" Makefile
-sed -i "s/AR=\$(CROSS_PREFIX)llvm-ar/AR=\$(CROSS_PREFIX)llvm-ar-${clang_version}/" Makefile
 env CFLAGS="$(dpkg-buildflags --get CFLAGS) -fPIC" LDFLAGS="$(dpkg-buildflags --get LDFLAGS)" \
-  make -j$(getconf _NPROCESSORS_ONLN) CONFIG_LTO=y CONFIG_CLANG=y
+  cmake -B build
+cmake --build build --target qjs -j $(nproc)
+cp build/*.a .
 cd ..
 
 # njs

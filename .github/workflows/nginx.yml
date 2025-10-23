@@ -95,7 +95,7 @@ jobs:
         PACKAGECLOUD_DISTRO: any/any
         PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
       run: |
-        sudo apt-get install ruby --no-install-recommends -y
+        sudo apt-get install ruby ruby-dev build-essential --no-install-recommends -y
         sudo gem install package_cloud
         echo "PACKAGECLOUD_REPO=${PACKAGECLOUD_REPO}"
         echo "PACKAGECLOUD_DISTRO=${PACKAGECLOUD_DISTRO}"
