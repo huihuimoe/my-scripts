@@ -203,22 +203,22 @@ make -j$(getconf _NPROCESSORS_ONLN)
 cd ..
 
 # quickjs
-# git clone https://github.com/bellard/quickjs --depth=1
-# cd quickjs
-# sed -i "s/HOST_CC=clang/HOST_CC=clang-${clang_version}/" Makefile
-# sed -i "s/CC=\$(CROSS_PREFIX)clang/CC=\$(CROSS_PREFIX)clang-${clang_version}/" Makefile
-# sed -i "s/AR=\$(CROSS_PREFIX)llvm-ar/AR=\$(CROSS_PREFIX)llvm-ar-${clang_version}/" Makefile
-# env CFLAGS="$(dpkg-buildflags --get CFLAGS) -fPIC" LDFLAGS="$(dpkg-buildflags --get LDFLAGS)" \
-#   make -j$(getconf _NPROCESSORS_ONLN) CONFIG_LTO=y CONFIG_CLANG=y
-# cd ..
-# quickjs-ng
-git clone https://github.com/quickjs-ng/quickjs --depth=1 -b v${quickjs_ng_version}
+git clone https://github.com/bellard/quickjs --depth=1
 cd quickjs
+sed -i "s/HOST_CC=clang/HOST_CC=clang-${clang_version}/" Makefile
+sed -i "s/CC=\$(CROSS_PREFIX)clang/CC=\$(CROSS_PREFIX)clang-${clang_version}/" Makefile
+sed -i "s/AR=\$(CROSS_PREFIX)llvm-ar/AR=\$(CROSS_PREFIX)llvm-ar-${clang_version}/" Makefile
 env CFLAGS="$(dpkg-buildflags --get CFLAGS) -fPIC" LDFLAGS="$(dpkg-buildflags --get LDFLAGS)" \
-  cmake -B build
-cmake --build build --target qjs -j $(nproc)
-cp build/*.a .
+  make -j$(getconf _NPROCESSORS_ONLN) CONFIG_LTO=y CONFIG_CLANG=y
 cd ..
+# quickjs-ng
+# git clone https://github.com/quickjs-ng/quickjs --depth=1 -b v${quickjs_ng_version}
+# cd quickjs
+# env CFLAGS="$(dpkg-buildflags --get CFLAGS) -fPIC" LDFLAGS="$(dpkg-buildflags --get LDFLAGS)" \
+#   cmake -B build
+# cmake --build build --target qjs -j $(nproc)
+# cp build/*.a .
+# cd ..
 
 # njs
 git clone --depth=1 https://github.com/nginx/njs -b ${njs_version}

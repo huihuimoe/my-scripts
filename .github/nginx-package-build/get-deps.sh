@@ -3,7 +3,7 @@ set -ex
 
 . $(dirname $0)/../../nginx-base/config.sh
 
-mkdir deps
+mkdir -p deps
 cd deps
 
 export CXX=clang++-${clang_version}
@@ -93,8 +93,8 @@ make install
 cd ..
 
 # https://github.com/unicode-org/icu/releases
-wget https://github.com/unicode-org/icu/releases/download/release-77-1/icu4c-77_1-src.tgz
-tar -xzf icu4c-77_1-src.tgz
+wget https://github.com/unicode-org/icu/releases/download/release-78.1/icu4c-78.1-sources.tgz
+tar -xzf icu4c-78.1-sources.tgz
 cd icu/source
 env CXXFLAGS="-std=c++17 $CXXFLAGS" CFLAGS="-std=c11" \
   ./configure --enable-static --disable-shared --prefix=$PREFIX --enable-tests=no --enable-samples=no --enable-dyload=no --enable-release
@@ -113,9 +113,9 @@ make install
 cd ..
 
 # https://download.gnome.org/sources/libxml2
-wget https://download.gnome.org/sources/libxml2/2.14/libxml2-2.14.6.tar.xz
-tar -xvf libxml2-2.14.6.tar.xz
-cd libxml2-2.14.6
+wget https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.1.tar.xz
+tar -xvf libxml2-2.15.1.tar.xz
+cd libxml2-2.15.1
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install
@@ -127,7 +127,7 @@ wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.43.tar.xz
 tar -xf libxslt-1.1.43.tar.xz
 cd libxslt-1.1.43
 ./configure --disable-shared --prefix=$PREFIX --with-python=no \
-  --with-libxml-src=$(pwd)/../libxml2-2.14.6
+  --with-libxml-src=$(pwd)/../libxml2-2.15.1
 make -j
 make install
 cd ..
@@ -229,9 +229,9 @@ make install
 cd ..
 
 # https://github.com/besser82/libxcrypt/releases
-wget https://github.com/besser82/libxcrypt/releases/download/v4.4.38/libxcrypt-4.4.38.tar.xz
-tar -xf libxcrypt-4.4.38.tar.xz
-cd libxcrypt-4.4.38
+wget https://github.com/besser82/libxcrypt/releases/download/v4.5.2/libxcrypt-4.5.2.tar.xz
+tar -xf libxcrypt-4.5.2.tar.xz
+cd libxcrypt-4.5.2
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
