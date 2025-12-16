@@ -2,7 +2,7 @@ source: nginx
 section: httpd
 Priority: optional
 Maintainer: huihuimoe
-Standards-Version: 1.29.3
+Standards-Version: 1.29.4
 
 Package: nginx-awslc-huihui
 Architecture: any

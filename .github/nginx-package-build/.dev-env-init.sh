@@ -2,7 +2,7 @@
 
 # docker run -v $(pwd):/work -w /work -it --rm debian bash
 # or
-# docker run -v $(pwd):/work -w /work -it --rm quay.io/huihuimoe/ubuntu-ci-base:20.04 bash
+# docker run -v $(pwd):/work -w /work -it --rm --env CI=1 quay.io/huihuimoe/ubuntu-ci-base:20.04 bash
 # bash /work/.github/nginx-package-build/.dev-env-init.sh DIR
 
 set -e
@@ -40,7 +40,6 @@ curl -sSL https://git.io/g-install | sh -s -- bash -y
 export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH";
 
 DIR=$1
-export CI=1
 mkdir /ci-build
 cd /ci-build
 bash /work/.github/nginx-package-build/get-deps.sh

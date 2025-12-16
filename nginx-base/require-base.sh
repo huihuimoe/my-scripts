@@ -8,7 +8,7 @@ export CC=clang-${clang_version}
 # stream-lua-nginx-module
 git clone --depth=1 https://github.com/openresty/stream-lua-nginx-module.git \
  -b v${stream_lua_nginx_module_version} stream-lua-nginx-module-${stream_lua_nginx_module_version}
-patch -p1 -d stream-lua-nginx-module-${stream_lua_nginx_module_version} <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/stream-lua-nginx-module.patch)
+# patch -p1 -d stream-lua-nginx-module-${stream_lua_nginx_module_version} <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/stream-lua-nginx-module.patch)
 # revert change in pr #344 (not change in freenginx)
 # https://github.com/openresty/stream-lua-nginx-module/pull/344
 # patch -d stream-lua-nginx-module-${stream_lua_nginx_module_version} -R -p1 \
@@ -51,7 +51,7 @@ tar zxf v${headers_more_nginx_module_version}.tar.gz
 # tar zxf v${lua_nginx_module_version}.tar.gz
 git clone --depth=1 https://github.com/openresty/lua-nginx-module.git \
  -b v${lua_nginx_module_version} lua-nginx-module-${lua_nginx_module_version}
-patch -p1 -d lua-nginx-module-${lua_nginx_module_version} <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/lua-nginx-module.patch)
+# patch -p1 -d lua-nginx-module-${lua_nginx_module_version} <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/lua-nginx-module.patch)
 # dirname: lua-nginx-module-${lua_nginx_module_version}
 
 # ngx_devel_kit

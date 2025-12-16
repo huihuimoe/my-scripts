@@ -46,9 +46,9 @@ make install
 cd ../..
 
 # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux
-wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.41/util-linux-2.41.2.tar.gz
-tar -xzf util-linux-2.41.2.tar.gz
-cd util-linux-2.41.2
+wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.41/util-linux-2.41.3.tar.gz
+tar -xzf util-linux-2.41.3.tar.gz
+cd util-linux-2.41.3
 ./configure --disable-all-programs --disable-shared --enable-libuuid --prefix=$PREFIX
 make -j
 make install
@@ -74,9 +74,9 @@ cd ..
 # libxslt
 # https://mirrors.dotsrc.org/gcrypt/libgpg-error
 # wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.50.tar.bz2
-wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.56.tar.gz
-tar -xvf libgpg-error-1.56.tar.gz
-cd libgpg-error-1.56
+wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.58.tar.bz2
+tar -xvf libgpg-error-1.58.tar.bz2
+cd libgpg-error-1.58
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -123,9 +123,9 @@ make install
 cd ..
 
 # https://download.gnome.org/sources/libxslt
-wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.43.tar.xz
-tar -xf libxslt-1.1.43.tar.xz
-cd libxslt-1.1.43
+wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.45.tar.xz
+tar -xf libxslt-1.1.45.tar.xz
+cd libxslt-1.1.45
 ./configure --disable-shared --prefix=$PREFIX --with-python=no \
   --with-libxml-src=$(pwd)/../libxml2-2.15.1
 make -j
