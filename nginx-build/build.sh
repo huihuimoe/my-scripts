@@ -35,6 +35,8 @@ esac
 export ZSTD_INC=`pwd`/zstd/lib
 export ZSTD_LIB=`pwd`/zstd/out/lib
 
+SSL_VERSION=${openssl_version:-$quictls_version}
+
 cd nginx-${nginx_version}
 sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic/make
 ./configure \
@@ -84,7 +86,7 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --with-stream_realip_module \
   --with-threads \
   --with-libatomic=../libatomic_ops-${libatomic_ops_version} \
-  --with-openssl=../openssl-${quictls_version} \
+  --with-openssl=../openssl-${SSL_VERSION} \
   --with-openssl-opt="enable-weak-ssl-ciphers enable-ec_nistp_64_gcc_128 -march=${ARCH} CC=${CC} CXX=${CXX}" \
   --with-zlib=../zlib-cf \
   --add-module=../ngx_cache_purge \

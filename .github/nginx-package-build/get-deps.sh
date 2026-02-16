@@ -23,9 +23,9 @@ make install
 cd ..
 
 # https://github.com/tukaani-project/xz
-wget https://tukaani.org/xz/xz-5.8.1.tar.gz
-tar -xzf xz-5.8.1.tar.gz
-cd xz-5.8.1
+wget https://tukaani.org/xz/xz-5.8.2.tar.gz
+tar -xzf xz-5.8.2.tar.gz
+cd xz-5.8.2
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -84,17 +84,17 @@ cd ..
 
 # https://mirrors.dotsrc.org/gcrypt/libgcrypt
 # wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2
-wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.2.tar.bz2
-tar -xjvf libgcrypt-1.11.2.tar.bz2
-cd libgcrypt-1.11.2
+wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.12.0.tar.bz2
+tar -xjvf libgcrypt-1.12.0.tar.bz2
+cd libgcrypt-1.12.0
 ./configure --disable-shared --prefix=$PREFIX --disable-avx2-support
 make -j
 make install
 cd ..
 
 # https://github.com/unicode-org/icu/releases
-wget https://github.com/unicode-org/icu/releases/download/release-78.1/icu4c-78.1-sources.tgz
-tar -xzf icu4c-78.1-sources.tgz
+wget https://github.com/unicode-org/icu/releases/download/release-78.2/icu4c-78.2-sources.tgz
+tar -xzf icu4c-78.2-sources.tgz
 cd icu/source
 env CXXFLAGS="-std=c++17 $CXXFLAGS" CFLAGS="-std=c11" \
   ./configure --enable-static --disable-shared --prefix=$PREFIX --enable-tests=no --enable-samples=no --enable-dyload=no --enable-release

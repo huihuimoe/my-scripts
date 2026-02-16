@@ -1,7 +1,7 @@
 #!/bin/bash
-nginx_version=1.29.4
+nginx_version=1.29.5
 # https://github.com/nginx/njs
-njs_version=0.9.4
+njs_version=0.9.5
 # not really compatible the latest version
 # https://github.com/quickjs-ng/quickjs/releases
 # quickjs_ng_version=0.11.0
@@ -27,7 +27,7 @@ pcre2_version=10.47
 clang_version=20
 
 # https://github.com/openresty/luajit2/tags
-luajit2_version=2.1-20251030
+luajit2_version=2.1-20260114
 # https://github.com/openresty/stream-lua-nginx-module/tags
 stream_lua_nginx_module_version=0.0.17R4
 # https://github.com/leev/ngx_http_geoip2_module/tags

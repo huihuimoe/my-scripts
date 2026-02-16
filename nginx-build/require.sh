@@ -8,14 +8,15 @@ export CC=clang-${clang_version}
 
 # openssl
 # wget https://github.com/openssl/openssl/archive/refs/tags/openssl-${openssl_version}.tar.gz
-# wget https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
-# tar zxf openssl-${openssl_version}.tar.gz
+wget https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
+tar zxf openssl-${openssl_version}.tar.gz
+rm -rf openssl-${openssl_version}.tar.gz
 # mv openssl-openssl-${openssl_version} openssl-${openssl_version}
 
 # https://nginx.org/en/docs/configure.html#http_v3_module
-wget -q https://github.com/quictls/openssl/archive/refs/tags/${quictls_version}.tar.gz
-tar zxf ${quictls_version}.tar.gz
-rm -rf ${quictls_version}.tar.gz
+# wget -q https://github.com/quictls/openssl/archive/refs/tags/${quictls_version}.tar.gz
+# tar zxf ${quictls_version}.tar.gz
+# rm -rf ${quictls_version}.tar.gz
 # mv openssl-openssl-* openssl-${quictls_version}
 # dirname: openssl-${quictls_version}
 
