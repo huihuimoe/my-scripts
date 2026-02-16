@@ -60,7 +60,7 @@ jobs:
         # properly aarch64
         #sudo update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/x86_64-linux-gnu-ar" 10
     - name: Set up Golang
-      if: ${{ matrix.env.Name }} != "nginx"
+      if: ${{ matrix.env.Name != 'nginx' }}
       uses: actions/setup-go@v5
       with:
         go-version: 'stable'
