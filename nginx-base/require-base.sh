@@ -24,8 +24,8 @@ tar -xzf lua-resty-core-${nginx_lua_resty_core_version}.tar.gz
 # dirname: lua-resty-core-${nginx_lua_resty_core_version}
 
 # lua-nginx-split-clients
-wget -O lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz https://github.com/ekho/lua-nginx-split-clients/archive/v${nginx_lua_split_clients_version}.tar.gz
-tar -xzf lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz
+# wget -O lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz https://github.com/ekho/lua-nginx-split-clients/archive/v${nginx_lua_split_clients_version}.tar.gz
+# tar -xzf lua-nginx-split-clients-${nginx_lua_split_clients_version}.tar.gz
 # dirname: lua-nginx-split-clients-${nginx_lua_split_clients_version}
 
 git clone --depth=1 https://github.com/openresty/lua-upstream-nginx-module
