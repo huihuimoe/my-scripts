@@ -74,9 +74,9 @@ cd ..
 # libxslt
 # https://mirrors.dotsrc.org/gcrypt/libgpg-error
 # wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.50.tar.bz2
-wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.60.tar.bz2
-tar -xvf libgpg-error-1.60.tar.bz2
-cd libgpg-error-1.60
+wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.61.tar.bz2
+tar -xvf libgpg-error-1.61.tar.bz2
+cd libgpg-error-1.61
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
