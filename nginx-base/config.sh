@@ -24,7 +24,7 @@ rtmp_module_version=1.2.2
 # pcre_version=8.45
 # https://github.com/PCRE2Project/pcre2/releases
 pcre2_version=10.47
-clang_version=20
+clang_version=21
 
 # https://github.com/openresty/luajit2/tags
 luajit2_version=2.1-20260415

@@ -25,9 +25,9 @@ apt-get upgrade -y
 # LLVM
 . $(dirname $0)/../../nginx-base/config.sh
 curl -sSL https://apt.llvm.org/llvm.sh | bash -s -- ${clang_version}
-update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/lld-${clang_version}" 20
+update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/lld-${clang_version}" 21
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
-update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/llvm-ar-${clang_version}" 20
+update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/llvm-ar-${clang_version}" 21
 #update-alternatives --install "/usr/bin/ar" "ar" "/usr/bin/x86_64-linux-gnu-ar" 10
 
 # Rust (not need anymore)
