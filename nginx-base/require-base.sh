@@ -175,7 +175,7 @@ wget -O luajit2-${luajit2_version}.tar.gz https://github.com/openresty/luajit2/a
 tar -xzf luajit2-${luajit2_version}.tar.gz
 cd luajit2-${luajit2_version}
 sed -i "s/DEFAULT_CC = gcc/DEFAULT_CC = $CC/" src/Makefile
-make -j$(getconf _NPROCESSORS_ONLN) CFLAGS='-static -fPIC' CC=$CC
+make -j$(getconf _NPROCESSORS_ONLN) PREFIX=/usr CFLAGS='-static -fPIC' CC=$CC
 cd src
 ln -s libluajit.so libluajit-5.1.so
 cd ..
