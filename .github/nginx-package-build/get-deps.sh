@@ -46,9 +46,9 @@ make install
 cd ../..
 
 # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux
-wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.tar.gz
-tar -xzf util-linux-2.42.tar.gz
-cd util-linux-2.42
+wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.1.tar.gz
+tar -xzf util-linux-2.42.1.tar.gz
+cd util-linux-2.42.1
 ./configure --disable-all-programs --disable-shared --enable-libuuid --prefix=$PREFIX
 make -j
 make install
