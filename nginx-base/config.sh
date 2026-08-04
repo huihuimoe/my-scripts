@@ -1,7 +1,7 @@
 #!/bin/bash
-nginx_version=1.31.2
+nginx_version=1.31.3
 # https://github.com/nginx/njs
-njs_version=0.9.9
+njs_version=1.0.0
 # not really compatible the latest version
 # https://github.com/quickjs-ng/quickjs/releases
 # quickjs_ng_version=0.11.0
@@ -10,7 +10,7 @@ echo_nginx_module_version=0.65
 # https://github.com/openresty/headers-more-nginx-module/tags
 headers_more_nginx_module_version=0.40
 # https://github.com/openresty/lua-nginx-module/tags
-lua_nginx_module_version=0.10.32rc1
+lua_nginx_module_version=0.10.32rc3
 # https://github.com/vision5/ngx_devel_kit/tags
 ngx_devel_kit_version=0.3.4
 # https://github.com/aperezdc/ngx-fancyindex/tags
@@ -27,9 +27,9 @@ pcre2_version=10.47
 clang_version=21
 
 # https://github.com/openresty/luajit2/tags
-luajit2_version=2.1-20260620
+luajit2_version=2.1-20260724
 # https://github.com/openresty/stream-lua-nginx-module/tags
-stream_lua_nginx_module_version=0.0.20rc1
+stream_lua_nginx_module_version=0.0.20rc2
 # https://github.com/leev/ngx_http_geoip2_module/tags
 ngx_http_geoip2_module_version=3.4
 # https://github.com/openresty/lua-resty-core/tags
