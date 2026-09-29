@@ -2,4 +2,4 @@
 . ../nginx-base/config.sh
 
 # https://boringssl.googlesource.com/boringssl
-boringssl_version=0.20260803.0
+boringssl_version=0.20260903.0

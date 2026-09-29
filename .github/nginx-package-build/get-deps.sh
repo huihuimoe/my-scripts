@@ -23,9 +23,9 @@ make install
 cd ..
 
 # https://github.com/tukaani-project/xz
-wget https://tukaani.org/xz/xz-5.8.3.tar.gz
-tar -xzf xz-5.8.3.tar.gz
-cd xz-5.8.3
+wget https://github.com/tukaani-project/xz/releases/download/v5.8.4/xz-5.8.4.tar.gz
+tar -xzf xz-5.8.4.tar.gz
+cd xz-5.8.4
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -46,9 +46,9 @@ make install
 cd ../..
 
 # https://mirrors.edge.kernel.org/pub/linux/utils/util-linux
-wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.2.tar.gz
-tar -xzf util-linux-2.42.2.tar.gz
-cd util-linux-2.42.2
+wget https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.42/util-linux-2.42.4.tar.gz
+tar -xzf util-linux-2.42.4.tar.gz
+cd util-linux-2.42.4
 ./configure --disable-all-programs --disable-shared --enable-libuuid --prefix=$PREFIX
 make -j
 make install
@@ -63,9 +63,9 @@ cd ..
 # cd ..
 
 # https://github.com/maxmind/libmaxminddb/releases
-wget https://github.com/maxmind/libmaxminddb/releases/download/1.13.3/libmaxminddb-1.13.3.tar.gz
-tar -xzf libmaxminddb-1.13.3.tar.gz
-cd libmaxminddb-1.13.3
+wget https://github.com/maxmind/libmaxminddb/releases/download/1.14.1/libmaxminddb-1.14.1.tar.gz
+tar -xzf libmaxminddb-1.14.1.tar.gz
+cd libmaxminddb-1.14.1
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -93,8 +93,8 @@ make install
 cd ..
 
 # https://github.com/unicode-org/icu/releases
-wget https://github.com/unicode-org/icu/releases/download/release-78.3/icu4c-78.3-sources.tgz
-tar -xzf icu4c-78.3-sources.tgz
+wget https://github.com/unicode-org/icu/releases/download/release-79.1rc/icu4c-79.1rc-sources.tgz
+tar -xzf icu4c-79.1rc-sources.tgz
 cd icu/source
 env CXXFLAGS="-std=c++17 $CXXFLAGS" CFLAGS="-std=c11" \
   ./configure --enable-static --disable-shared --prefix=$PREFIX --enable-tests=no --enable-samples=no --enable-dyload=no --enable-release
@@ -113,9 +113,9 @@ make install
 cd ..
 
 # https://download.gnome.org/sources/libxml2
-wget https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.3.tar.xz
-tar -xvf libxml2-2.15.3.tar.xz
-cd libxml2-2.15.3
+wget https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz
+tar -xvf libxml2-2.15.4.tar.xz
+cd libxml2-2.15.4
 ./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no --with-iconv --with-xpath
 make -j
 make install
@@ -127,7 +127,7 @@ wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.45.tar.xz
 tar -xf libxslt-1.1.45.tar.xz
 cd libxslt-1.1.45
 ./configure --disable-shared --prefix=$PREFIX --with-python=no \
-  --with-libxml-src=$(pwd)/../libxml2-2.15.3
+  --with-libxml-src=$(pwd)/../libxml2-2.15.4
 make -j
 make install
 cd ..
