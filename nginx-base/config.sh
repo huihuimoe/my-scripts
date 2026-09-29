@@ -83,3 +83,16 @@ jemalloc_version=5.4.0
 # jemalloc_version=6cc4217
 # https://github.com/ivmai/libatomic_ops/tags
 libatomic_ops_version=7.10.0
+
+UNAME_M=$(uname -m)
+case $UNAME_M in
+  x86_64)
+    ARCH=${ARCH:-x86-64-v2}
+    ;;
+  aarch64)
+    ARCH=${ARCH:-armv8.2-a+crypto}
+    ;;
+  *)
+    ARCH=${ARCH:-$UNAME_M}
+    ;;
+esac

@@ -20,17 +20,6 @@ if [ ! -z "$CI" ]; then
   EX_LD_OPT="$EX_LD_OPT -L/usr/lib -l:libxml2.a -l:libz.a -l:liblzma.a -l:libiconv.a -l:libcrypt.a"
   EX_LD_OPT="$EX_LD_OPT -l:libicuuc.a -l:libicudata.a"
 fi
-ARCH=$(uname -m)
-case $ARCH in
-  x86_64)
-    ARCH=x86-64
-    ;;
-  aarch64)
-    # https://gcc.gnu.org/onlinedocs/gcc/AArch64-Options.html
-    ARCH=armv8-a
-    ;;
-esac
-
 # https://github.com/tokers/zstd-nginx-module#installation
 export ZSTD_INC=`pwd`/zstd/lib
 export ZSTD_LIB=`pwd`/zstd/out/lib
@@ -40,8 +29,8 @@ SSL_VERSION=${openssl_version:-$quictls_version}
 cd nginx-${nginx_version}
 sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic/make
 ./configure \
-  --with-cc-opt="-g -O3 -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=${ARCH} ${CFLAGS}" \
-  --with-ld-opt="-Wl,-z,relro $EX_LD_OPT" \
+  --with-cc-opt="-g -O3 -flto=thin -fstack-protector-strong -Wp,-D_FORTIFY_SOURCE=2 -fPIC -march=${ARCH} ${CFLAGS}" \
+  --with-ld-opt="-flto=thin -Wl,-z,relro $EX_LD_OPT" \
   --prefix=/usr/share/nginx \
   --sbin-path=/usr/sbin/nginx \
   --conf-path=/etc/nginx/nginx.conf \

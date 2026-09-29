@@ -198,7 +198,13 @@ rm *.zip *.gz
 git clone https://github.com/jemalloc/jemalloc jemalloc-${jemalloc_version}
 cd jemalloc-${jemalloc_version}
 git checkout ${jemalloc_version}
-./autogen.sh --enable-static --enable-shared=no
+./autogen.sh \
+  --enable-static \
+  --enable-shared=no \
+  --disable-stats \
+  --disable-initial-exec-tls \
+  --with-malloc-conf="background_thread:true,metadata_thp:auto,dirty_decay_ms:30000,muzzy_decay_ms:30000" \
+  EXTRA_CFLAGS="-O3 -fPIC -march=${ARCH}"
 make -j$(getconf _NPROCESSORS_ONLN)
 cd ..
 
