@@ -1,5 +1,43 @@
 #!/bin/bash
 nginx_version=1.31.6
+# https://openresty.org/en/nginx-ssl-patches.html
+openresty_version=1.31.6
+openresty_patches=(
+  balancer_pool_max_retry
+  balancer_status_code
+  cache_manager_exit
+  daemon_destroy_pool
+  delayed_posted_events
+  hash_overflow
+  init_cycle_pool_release
+  no_error_pages
+  privileged_agent_process
+  privileged_agent_process_connections
+  privileged_agent_process_thread_pool
+  proc_exit_handler
+  proxy_host_port_vars
+  # https://github.com/openresty/lua-nginx-module/issues/2443
+  quic_ssl_lua_yield
+  reuseport_close_unused_fds
+  safe_resolver_ipv6_option
+  single_process_graceful_exit
+  socket_cloexec
+  ssl_cert_cb_yield
+  ssl_sess_cb_yield
+  ssl_client_hello_cb_yield
+  proxy_ssl_verify_cb_yield
+  stream_balancer_export
+  stream_proxy_get_next_upstream_tries
+  stream_proxy_timeout_fields
+  stream_ssl_preread_no_skip
+  upstream_pipelining
+  upstream_timeout_fields
+  upstream_ssl_session_cleanup
+  http2_subreq_error_wakeup
+  initialize_quic_transport_id_variable
+  larger_max_error_str
+  log_escape_non_ascii
+)
 # https://github.com/nginx/njs
 njs_version=1.0.1
 # not really compatible the latest version
