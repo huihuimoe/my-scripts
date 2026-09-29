@@ -4,9 +4,14 @@ PACKAGE := $(shell dh_listpackages)
 PWD := $(shell pwd)
 DEST := $(shell echo $(PWD)/debian/$(PACKAGE))
 
-clean: 
+.PHONY: clean build build-arch build-indep binary binary-arch binary-indep
+
+clean:
 
 build:
+
+build-arch: build
+build-indep: build
 
 binary:
 	cd ../lua-resty-lrucache-* && make install DESTDIR=$(DEST) LUA_LIB_DIR=/usr/share/lua/5.1
@@ -32,3 +37,6 @@ binary:
 	dh_md5sums
 # https://unix.stackexchange.com/questions/669004
 	dh_builddeb -- -Zxz
+
+binary-arch: binary
+binary-indep: binary

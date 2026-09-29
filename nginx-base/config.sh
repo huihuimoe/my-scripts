@@ -65,7 +65,7 @@ pcre2_version=10.49
 clang_version=21
 
 # https://github.com/openresty/luajit2/tags
-luajit2_version=v2.1-20260914
+luajit2_version=2.1-20260914
 # https://github.com/openresty/stream-lua-nginx-module/tags
 stream_lua_nginx_module_version=0.0.20rc3
 # https://github.com/leev/ngx_http_geoip2_module/tags

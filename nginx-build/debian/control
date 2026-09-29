@@ -1,14 +1,15 @@
-source: nginx
-section: httpd
+Source: nginx
+Section: httpd
 Priority: optional
-Maintainer: huihuimoe
-Standards-Version: 4.6.2
+Maintainer: huihuimoe <0w0@loli.pet>
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 4.7.0
 
 Package: nginx-huihui
 Architecture: any
 Suggests: geoip-database
-Conflicts: 
-         nginx,
-         nginx-boringssl-huihui,
-         nginx-awslc-huihui
-Description: Nginx
+Conflicts:
+ nginx,
+ nginx-boringssl-huihui,
+ nginx-awslc-huihui
+Description: Nginx with custom modules
