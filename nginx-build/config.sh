@@ -2,8 +2,8 @@
 . ../nginx-base/config.sh
 
 # https://github.com/openssl/openssl/tags
-openssl_version=3.6.4
-openssl_version=4.0.2
+openssl_version=3.6.5
+openssl_version=4.0.3
 # https://github.com/quictls/openssl/releases
 # https://github.com/haproxy/haproxy/issues/2294
 # mig to new https://github.com/quictls/quictls project

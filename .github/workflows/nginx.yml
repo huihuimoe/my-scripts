@@ -14,11 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-24.04
-          # wait 2024Q4 https://github.blog/changelog/2024-06-03-actions-arm-based-linux-and-windows-runners-are-now-in-public-beta/
-          # - [self-hosted, linux, ARM64]
-          # - ${{ format('codebuild-github-my-scripts-{0}-{1}', github.run_id, github.run_attempt) }}
-          - ubuntu-24.04-arm
+          - ubuntu-26.04
+          - ubuntu-26.04-arm
         env:
           - Dir: nginx-build
             Name: nginx

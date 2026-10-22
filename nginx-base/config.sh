@@ -1,7 +1,7 @@
 #!/bin/bash
-nginx_version=1.31.6
+nginx_version=1.31.8
 # https://openresty.org/en/nginx-ssl-patches.html
-openresty_version=1.31.6
+openresty_version=1.31.7
 openresty_patches=(
   balancer_pool_max_retry
   balancer_status_code
@@ -39,7 +39,7 @@ openresty_patches=(
   log_escape_non_ascii
 )
 # https://github.com/nginx/njs
-njs_version=1.0.1
+njs_version=1.0.2
 # not really compatible the latest version
 # https://github.com/quickjs-ng/quickjs/releases
 # quickjs_ng_version=0.11.0
@@ -48,7 +48,7 @@ echo_nginx_module_version=0.65
 # https://github.com/openresty/headers-more-nginx-module/tags
 headers_more_nginx_module_version=0.40
 # https://github.com/openresty/lua-nginx-module/tags
-lua_nginx_module_version=0.10.32rc5
+lua_nginx_module_version=0.10.32rc6
 # https://github.com/vision5/ngx_devel_kit/tags
 ngx_devel_kit_version=0.3.4
 # https://github.com/aperezdc/ngx-fancyindex/tags
@@ -65,7 +65,7 @@ pcre2_version=10.49
 clang_version=23
 
 # https://github.com/openresty/luajit2/tags
-luajit2_version=2.1-20260914
+luajit2_version=2.1-20261021
 # https://github.com/openresty/stream-lua-nginx-module/tags
 stream_lua_nginx_module_version=0.0.20rc3
 # https://github.com/leev/ngx_http_geoip2_module/tags
