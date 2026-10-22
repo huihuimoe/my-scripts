@@ -19,6 +19,7 @@ openresty_patches=(
   # https://github.com/openresty/lua-nginx-module/issues/2443
   quic_ssl_lua_yield
   reuseport_close_unused_fds
+  resolver_conf_parsing
   safe_resolver_ipv6_option
   single_process_graceful_exit
   socket_cloexec
@@ -37,6 +38,8 @@ openresty_patches=(
   initialize_quic_transport_id_variable
   larger_max_error_str
   log_escape_non_ascii
+  intercept_error_log
+  resolver_hosts
 )
 # https://github.com/nginx/njs
 njs_version=1.0.2

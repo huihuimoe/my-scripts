@@ -53,7 +53,6 @@ sed -i "s| \\./configure.*| ./configure CC=${CC} CXX=${CXX}|" auto/lib/libatomic
   --with-http_gunzip_module \
   --with-http_gzip_static_module \
   --with-http_sub_module \
-  --with-mail_ssl_module \
   --with-http_v2_module \
   --with-http_v3_module \
   --with-http_xslt_module \

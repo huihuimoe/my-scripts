@@ -34,7 +34,13 @@ cd nginx-${nginx_version}
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-disable-http-to-https.patch)
 # https://openresty.org/en/nginx-ssl-patches.html
 for patch in "${openresty_patches[@]}"; do
-  patch -p1 <<< "$(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/${openresty_version}/nginx-${openresty_version}-${patch}.patch)"
+  if [ -f "../patch/nginx-${nginx_version}-${patch}.patch" ]; then
+    patch -p1 < "../patch/nginx-${nginx_version}-${patch}.patch"
+  elif [ "$patch" = "socket_cloexec" ] && [ "$nginx_version" = "1.31.8" ]; then
+    patch -p1 <<< "$(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-1.31.8-socket_cloexec.patch)"
+  else
+    patch -p1 <<< "$(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/${openresty_version}/nginx-${openresty_version}-${patch}.patch)"
+  fi
 done
 # kn007's patches
 patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/kn007/patch/refs/heads/master/nginx_dynamic_tls_records.patch)
