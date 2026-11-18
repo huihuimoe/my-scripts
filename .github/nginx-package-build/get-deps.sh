@@ -54,12 +54,14 @@ make -j
 make install
 cd ..
 
-# wget https://github.com/harfbuzz/harfbuzz/releases/download/5.3.1/harfbuzz-5.3.1.tar.xz
-# tar -xvf harfbuzz-5.3.1.tar.xz
-# cd harfbuzz-5.3.1
-# ./configure --disable-shared --prefix=$PREFIX --with-glib=no --with-icu=no --with-graphite2=no --with-freetype=yes --with-fontconfig=yes
-# make -j
-# make install
+# wget https://github.com/harfbuzz/harfbuzz/releases/download/15.1.0/harfbuzz-15.1.0.tar.xz
+# tar -xvf harfbuzz-15.1.0.tar.xz
+# cd harfbuzz-15.1.0
+# meson setup build --default-library=static --prefix=$PREFIX \
+#   -Dglib=disabled -Dicu=disabled -Dgraphite=disabled -Dfreetype=enabled \
+#   -Dtests=disabled -Ddocs=disabled -Dutilities=disabled
+# meson compile -C build
+# meson install -C build
 # cd ..
 
 # https://github.com/maxmind/libmaxminddb/releases
@@ -73,7 +75,7 @@ cd ..
 
 # libxslt
 # https://mirrors.dotsrc.org/gcrypt/libgpg-error
-# wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.50.tar.bz2
+# wget https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.61.tar.bz2
 wget https://mirrors.dotsrc.org/gcrypt/libgpg-error/libgpg-error-1.61.tar.bz2
 tar -xvf libgpg-error-1.61.tar.bz2
 cd libgpg-error-1.61
@@ -83,18 +85,17 @@ make install
 cd ..
 
 # https://mirrors.dotsrc.org/gcrypt/libgcrypt
-# wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.11.0.tar.bz2
-wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.12.2.tar.bz2
-tar -xjvf libgcrypt-1.12.2.tar.bz2
-cd libgcrypt-1.12.2
+wget https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.12.4.tar.bz2
+tar -xjvf libgcrypt-1.12.4.tar.bz2
+cd libgcrypt-1.12.4
 ./configure --disable-shared --prefix=$PREFIX --disable-avx2-support
 make -j
 make install
 cd ..
 
 # https://github.com/unicode-org/icu/releases
-wget https://github.com/unicode-org/icu/releases/download/release-79.1rc/icu4c-79.1rc-sources.tgz
-tar -xzf icu4c-79.1rc-sources.tgz
+wget https://github.com/unicode-org/icu/releases/download/release-79.1/icu4c-79.1-sources.tgz
+tar -xzf icu4c-79.1-sources.tgz
 cd icu/source
 env CXXFLAGS="-std=c++17 $CXXFLAGS" CFLAGS="-std=c11" \
   ./configure --enable-static --disable-shared --prefix=$PREFIX --enable-tests=no --enable-samples=no --enable-dyload=no --enable-release
@@ -103,10 +104,10 @@ make install
 cd ../..
 
 # https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv
-# wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.17.tar.gz
-wget https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv/libiconv-1.19.tar.gz
-tar -xzf libiconv-1.19.tar.gz
-cd libiconv-1.19
+# wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.19.1.tar.gz
+wget https://mirrors.dotsrc.org/ftp.gnu.org/gnu/libiconv/libiconv-1.19.1.tar.gz
+tar -xzf libiconv-1.19.1.tar.gz
+cd libiconv-1.19.1
 ./configure --disable-shared --prefix=$PREFIX
 make -j
 make install
@@ -134,25 +135,25 @@ cd ..
 
 # libgd
 
-# wget https://download.sourceforge.net/libpng/libpng-1.6.38.tar.gz
-# tar -xzf libpng-1.6.38.tar.gz
-# cd libpng-1.6.38
+# wget https://download.sourceforge.net/libpng/libpng-1.6.59.tar.gz
+# tar -xzf libpng-1.6.59.tar.gz
+# cd libpng-1.6.59
 # ./configure --disable-shared --prefix=$PREFIX
 # make -j
 # make install
 # cd ..
 
-# wget https://download.savannah.gnu.org/releases/freetype/freetype-2.12.1.tar.gz
-# tar -xzf freetype-2.12.1.tar.gz
-# cd freetype-2.12.1
+# wget https://download.savannah.gnu.org/releases/freetype/freetype-2.15.0.tar.gz
+# tar -xzf freetype-2.15.0.tar.gz
+# cd freetype-2.15.0
 # ./configure --disable-shared --prefix=$PREFIX
 # make -j
 # make install
 # cd ..
 
-# wget https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/2.1.4.tar.gz
-# tar -xzf 2.1.4.tar.gz
-# cd libjpeg-turbo-2.1.4
+# wget https://github.com/libjpeg-turbo/libjpeg-turbo/archive/refs/tags/3.2.1.tar.gz
+# tar -xzf 3.2.1.tar.gz
+# cd libjpeg-turbo-3.2.1
 # mkdir build
 # cd build
 # cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" -DENABLE_STATIC=on -DENABLE_SHARED=off ..
@@ -169,9 +170,9 @@ make -j
 make install
 cd ..
 
-# wget https://github.com/strukturag/libheif/releases/download/v1.13.0/libheif-1.13.0.tar.gz
-# tar -xzf libheif-1.13.0.tar.gz
-# cd libheif-1.13.0
+# wget https://github.com/strukturag/libheif/releases/download/v1.23.7/libheif-1.23.7.tar.gz
+# tar -xzf libheif-1.23.7.tar.gz
+# cd libheif-1.23.7
 # mkdir build
 # cd build
 # cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" -DENABLE_STATIC=on -DENABLE_SHARED=off ..
@@ -179,9 +180,9 @@ cd ..
 # make install
 # cd ../..
 
-# wget https://github.com/AOMediaCodec/libavif/archive/refs/tags/v0.11.1.tar.gz
-# tar -xzf v0.11.1.tar.gz
-# cd libavif-0.11.1
+# wget https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.4.2.tar.gz
+# tar -xzf v1.4.2.tar.gz
+# cd libavif-1.4.2
 # mkdir build
 # cd build
 # cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_CXX_FLAGS="-fPIC" -DENABLE_STATIC=on -DENABLE_SHARED=off ..
@@ -189,17 +190,17 @@ cd ..
 # make install
 # cd ../..
 
-# wget https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.1.tar.gz
-# tar -xzf fontconfig-2.14.1.tar.gz
-# cd fontconfig-2.14.1
+# wget https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/2.18.4/fontconfig-2.18.4.tar.xz
+# tar -xJf fontconfig-2.18.4.tar.xz
+# cd fontconfig-2.18.4
 # ./configure --disable-shared --prefix=$PREFIX --enable-libxml2 --with-add-fonts=/usr/share/fonts,/usr/local/share/fonts
 # make -j
 # make install
 # cd ..
 
-# wget https://download.osgeo.org/libtiff/tiff-4.4.0.tar.gz
-# tar -xzf tiff-4.4.0.tar.gz
-# cd tiff-4.4.0
+# wget https://download.osgeo.org/libtiff/tiff-4.7.2.tar.gz
+# tar -xzf tiff-4.7.2.tar.gz
+# cd tiff-4.7.2
 # ./configure --disable-shared --prefix=$PREFIX
 # make -j
 # make install

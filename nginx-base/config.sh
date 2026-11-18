@@ -1,7 +1,7 @@
 #!/bin/bash
-nginx_version=1.31.8
+nginx_version=1.31.9
 # https://openresty.org/en/nginx-ssl-patches.html
-openresty_version=1.31.7
+openresty_version=1.31.8
 openresty_patches=(
   balancer_pool_max_retry
   balancer_status_code
@@ -45,13 +45,13 @@ openresty_patches=(
 njs_version=1.0.2
 # not really compatible the latest version
 # https://github.com/quickjs-ng/quickjs/releases
-# quickjs_ng_version=0.11.0
+# quickjs_ng_version=0.18.0
 # https://github.com/openresty/echo-nginx-module/tags
-echo_nginx_module_version=0.65
+echo_nginx_module_version=0.66
 # https://github.com/openresty/headers-more-nginx-module/tags
-headers_more_nginx_module_version=0.40
+headers_more_nginx_module_version=0.41
 # https://github.com/openresty/lua-nginx-module/tags
-lua_nginx_module_version=0.10.32rc6
+lua_nginx_module_version=0.10.32rc7
 # https://github.com/vision5/ngx_devel_kit/tags
 ngx_devel_kit_version=0.3.4
 # https://github.com/aperezdc/ngx-fancyindex/tags
@@ -59,7 +59,7 @@ fancyindex_version=0.6.0
 # https://github.com/arut/nginx-rtmp-module/tags
 rtmp_module_version=1.2.2
 # https://github.com/slact/nchan/tags
-# nchan_version=1.3.6
+# nchan_version=1.3.9
 
 # https://sourceforge.net/projects/pcre/files/pcre/
 # pcre_version=8.45
@@ -68,13 +68,13 @@ pcre2_version=10.49
 clang_version=23
 
 # https://github.com/openresty/luajit2/tags
-luajit2_version=2.1-20261021
+luajit2_version=2.1-20261107
 # https://github.com/openresty/stream-lua-nginx-module/tags
 stream_lua_nginx_module_version=0.0.20rc3
 # https://github.com/leev/ngx_http_geoip2_module/tags
 ngx_http_geoip2_module_version=3.4
 # https://github.com/openresty/lua-resty-core/tags
-nginx_lua_resty_core_version=0.1.35rc1
+nginx_lua_resty_core_version=0.1.35rc2
 # https://github.com/openresty/lua-resty-lrucache/tags
 nginx_lua_resty_lrucache_version=0.15
 # https://github.com/ekho/lua-nginx-split-clients/tags

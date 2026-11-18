@@ -23,8 +23,6 @@ patch -p1 <<< $(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts
 for patch in "${openresty_patches[@]}"; do
   if [ -f "../patch/nginx-${nginx_version}-${patch}.patch" ]; then
     patch -p1 < "../patch/nginx-${nginx_version}-${patch}.patch"
-  elif [ "$patch" = "socket_cloexec" ] && [ "$nginx_version" = "1.31.8" ]; then
-    patch -p1 <<< "$(wget -qO- https://raw.githubusercontent.com/huihuimoe/my-scripts/master/patch/nginx-1.31.8-socket_cloexec.patch)"
   else
     patch -p1 <<< "$(wget -qO- https://raw.githubusercontent.com/openresty/openresty/master/patches/nginx/${openresty_version}/nginx-${openresty_version}-${patch}.patch)"
   fi
