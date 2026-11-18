@@ -127,7 +127,7 @@ cd ..
 wget https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.45.tar.xz
 tar -xf libxslt-1.1.45.tar.xz
 cd libxslt-1.1.45
-./configure --disable-shared --prefix=$PREFIX --with-python=no \
+./configure --enable-static --disable-shared --prefix=$PREFIX --with-python=no \
   --with-libxml-src=$(pwd)/../libxml2-2.15.4
 make -j
 make install
@@ -210,12 +210,16 @@ cd ..
 wget https://github.com/libgd/libgd/releases/download/gd-2.3.3/libgd-2.3.3.tar.gz
 tar -xzf libgd-2.3.3.tar.gz
 cd libgd-2.3.3
-./configure --disable-shared --prefix=$PREFIX \
+./configure --enable-static --disable-shared --prefix=$PREFIX \
   --with-freetype=no --with-jpeg=no --with-png=no --with-webp --with-zlib \
   --with-heif=no --with-avif=no --with-tiff=no --with-fontconfig=no
 # ./configure --disable-shared --prefix=$PREFIX \
 #   --with-freetype --with-jpeg --with-png --with-webp --with-zlib \
 #   --with-heif --with-avif --with-tiff --with-fontconfig
+if ! grep -q '^#define HAVE_LIBWEBP 1$' src/config.h; then
+  echo "GD was configured without WebP support" >&2
+  exit 1
+fi
 make -j
 make install
 cd ..

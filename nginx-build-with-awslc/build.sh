@@ -16,6 +16,9 @@ EX_LD_OPT="$EX_LD_OPT -lm -ldl -lpthread"
 if [ ! -z "$CI" ]; then
   EX_LD_OPT="$EX_LD_OPT -L/usr/lib -l:libxml2.a -l:libz.a -l:liblzma.a -l:libiconv.a -l:libcrypt.a"
   EX_LD_OPT="$EX_LD_OPT -l:libicuuc.a -l:libicudata.a"
+  # nginx's libexslt and GD WebP probes omit the static dependencies.
+  FILTER_LIBS=$(PKG_CONFIG_PATH=/usr/lib/pkgconfig pkg-config --static --libs libexslt gdlib)
+  EX_LD_OPT="$EX_LD_OPT $FILTER_LIBS"
 fi
 # https://github.com/tokers/zstd-nginx-module#installation
 export ZSTD_INC=`pwd`/zstd/lib
