@@ -1,7 +1,7 @@
 #!/bin/bash
-nginx_version=1.31.9
+nginx_version=1.31.10
 # https://openresty.org/en/nginx-ssl-patches.html
-openresty_version=1.31.8
+openresty_version=1.31.9
 openresty_patches=(
   balancer_pool_max_retry
   balancer_status_code
@@ -49,9 +49,9 @@ njs_version=1.0.2
 # https://github.com/openresty/echo-nginx-module/tags
 echo_nginx_module_version=0.66
 # https://github.com/openresty/headers-more-nginx-module/tags
-headers_more_nginx_module_version=0.41
+headers_more_nginx_module_version=0.42
 # https://github.com/openresty/lua-nginx-module/tags
-lua_nginx_module_version=0.10.32rc7
+lua_nginx_module_version=0.10.32rc8
 # https://github.com/vision5/ngx_devel_kit/tags
 ngx_devel_kit_version=0.3.4
 # https://github.com/aperezdc/ngx-fancyindex/tags
@@ -68,13 +68,13 @@ pcre2_version=10.49
 clang_version=23
 
 # https://github.com/openresty/luajit2/tags
-luajit2_version=2.1-20261107
+luajit2_version=2.1-20261117
 # https://github.com/openresty/stream-lua-nginx-module/tags
-stream_lua_nginx_module_version=0.0.20rc3
+stream_lua_nginx_module_version=0.0.20rc4
 # https://github.com/leev/ngx_http_geoip2_module/tags
 ngx_http_geoip2_module_version=3.4
 # https://github.com/openresty/lua-resty-core/tags
-nginx_lua_resty_core_version=0.1.35rc2
+nginx_lua_resty_core_version=0.1.35rc3
 # https://github.com/openresty/lua-resty-lrucache/tags
 nginx_lua_resty_lrucache_version=0.15
 # https://github.com/ekho/lua-nginx-split-clients/tags
